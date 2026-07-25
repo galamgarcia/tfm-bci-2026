@@ -11,63 +11,122 @@ public class ReceiveScanDevice : UnityEvent<string> { }
 public class ThinkGearManager : MonoBehaviour
 {
     public static ThinkGearManager instance;
-    //FOR DEMO MODE
+
+    [Header("Demo")]
+    [Tooltip("Simula un BrainLink conectado para poder probar la aplicación desde el Editor sin un dispositivo físico.")]
     public bool isDemo = false;
+    [Tooltip("Muestra el icono de batería cuando el modo demo está activo.")]
     public bool isShowBattery = false;
-    private int hardwareversion;
-    public Sprite signal0,signal1, signal2,signal3,signal4;
+
+    [Header("Signal UI")]
+    [Tooltip("Icono mostrado cuando no existe conexión Bluetooth.")]
+    public Sprite signal0;
+    [Tooltip("Icono mostrado cuando el dispositivo está conectado pero no hay contacto con la piel (PoorSignal = 200).")]
+    public Sprite signal1;
+    [Tooltip("Icono mostrado cuando la calidad de la señal es baja.")]
+    public Sprite signal2;
+    [Tooltip("Icono mostrado cuando la calidad de la señal es aceptable.")]
+    public Sprite signal3;
+    [Tooltip("Icono mostrado cuando la calidad de la señal es óptima.")]
+    public Sprite signal4;
+    [Tooltip("Imagen utilizada para representar el estado de la señal EEG.")]
     public Image image_signal;
+    [Tooltip("Contenedor del indicador visual de batería.")]
     public GameObject signal_battery;
+    [Tooltip("Barra de relleno de la batería del dispositivo.")]
     public Image filled_battary;
-    private int Raw = 0;
-    public int PoorSignal = 200;
-    private int Attention = 0;
-    private int Meditation = 0;
-    private int Blink = 0;
-    private float Delta = 0.0f;
-    private float Theta = 0.0f;
-    private float LowAlpha = 0.0f;
-    private float HighAlpha = 0.0f;
-    private float LowBeta = 0.0f;
-    private float HighBeta = 0.0f;
-    private float LowGamma = 0.0f;
-    private float HighGamma = 0.0f;
-    private string Hardwareversion4_0;
-    private int heartRate = 0;
-    private float temperature = 0.0f;
-    private string HRV = "";
-    private float xvalue4_0 = 0.0f;
-    private float yvalue4_0 = 0.0f;
-    private float zvalue4_0 = 0.0f;
-    private int BatteryCapacity4_0 = 0;
-    private int ap = 0;
-    private int grind = 0;
+
+    [Header("Demo Values")]
+    [Tooltip("Nivel de batería simulado durante el modo demo.")]
     [Range(0, 100)]
     public int batteryCapacity4_0 = 0;
+    [Tooltip("Valor RAW simulado generado durante el modo demo.")]
     [Range(-2000, 2000)]
     public int demo_raw;
 
+    [Header("Device Settings")]
+    [Tooltip("Interruptor para activar la función AP del dispositivo.")]
     public Toggle toggle_ap;
+    [Tooltip("Interruptor para activar el modo Circle del dispositivo.")]
     public Toggle toggle_circle;
-    public int  isCircleOn = 0;//角度值
-    public int  isApOn = 0;//喜好度
-#if UNITY_ANDROID
-	[HideInInspector]
-	public bool bAndroidHeadsetConnected;
-#endif
+    [Tooltip("Estado enviado al dispositivo para la característica Circle.")]
+    public int isCircleOn = 0;
+    [Tooltip("Estado enviado al dispositivo para la característica AP.")]
+    public int isApOn = 0;
 
+    [Header("Device Discovery")]
+    [Tooltip("Tabla donde se muestran los dispositivos encontrados durante el escaneo.")]
     public UITableView tableView;
-#if UNITY_IPHONE
-
-    //control the accessory connect state..
-    //*** because ios now only support one headset?
-    [HideInInspector]
-    public bool bIOSHeadsetConnected;
-#endif
-
+    [Tooltip("Evento lanzado cada vez que se detecta un BrainLink durante el escaneo Bluetooth.")]
     public ReceiveScanDevice receiveScanDevice;
 
+    // === Connection Status ===
+    [HideInInspector]
+    [Tooltip("Indica si existe una conexión Bluetooth activa en Android. Se actualiza automáticamente mediante callbacks del SDK.")]
+    public bool bAndroidHeadsetConnected;
+    [HideInInspector]
+    [Tooltip("Indica si existe una conexión Bluetooth activa en iOS. Se actualiza automáticamente mediante callbacks del SDK.")]
+    public bool bIOSHeadsetConnected;
 
+    // === EEG Data ===
+    // Versión hardware reportada por el SDK.
+    private int hardwareversion;
+    //Última muestra RAW recibida del EEG.
+    private int Raw;
+    // Calidad de la señal: 0 (perfecto), 1-199 (parcial), 200 (sin conexión).
+    public int PoorSignal = 200;
+    // Nivel de atención (0-100).
+    private int Attention;
+    // Nivel de meditación (0-100).
+    private int Meditation;
+    // Intensidad del último parpadeo detectado.
+    private int Blink;
+    // Banda Delta.
+    private float Delta;
+    // Banda Theta.
+    private float Theta;
+    // Banda Low Alpha.
+    private float LowAlpha;
+    // Banda High Alpha.
+    private float HighAlpha;
+    // Banda Low Beta.
+    private float LowBeta;
+    // Banda High Beta.
+    private float HighBeta;
+    // Banda Low Gamma.
+    private float LowGamma;
+    // Banda High Gamma.
+    private float HighGamma;
+
+    // === Additional Sensors ===
+    // Versión hardware en formato texto.
+    private string Hardwareversion4_0 = string.Empty;
+    // Frecuencia cardíaca.
+    private int heartRate;
+    // Temperatura corporal.
+    private float temperature;
+    // Heart Rate Variability.
+    private string HRV = string.Empty;
+    // Acelerómetro eje X.
+    private float xvalue4_0;
+    // Acelerómetro eje Y.
+    private float yvalue4_0;
+    // Acelerómetro eje Z.
+    private float zvalue4_0;
+    // Porcentaje de batería recibido del dispositivo.
+    private int BatteryCapacity4_0;
+    // Valor AP recibido desde el dispositivo.
+    private int ap;
+    // Intensidad de rechinar los dientes.
+    private int grind;
+
+    // === Internal State ===
+    // Estado interno de conexión.
+    private bool isConnect;
+    // Nombre del dispositivo conectado.
+    private string deviceName = string.Empty;
+    // Indica si ya se enviaron los parámetros iniciales al dispositivo y evita reenviarlos cada vez que llega un paquete de señal.
+    private bool isSendFirst;
 
     public void Awake()
     {
@@ -630,10 +689,6 @@ public class ThinkGearManager : MonoBehaviour
     }
     
 
-    bool isConnect = false;
-
-    string deviceName = "";
-
     //Accessory connect state...
     void ReceiveContentState(string data)
     {
@@ -700,7 +755,6 @@ public class ThinkGearManager : MonoBehaviour
 #endif
     }
 
-    private bool isSendFirst = false;
     void ReceivePoorSignal(string data)
     {
         PoorSignal = int.Parse(data);
