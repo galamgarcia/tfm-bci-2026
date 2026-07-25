@@ -128,17 +128,31 @@ public class ThinkGearManager : MonoBehaviour
     // Indica si ya se enviaron los parámetros iniciales al dispositivo y evita reenviarlos cada vez que llega un paquete de señal.
     private bool isSendFirst;
 
+    // Returns whether the headset should be treated as connected on the current runtime platform. In the Unity Editor, demo mode acts as the connection source.
+    private bool IsPlatformHeadsetConnected
+    {
+        get
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            return isDemo || bAndroidHeadsetConnected;
+#elif UNITY_IOS && !UNITY_EDITOR
+            return isDemo || bIOSHeadsetConnected;
+#else
+            return isDemo;
+#endif
+        }
+    }
+
     public void Awake()
     {
         Debug.unityLogger.logEnabled = true;
-        DontDestroyOnLoad(this);
-        if (instance != null)
+        if (instance != null && instance != this)
         {
-            DestroyImmediate(this.gameObject);
+            Destroy(gameObject);
             return;
         }
-
         instance = this;
+        DontDestroyOnLoad(gameObject);
 
         if (receiveScanDevice == null)
         {
@@ -158,8 +172,9 @@ public class ThinkGearManager : MonoBehaviour
         UnityThinkGear.setWhiteList(whiteList);
         UnityThinkGear.SetBLLinstenner("ThinkGearManager");
         UnityThinkGear.start();
+#else
+        Debug.Log("BrainLink scan is only available on an Android or iOS build.");
 #endif
-
     }
 
 //     public void DisConnect()
@@ -168,6 +183,9 @@ public class ThinkGearManager : MonoBehaviour
 //         UnityThinkGear.DisConnect();
 // #elif UNITY_ANDROID && !UNITY_EDITOR
 //         UnityThinkGear.close();
+// #else
+//         bAndroidHeadsetConnected = false;
+//         bIOSHeadsetConnected = false;
 // #endif
 //     }
 
@@ -179,12 +197,14 @@ public class ThinkGearManager : MonoBehaviour
         UnityThinkGear.ConnectDevice(identifierOrAddress);
 #elif UNITY_ANDROID && !UNITY_EDITOR
         UnityThinkGear.connectDevice(identifierOrAddress);
+#else
+        Debug.Log("BrainLink connection is only available on an Android or iOS build.");
 #endif
     }
 
     public void DeviceFound(string nameIdentifierOrAddressRiss)
     {
-        Debug.Log("unity===nameAddressRiss:====" +nameIdentifierOrAddressRiss);
+        Debug.Log("unity===nameAddressRiss:====" + nameIdentifierOrAddressRiss);
         receiveScanDevice.Invoke(nameIdentifierOrAddressRiss);
     }
 
@@ -199,77 +219,72 @@ public class ThinkGearManager : MonoBehaviour
 
     void OnGUI()
     {
-        if (isDemo)
-        {
-            PoorSignal = 0;
+        if(!isDemo) { return; }
+        
+        PoorSignal = 0;
 #if UNITY_IPHONE
-            bIOSHeadsetConnected = true;
+        bIOSHeadsetConnected = true;
+#elif UNITY_ANDROID
+		bAndroidHeadsetConnected = true;
 #endif
-
-#if UNITY_ANDROID
-			bAndroidHeadsetConnected = true;
-#endif
-            if (GUILayout.Button("0"))
-            {
-                Attention = 0;
-                Meditation = 0;
-            }
-            if (GUILayout.Button("10"))
-            {
-                Attention = 10;
-                Meditation = 10;
-            }
-            if (GUILayout.Button("20"))
-            {
-                Attention = 20;
-                Meditation = 20;
-            }
-            if (GUILayout.Button("30"))
-            {
-                Attention = 30;
-                Meditation = 30;
-            }
-            if (GUILayout.Button("40"))
-            {
-                Attention = 40;
-                Meditation = 40;
-            }
-            if (GUILayout.Button("50"))
-            {
-                Attention = 50;
-                Meditation = 50;
-            }
-            if (GUILayout.Button("60"))
-            {
-                Attention = 60;
-                Meditation = 60;
-            }
-            if (GUILayout.Button("70"))
-            {
-                Attention = 70;
-                Meditation = 70;
-            }
-            if (GUILayout.Button("80"))
-            {
-                Attention = 80;
-                Meditation = 80;
-            }
-            if (GUILayout.Button("90"))
-            {
-                Attention = 90;
-                Meditation = 90;
-            }
-            if (GUILayout.Button("100"))
-            {
-                Attention = 100;
-                Meditation = 100;
-            }
-            Raw = demo_raw;
+        if (GUILayout.Button("0"))
+        {
+            Attention = 0;
+            Meditation = 0;
         }
+        if (GUILayout.Button("10"))
+        {
+            Attention = 10;
+            Meditation = 10;
+        }
+        if (GUILayout.Button("20"))
+        {
+            Attention = 20;
+            Meditation = 20;
+        }
+        if (GUILayout.Button("30"))
+        {
+            Attention = 30;
+            Meditation = 30;
+        }
+        if (GUILayout.Button("40"))
+        {
+            Attention = 40;
+            Meditation = 40;
+        }
+        if (GUILayout.Button("50"))
+        {
+            Attention = 50;
+            Meditation = 50;
+        }
+        if (GUILayout.Button("60"))
+        {
+            Attention = 60;
+            Meditation = 60;
+        }
+        if (GUILayout.Button("70"))
+        {
+            Attention = 70;
+            Meditation = 70;
+        }
+        if (GUILayout.Button("80"))
+        {
+            Attention = 80;
+            Meditation = 80;
+        }
+        if (GUILayout.Button("90"))
+        {
+            Attention = 90;
+            Meditation = 90;
+        }
+        if (GUILayout.Button("100"))
+        {
+            Attention = 100;
+            Meditation = 100;
+        }
+        Raw = demo_raw;
     }
-    /// <summary>
-    /// ��������ǳ����˳����Զ�ִ��
-    /// </summary>
+
     public void OnApplicationQuit()
     {
         GC.Collect();
@@ -280,63 +295,35 @@ public class ThinkGearManager : MonoBehaviour
     {
         while (true)
         {
-#if UNITY_IPHONE
-        if (!bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-            if (!bAndroidHeadsetConnected)
-#endif
+            if (!IsPlatformHeadsetConnected)
             {
                 signal_battery.SetActive(false);
                 image_signal.sprite = signal0;
             }
-            else
+            else if (!isDemo)
             {
-                if (!isDemo)
+                if (PoorSignal == 200)
                 {
-#if UNITY_EDITOR
-                    PoorSignal = 200;
-#endif
-                    if (PoorSignal == 200)
-                    {
-                        image_signal.sprite = signal1;
-                    }
-                    else if (PoorSignal >= 100)
-                    {
-                        image_signal.sprite = signal2;
-                    }
-                    else if (PoorSignal > 0)
-                    {
-                        image_signal.sprite = signal3;
-                    }
-                    else
-                    {
-                        image_signal.sprite = signal4;
-                    }
-
-                    if (BatteryCapacity4_0 > 0)
-                    {
-                        signal_battery.SetActive(true);
-                        StopCoroutine("ShowBatteryCapacity");
-                        StartCoroutine("ShowBatteryCapacity");
-                    }
-                    else
-                    {
-                        signal_battery.SetActive(false);
-                        StopCoroutine("ShowBatteryCapacity");
-                    }
+                    image_signal.sprite = signal1;
+                }
+                else if (PoorSignal >= 100)
+                {
+                    image_signal.sprite = signal2;
+                }
+                else if (PoorSignal > 0)
+                {
+                    image_signal.sprite = signal3;
                 }
                 else
                 {
-                    if (isShowBattery)
-                    {
-                        signal_battery.SetActive(true);
-                    }
-                    else
-                        signal_battery.SetActive(false);
-
                     image_signal.sprite = signal4;
                 }
+                signal_battery.SetActive(BatteryCapacity4_0 > 0);
+            }
+            else
+            {
+                signal_battery.SetActive(isShowBattery);
+                image_signal.sprite = signal4;
             }
             yield return null;
         }
@@ -346,11 +333,7 @@ public class ThinkGearManager : MonoBehaviour
     {
         while (true)
         {
-#if UNITY_IPHONE
-            if (bIOSHeadsetConnected)
-#elif UNITY_ANDROID
-            if(bAndroidHeadsetConnected)
-#endif
+            if (IsPlatformHeadsetConnected)
             {
                 filled_battary.fillAmount = GetBatteryCapacity() / 100.0f;
                 if (GetBatteryCapacity() > 20)
@@ -367,360 +350,163 @@ public class ThinkGearManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 获取信号值（0:蓝牙连接并且佩戴成功   0～200:蓝牙连接成功，佩戴不成功    200:未连接蓝牙）
+    /// Signal value:
+    /// 0 = Bluetooth connected and headset correctly worn.
+    /// 1-200 = Bluetooth connected but headset not correctly worn.
+    /// 200 = Bluetooth not connected.
     /// </summary>
-    /// <returns></returns>
 	public int GetWave_quality()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-			if (bAndroidHeadsetConnected)
-#endif
-            return PoorSignal;
-        else if (isDemo)
-            return 0;
-        else
-            return 200;
+        if(isDemo) { return 0; }
+        return IsPlatformHeadsetConnected ? PoorSignal : 200;
     }
 
     public int GetAttention()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return Attention;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? Attention : 0;
     }
 
     public int GetMeditation()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return Meditation;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? Meditation : 0;
     }
-    //գ��
+
     public int GetBlink()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if (bAndroidHeadsetConnected)
-#endif
-            return Blink;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? Blink : 0;
     }
 
     public int GetRaw()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return Raw;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? Raw : 0;
     }
 
     public float GetDelta()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return Delta;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? Delta : 0f;
     }
 
     public float GetTheta()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return Theta;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? Theta : 0f;
     }
 
     public float GetHighAlpha()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return HighAlpha;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? HighAlpha : 0f;
     }
 
     public float GetHighBeta()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return HighBeta;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? HighBeta : 0f;
     }
 
     public float GetHighGamma()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return HighGamma;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? HighGamma : 0f;
     }
 
     public float GetLowAlpha()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return LowAlpha;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? LowAlpha : 0f;
     }
 
     public float GetLowBeta()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return LowBeta;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? LowBeta : 0f;
     }
 
     public float GetLowGamma()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected && !isDemo)
-#endif
-#if UNITY_ANDROID
-			if ( bAndroidHeadsetConnected)
-#endif
-            return LowGamma;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? LowGamma : 0f;
     }
     /// <summary>
     /// tg.IsConnect2
     /// </summary>
-    /// <returns></returns>
 	public bool IsHeadsetConnected()
     {
-        //Android..
-#if UNITY_ANDROID
-            return bAndroidHeadsetConnected;
-#endif
-        //IPHONE or Other.
-#if UNITY_IPHONE
-        return bIOSHeadsetConnected;
-#endif
+        return IsPlatformHeadsetConnected;
     }
 
     public string GetHardwareversion4_0()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-			if(bAndroidHeadsetConnected)
-#endif
-            return Hardwareversion4_0;
-        else
-            return "";
+        return IsPlatformHeadsetConnected ? Hardwareversion4_0 : string.Empty;
     }
+
     public float Getxvalue4_0()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-			if(bAndroidHeadsetConnected)
-#endif
-            return xvalue4_0;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? xvalue4_0 : 0f;
     }
     public float Getyvalue4_0()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-			if(bAndroidHeadsetConnected)
-#endif
-            return yvalue4_0;
-        else
-            return 0;
-    }
-    public float Getzvalue4_0()
-    {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-			if(bAndroidHeadsetConnected)
-#endif
-            return zvalue4_0;
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? yvalue4_0 : 0f;
     }
 
-    //ϲ��
+    public float Getzvalue4_0()
+    {
+        return IsPlatformHeadsetConnected ? zvalue4_0 : 0f;
+    }
+
     public int GetAp4_0()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-        if (bAndroidHeadsetConnected)
-#endif
-            return ap;
-        else
-            return -1;
+        return IsPlatformHeadsetConnected ? ap : -1;
     }
-    //ҧ��
+
     public float GetGrind4_0()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#endif
-#if UNITY_ANDROID
-        if (bAndroidHeadsetConnected)
-#endif
-            return grind;
-        else
-            return -1;
+        return IsPlatformHeadsetConnected ? grind : -1f;
     }
 
     public int GetBatteryCapacity()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#elif UNITY_ANDROID
-        if (bAndroidHeadsetConnected)
-#endif
-        {
-            return BatteryCapacity4_0;
-        }
-        else
-            return 0;
+        if (isDemo) { return batteryCapacity4_0;  }
+        return IsPlatformHeadsetConnected ? BatteryCapacity4_0 : 0;
     }
 
     public int GetHeartRate()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#elif UNITY_ANDROID
-        if (bAndroidHeadsetConnected)
-#endif
-        {
-            return heartRate;
-        }
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? heartRate : 0;
     }
 
     public float GetTemperature()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#elif UNITY_ANDROID
-        if (bAndroidHeadsetConnected)
-#endif
-        {
-            return temperature;
-        }
-        else
-            return 0;
+        return IsPlatformHeadsetConnected ? temperature : 0f;
     }
 
     public string GetHRV()
     {
-#if UNITY_IPHONE
-        if (bIOSHeadsetConnected)
-#elif UNITY_ANDROID
-        if (bAndroidHeadsetConnected)
-#endif
-        {
-            return HRV;
-        }
-        else
-            return "";
+        return IsPlatformHeadsetConnected ? HRV : string.Empty;
     }
     
 
-    //Accessory connect state...
+    // Accessory connect state...
     void ReceiveContentState(string data)
     {
         Debug.Log("ReceiveContentState   data = " + data);
-        if (data == "yes")
-        {
-#if UNITY_ANDROID
-            PoorSignal = 200;
-            bAndroidHeadsetConnected = true;
-#elif UNITY_IPHONE
-            PoorSignal = 200;
-            bIOSHeadsetConnected = true;
-#endif
-        }
-        else
-        {
+        bool connected = string.Equals(data, "yes", StringComparison.OrdinalIgnoreCase);
 
-#if UNITY_IPHONE
-            bIOSHeadsetConnected = false;
-#elif UNITY_ANDROID
-            bAndroidHeadsetConnected = false;
+#if UNITY_ANDROID && !UNITY_EDITOR
+        bAndroidHeadsetConnected = connected;
+#elif UNITY_IOS && !UNITY_EDITOR
+        bIOSHeadsetConnected = connected;
+#else
+        bAndroidHeadsetConnected = connected;
+        bIOSHeadsetConnected = connected;
 #endif
-            isSendFirst = false;
-            isApOn = 0;
-            isCircleOn = 0;
-            toggle_ap.isOn = false;
-            toggle_circle.isOn = false;
 
+        if (connected)
+        {
+            PoorSignal = 200;
+            return;
         }
+
+        isSendFirst = false;
+        isApOn = 0;
+        isCircleOn = 0;
+        toggle_ap.isOn = false;
+        toggle_circle.isOn = false;
     }
 
-    //Raw
     void ReceiveRawdata(string data)
     {
         Raw = int.Parse(data);
@@ -729,29 +515,15 @@ public class ThinkGearManager : MonoBehaviour
     void SendSettings(int isApOnValue, int isCircleOnValue)
     {
         string send = "B01:" + isApOnValue + "11" + isCircleOnValue + ";";
+        string repeatedSend = send + send + send + send + send;
 
-        if (isApOnValue == 1)
-        {
-            toggle_ap.isOn = true;
-        }
-        else
-        {
-            toggle_ap.isOn = false;
-        }
-            
-        if (isCircleOnValue == 1)
-        {
-            toggle_circle.isOn = true;
-        }
-        else
-        {
-            toggle_circle.isOn = false;
-        }
+        toggle_ap.isOn = isApOnValue == 1;
+        toggle_circle.isOn = isCircleOnValue == 1;
 
 #if UNITY_IOS && !UNITY_EDITOR
-        UnityThinkGear.SendSettings(send+send+send+send+send);
+        UnityThinkGear.SendSettings(repeatedSend);
 #elif UNITY_ANDROID && !UNITY_EDITOR
-         UnityThinkGear.sendSettings(send+send+send+send+send);
+         UnityThinkGear.sendSettings(repeatedSend);
 #endif
     }
 
@@ -878,34 +650,16 @@ public class ThinkGearManager : MonoBehaviour
 
     public void OnValueChangeAp(bool isOn)
     {
-        if (isOn)
-        {
-            Debug.Log("开关ap打开");
-            isApOn = 1;
-            SendSettings(isApOn, isCircleOn);
-        }
-        else
-        {
-            Debug.Log("开关ap关了");
-            isApOn = 0;
-            SendSettings(isApOn, isCircleOn);
-        }
+        isApOn = isOn ? 1 : 0;
+        Debug.Log(isOn ? "AP enabled" : "AP disabled");
+        SendSettings(isApOn, isCircleOn);
     }
     
     public void OnValueChangeCircle(bool isOn)
     {
-        if (isOn)
-        {
-            Debug.Log("开关circle打开");
-            isCircleOn = 1;
-            SendSettings(isApOn, isCircleOn);
-        }
-        else
-        {
-            Debug.Log("开关circle关了");
-            isCircleOn = 0;
-            SendSettings(isApOn, isCircleOn);
-        }
+        isCircleOn = isOn ? 1 : 0;
+        Debug.Log(isOn ? "Circle enabled" : "Circle disabled");
+        SendSettings(isApOn, isCircleOn);
     }
 
 }
