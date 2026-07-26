@@ -6,6 +6,7 @@ public static class BuildAndroid
 {
     public static void Build()
     {
+        ConfigureARCore.Configure();
         EditorUserBuildSettings.buildAppBundle = false;
 
         var scenes = EditorBuildSettings.scenes
