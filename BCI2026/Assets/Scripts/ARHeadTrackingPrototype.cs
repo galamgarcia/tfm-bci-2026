@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.Management;
 
 public sealed class ARHeadTrackingPrototype : MonoBehaviour
 {
@@ -48,7 +49,14 @@ public sealed class ARHeadTrackingPrototype : MonoBehaviour
         yield return ARSession.CheckAvailability();
         if (ARSession.state == ARSessionState.Unsupported)
         {
+#if UNITY_IOS
+            string loaderName = XRGeneralSettings.Instance?.Manager?.activeLoader?.GetType().Name ?? "ninguno";
+            statusText.text = $"ARKit no se inicio. Estado: {ARSession.state}. Loader: {loaderName}.";
+#elif UNITY_ANDROID
             statusText.text = "ARCore no es compatible con este dispositivo.";
+#else
+            statusText.text = "El seguimiento AR no es compatible con este dispositivo.";
+#endif
         }
     }
 
