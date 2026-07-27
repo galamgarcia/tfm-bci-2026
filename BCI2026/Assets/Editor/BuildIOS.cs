@@ -6,6 +6,8 @@ public static class BuildIOS
 {
     public static void Build()
     {
+        ConfigureARKit.Configure();
+
         var scenes = EditorBuildSettings.scenes
             .Where(scene => scene.enabled)
             .Select(scene => scene.path)
@@ -14,7 +16,7 @@ public static class BuildIOS
         var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
         {
             scenes = scenes,
-            locationPathName = "Builds/BrainLinkDemo-iOS",
+            locationPathName = "Builds/BCI2026-iOS",
             target = BuildTarget.iOS,
             options = BuildOptions.None
         });
