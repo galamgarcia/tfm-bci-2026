@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3973714457670790613}
   - component: {fileID: 2443435350471252591}
   - component: {fileID: 2491080808490309894}
+  - component: {fileID: 5864950846943574734}
   m_Layer: 0
   m_Name: UnderstoodButton
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5864950846943574734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772345738097975256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf8c66601eb4eb79548a1f0b1b1a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.NodButtonActivator
+  button: {fileID: 0}
 --- !u!1 &2523518824987916710
 GameObject:
   m_ObjectHideFlags: 0
