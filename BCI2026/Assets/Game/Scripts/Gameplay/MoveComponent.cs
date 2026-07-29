@@ -16,12 +16,10 @@ namespace BciGame.Gameplay
     public abstract class MoveComponent : MonoBehaviour
     {
         // Scene services that supply head pose and BrainLink EEG values.
-        private BrainLinkConnection _brainLinkConnection;
         private HeadPoseTracker _headPoseTracker;
 
         protected virtual void Awake()
         {
-            _brainLinkConnection = BrainLinkConnection.Instance;
             _headPoseTracker = FindFirstObjectByType<HeadPoseTracker>();
         }
 
@@ -48,7 +46,7 @@ namespace BciGame.Gameplay
         /// <returns>Wether a BrainLink signal quality is good.</returns>
         private bool HasDeviceGoodSignal()
         {
-            return _brainLinkConnection != null && _brainLinkConnection.HasGoodSignal;
+            return BrainLinkConnection.Instance != null && BrainLinkConnection.Instance.HasGoodSignal;
         }
 
         /// <summary>
@@ -58,13 +56,13 @@ namespace BciGame.Gameplay
         /// <returns>Whether a valid EEG sample is available.</returns>
         protected bool TryGetRelaxationInput(out float value)
         {
-            if (HasDeviceGoodSignal())
+            if (!HasDeviceGoodSignal())
             {
                 value = 0f;
                 return false;
             }
 
-            value = _brainLinkConnection.Relaxation;
+            value = BrainLinkConnection.Instance.Relaxation;
             return true;
         }
 
@@ -75,13 +73,13 @@ namespace BciGame.Gameplay
         /// <returns>Whether a valid EEG sample is available.</returns>
         protected bool TryGetConcentrationInput(out float value)
         {
-            if (HasDeviceGoodSignal())
+            if (!HasDeviceGoodSignal())
             {
                 value = 0f;
                 return false;
             }
 
-            value = _brainLinkConnection.Concentration;
+            value = BrainLinkConnection.Instance.Concentration;
             return true;
         }
     }
