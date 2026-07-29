@@ -26,6 +26,9 @@ namespace BciGame.UI
         // Ball on the same GameObject, guaranteed by RequireComponent.
         private TutorialBall _ball;
 
+        private Vector2 _minimumPosition;
+        private Vector2 _maximumPosition;
+
         protected override void Awake()
         {
             base.Awake();
@@ -41,7 +44,8 @@ namespace BciGame.UI
         public void Configure(MovementState state, Vector2 minimumPosition, Vector2 maximumPosition)
         {
             movementState = state;
-            _ball.ConfigureBounds(minimumPosition, maximumPosition);
+            _minimumPosition = minimumPosition;
+            _maximumPosition = maximumPosition;
         }
 
         /// <summary>
@@ -64,23 +68,20 @@ namespace BciGame.UI
             }
         }
 
-        /// <summary>
-        /// Converts horizontal head input into tutorial canvas movement.
-        /// </summary>
-        /// <param name="input">Normalized head yaw input.</param>
         protected virtual void MoveFromHead(float input)
         {
-            _ball.Move(new Vector2(input * headMovementSpeed * Time.deltaTime, 0f));
+            Move(new Vector2(input * headMovementSpeed * Time.deltaTime, 0f));
         }
 
-        /// <summary>
-        /// Converts an EEG input into vertical tutorial canvas movement.
-        /// </summary>
-        /// <param name="value">Normalized EEG input value.</param>
-        /// <param name="direction">Positive or negative vertical movement direction.</param>
-        protected virtual void MoveFromEeg(float value, float direction)
+       protected virtual void MoveFromEeg(float value, float direction)
         {
-            _ball.Move(new Vector2(0f, value * direction * eegMovementSpeed * Time.deltaTime));
+            Move(new Vector2(0f, value * direction * eegMovementSpeed * Time.deltaTime));
+        }
+
+        protected override void Move(Vector2 delta)
+        {
+            Vector2 position = _ball.Position + delta;
+            _ball.Position = new Vector2(Mathf.Clamp(position.x, _minimumPosition.x, _maximumPosition.x), Mathf.Clamp(position.y, _minimumPosition.y, _maximumPosition.y));
         }
     }
 }

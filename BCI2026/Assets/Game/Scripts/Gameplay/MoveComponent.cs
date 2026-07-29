@@ -74,5 +74,9 @@ namespace BciGame.Gameplay
             value = BrainLinkConnection.Instance.Concentration;
             return true;
         }
+
+        /// <summary>Applies a movement delta using the concrete movement implementation.</summary>
+        /// <param name="delta">Movement delta produced from the current input.</param>
+        protected abstract void Move(Vector2 delta);
     }
 }
