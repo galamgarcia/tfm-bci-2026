@@ -6,6 +6,7 @@
 
 using BciGame.Input;
 using BciGame.Services;
+using BciGame.Utilities;
 using UnityEngine;
 
 namespace BciGame.Gameplay
@@ -41,22 +42,13 @@ namespace BciGame.Gameplay
         }
 
         /// <summary>
-        /// Determines wether the current BrainLink signal quality is suitable for an interaction.
-        /// </summary>
-        /// <returns>Wether a BrainLink signal quality is good.</returns>
-        private bool HasDeviceGoodSignal()
-        {
-            return BrainLinkConnection.Instance != null && BrainLinkConnection.Instance.HasGoodSignal;
-        }
-
-        /// <summary>
         /// Reads a normalized relaxation value when BrainLink signal quality is sufficient.
         /// </summary>
         /// <param name="value">Normalized relaxation input.</param>
         /// <returns>Whether a valid EEG sample is available.</returns>
         protected bool TryGetRelaxationInput(out float value)
         {
-            if (!HasDeviceGoodSignal())
+            if (!Utils.IsBrainLinkConnectionGood())
             {
                 value = 0f;
                 return false;
@@ -73,7 +65,7 @@ namespace BciGame.Gameplay
         /// <returns>Whether a valid EEG sample is available.</returns>
         protected bool TryGetConcentrationInput(out float value)
         {
-            if (!HasDeviceGoodSignal())
+            if (!Utils.IsBrainLinkConnectionGood())
             {
                 value = 0f;
                 return false;
