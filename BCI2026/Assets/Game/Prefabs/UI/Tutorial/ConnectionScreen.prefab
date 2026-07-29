@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 964511305448994526}
   - component: {fileID: 9126708455787597400}
   - component: {fileID: 1032192349611331449}
-  - component: {fileID: 4440621572868240827}
+  - component: {fileID: 7557935862570334142}
   m_Layer: 0
   m_Name: ConnectionScreen
   m_TagString: Untagged
@@ -93,7 +93,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &4440621572868240827
+--- !u!114 &7557935862570334142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,10 +102,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1322725994326584287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 77bb65fa3d7c8493ea31ce05ec2af4c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialConnectionScreen
+  screenType: 2
   canvasGroup: {fileID: 1032192349611331449}
+  statusLabel: {fileID: 1881615387761148396}
+  successCheck: {fileID: 1797568352669494781}
 --- !u!1 &1797568352669494781
 GameObject:
   m_ObjectHideFlags: 0

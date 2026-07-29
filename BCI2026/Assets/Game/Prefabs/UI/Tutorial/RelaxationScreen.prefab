@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 5837676160486989886}
   - component: {fileID: 4537627588052435928}
   - component: {fileID: 5881695263247357947}
-  - component: {fileID: 8311755100460420034}
+  - component: {fileID: 3069988448551113626}
   m_Layer: 0
   m_Name: RelaxationScreen
   m_TagString: Untagged
@@ -559,7 +559,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8311755100460420034
+--- !u!114 &3069988448551113626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -568,10 +568,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7673185779463990512}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d3115463aa97400199205a406f64461, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialEegTrainingScreen
+  screenType: 5
   canvasGroup: {fileID: 5881695263247357947}
+  trainingType: 0
+  fillImage: {fileID: 0}
+  successCheck: {fileID: 2496078635798820113}
+  resultLabel: {fileID: 5531412860391181068}
+  target: 0.7
+  holdSeconds: 2
+  successMessage: "\xA1Perfecto!"
 --- !u!1 &8175609453104083574
 GameObject:
   m_ObjectHideFlags: 0

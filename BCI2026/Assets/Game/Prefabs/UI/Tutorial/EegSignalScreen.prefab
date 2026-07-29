@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcf8c66601eb4eb79548a1f0b1b1a76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.NodButtonActivator
+  isSingleUse: 1
   button: {fileID: 0}
 --- !u!1 &2523518824987916710
 GameObject:
@@ -569,4 +570,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
+  screenType: 3
   canvasGroup: {fileID: 3022183138512424512}

@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 8799135216319514231}
   - component: {fileID: 7788976116795028266}
   - component: {fileID: 3231538469170477343}
-  - component: {fileID: 8495253890839806338}
+  - component: {fileID: 6902182240780441792}
   m_Layer: 0
   m_Name: ConcentrationScreen
   m_TagString: Untagged
@@ -718,7 +718,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8495253890839806338
+--- !u!114 &6902182240780441792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -727,7 +727,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8505974017110397875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d3115463aa97400199205a406f64461, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialEegTrainingScreen
+  screenType: 6
   canvasGroup: {fileID: 3231538469170477343}
+  trainingType: 1
+  fillImage: {fileID: 0}
+  successCheck: {fileID: 5605462882227307101}
+  resultLabel: {fileID: 8043521048689882073}
+  target: 0.7
+  holdSeconds: 2
+  successMessage: "\xA1Muy bien!"
