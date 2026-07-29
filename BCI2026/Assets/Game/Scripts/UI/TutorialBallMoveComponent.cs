@@ -12,6 +12,7 @@ namespace BciGame.UI
     /// <summary>
     /// Converts head-tracking and EEG input into bounded tutorial canvas movement.
     /// </summary>
+    [RequireComponent(typeof(TutorialBall))]
     public class TutorialBallMoveComponent : MoveComponent
     {
         [Header("Movement")]
@@ -22,20 +23,24 @@ namespace BciGame.UI
         [Tooltip("Maximum vertical speed in canvas units per second for EEG-driven movement.")]
         [SerializeField] private float eegMovementSpeed = 170f;
 
-        // Ball supplied by the screen that spawns this movement component.
+        // Ball on the same GameObject, guaranteed by RequireComponent.
         private TutorialBall _ball;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _ball = GetComponent<TutorialBall>();
+        }
 
         /// <summary>
         /// Configures the input source, target transform and movement bounds.
         /// </summary>
         /// <param name="state">Input source used to produce movement.</param>
-        /// <param name="ball">Tutorial ball moved by this component.</param>
         /// <param name="minimumPosition">Minimum allowed canvas-space position.</param>
         /// <param name="maximumPosition">Maximum allowed canvas-space position.</param>
-        public void Configure(MovementState state, TutorialBall ball, Vector2 minimumPosition, Vector2 maximumPosition)
+        public void Configure(MovementState state, Vector2 minimumPosition, Vector2 maximumPosition)
         {
             movementState = state;
-            _ball = ball;
             _ball.ConfigureBounds(minimumPosition, maximumPosition);
         }
 
