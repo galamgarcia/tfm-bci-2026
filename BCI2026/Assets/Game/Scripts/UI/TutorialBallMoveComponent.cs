@@ -12,7 +12,7 @@ namespace BciGame.UI
     /// <summary>
     /// Converts head-tracking and EEG input into bounded tutorial canvas movement.
     /// </summary>
-    public class TutorialMoveComponent : MoveComponent
+    public class TutorialBallMoveComponent : MoveComponent
     {
         [Header("Movement")]
         [Tooltip("Input source that drives the spawned tutorial ball.")]
