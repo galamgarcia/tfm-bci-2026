@@ -1040,6 +1040,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConcentrationMovementScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 1356649458972365717, guid: 7ae86072710834e4a8da5c6b923a51a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5490395217264229725, guid: 7ae86072710834e4a8da5c6b923a51a1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1228,6 +1232,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeadMovementScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 8820045363823735182, guid: c2b5efa2075f84821bf3eddffdca8d5f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1344,6 +1352,10 @@ PrefabInstance:
     - target: {fileID: 7716578403054962164, guid: c1ddb1749b0314e2496b35b2853dfae4, type: 3}
       propertyPath: m_Name
       value: EegSignalScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716578403054962164, guid: c1ddb1749b0314e2496b35b2853dfae4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1480,6 +1492,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConcentrationScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 8505974017110397875, guid: a6bdbbcb773ad45b59d142d4448e7af5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1587,6 +1603,10 @@ PrefabInstance:
     - target: {fileID: 1322725994326584287, guid: 62b382f8aaea04dca91b1b95946df96f, type: 3}
       propertyPath: m_Name
       value: ConnectionScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322725994326584287, guid: 62b382f8aaea04dca91b1b95946df96f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1732,6 +1752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WelcomeScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 6979552894219812706, guid: 42ca75bd742ee4be3b5229bbed6acc1a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8707097009229579893, guid: 42ca75bd742ee4be3b5229bbed6acc1a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1752,6 +1776,10 @@ PrefabInstance:
     - target: {fileID: 753069571743737028, guid: 6561389ca33494284b92d9c9886292ae, type: 3}
       propertyPath: m_Name
       value: RelaxationMovementScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 753069571743737028, guid: 6561389ca33494284b92d9c9886292ae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1076071798785971480, guid: 6561389ca33494284b92d9c9886292ae, type: 3}
       propertyPath: m_Pivot.x
@@ -1946,6 +1974,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RelaxationScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 7673185779463990512, guid: b2f66fc5a456448bf9734c7455041133, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2069,6 +2101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CompleteScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 7586308655420263238, guid: a43e9adb018574e20b0b189a52d36347, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7897251530400705728, guid: a43e9adb018574e20b0b189a52d36347, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2174,6 +2210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PracticeIntroScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 2904032809227905756, guid: 82cb30267a4b942fc9f70393ebaa5bbf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2195,6 +2235,10 @@ PrefabInstance:
     - target: {fileID: 3397726096404681232, guid: 9ef5701bd2c684497bd23a8adfe6baeb, type: 3}
       propertyPath: m_Name
       value: HeadsetConfirmationScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397726096404681232, guid: 9ef5701bd2c684497bd23a8adfe6baeb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4309774464759446185, guid: 9ef5701bd2c684497bd23a8adfe6baeb, type: 3}
       propertyPath: m_Pivot.x
