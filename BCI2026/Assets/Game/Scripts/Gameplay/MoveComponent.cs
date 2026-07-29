@@ -21,7 +21,7 @@ namespace BciGame.Gameplay
 
         protected virtual void Awake()
         {
-            _brainLinkConnection = FindFirstObjectByType<BrainLinkConnection>();
+            _brainLinkConnection = BrainLinkConnection.Instance;
             _headPoseTracker = FindFirstObjectByType<HeadPoseTracker>();
         }
 
