@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 namespace BciGame.UI
 {
+    /// <summary>
+    /// Invokes a UI button from a touch click or a detected head nod.
+    /// </summary>
     [RequireComponent(typeof(Button))]
     public sealed class NodButton : MonoBehaviour
     {
