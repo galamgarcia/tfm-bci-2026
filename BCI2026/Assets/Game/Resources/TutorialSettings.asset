@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab02, type: 3}
+  m_Name: TutorialSettings
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.Core.TutorialSettings
+  stateColors:
+  - state: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - state: 2
+    color: {r: 0.86, g: 0.24, b: 0.24, a: 1}
+  - state: 3
+    color: {r: 0.86, g: 0.24, b: 0.24, a: 1}
+  - state: 1
+    color: {r: 0.04, g: 0.52, b: 1, a: 1}
+  texts:
+  - id: 0
+    value: "¡Hola!"
+  - id: 1
+    value: "Vamos a preparar tu diadema para empezar."
+  - id: 2
+    value: Continuar
+  - id: 3
+    value: "¿Es esta tu diadema?"
+  - id: 4
+    value: "Afirma con la cabeza para continuar."
+  - id: 5
+    value: "Perfecto."
+  - id: 6
+    value: "Conectando…"
+  - id: 7
+    value: "Buscando tu diadema…"
+  - id: 8
+    value: "Conectado correctamente"
+  - id: 9
+    value: "Tu señal cerebral"
+  - id: 10
+    value: "Siempre que este icono aparezca, estaremos recibiendo correctamente tu actividad cerebral.\n\nSi desaparece, ajusta la diadema o el sensor de la oreja."
+  - id: 11
+    value: Entendido
+  - id: 12
+    value: "Vamos a practicar\n\nlos controles."
+  - id: 13
+    value: "Solo te llevará un minuto."
+  - id: 14
+    value: "Empezar práctica"
+  - id: 15
+    value: Relajación
+  - id: 16
+    value: "Intenta relajarte durante unos segundos."
+  - id: 17
+    value: "Muy activado"
+  - id: 18
+    value: "Muy relajado"
+  - id: 19
+    value: "¡Perfecto!"
+  - id: 20
+    value: Concentración
+  - id: 21
+    value: "Ahora piensa intensamente en algo sencillo.\nPor ejemplo, contar hacia atrás o resolver una suma mental."
+  - id: 22
+    value: Distraído
+  - id: 23
+    value: Concentrado
+  - id: 24
+    value: "¡Muy bien!"
+  - id: 25
+    value: "Movimiento con la cabeza"
+  - id: 26
+    value: "Mueve la pelota hasta el aro girando la cabeza."
+  - id: 27
+    value: "Concéntrate hasta que la pelota sea roja y llévala al aro."
+  - id: 28
+    value: "Desconcéntrate hasta que la pelota sea azul y llévala al aro."
+  - id: 29
+    value: "Movimiento vertical\nmediante relajación"
+  - id: 30
+    value: "Ahora intenta subir la pelota relajándote."
+  - id: 31
+    value: "Movimiento vertical\nmediante concentración"
+  - id: 32
+    value: "Ahora concéntrate para bajar la pelota."
+  - id: 33
+    value: "¡Todo listo!"
+  - id: 34
+    value: "Ya conoces cómo controlar el juego con tu cabeza y tu actividad cerebral."
+  - id: 35
+    value: "Comenzar la experiencia"
