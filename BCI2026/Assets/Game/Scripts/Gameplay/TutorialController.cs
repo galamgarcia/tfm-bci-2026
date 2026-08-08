@@ -40,7 +40,7 @@ namespace BciGame.Gameplay
         [SerializeField] private CanvasGroup eegWarning;
 
         [Tooltip("Subtle confetti displayed on the final tutorial screen.")]
-        [SerializeField] private GameObject finalConfetti;
+        [SerializeField] private GameObject completeVFX;
 
         // Runtime state for the active tutorial step and in-progress transitions.
         private int _currentScreenIndex;
@@ -65,7 +65,7 @@ namespace BciGame.Gameplay
             eegWarning.alpha = 0f;
             eegWarning.blocksRaycasts = false;
             nodCheck.SetActive(false);
-            finalConfetti.SetActive(false);
+            completeVFX.SetActive(false);
             ActivateScreen(0);
         }
 
@@ -142,7 +142,7 @@ namespace BciGame.Gameplay
                     headPoseTracker.BeginCalibration();
                     break;
                 case TutorialScreenType.Complete:
-                    finalConfetti.SetActive(true);
+                    completeVFX.SetActive(true);
                     break;
                 default: break;
             }
