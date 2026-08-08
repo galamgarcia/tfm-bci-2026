@@ -5,55 +5,82 @@
  */
 
 using System;
+using BciGame.Core;
+using BciGame.Utilities;
+using Game.Scripts.Gameplay;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BciGame.UI
 {
     /// <summary>
-    /// Detects when a tracked tutorial ball enters its configured success radius.
+    /// Represents the visual target for a tutorial ball and triggers when the ball reaches it
+    /// with the concentration level required by the current exercise round.
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
     public sealed class TutorialGoal : MonoBehaviour
     {
-        [SerializeField] private RectTransform initialGoalTransform;
-        [SerializeField] private float successRadius = 52f;
+        [Tooltip("UI transform used to position the goal in canvas space.")]
+        [SerializeField] private RectTransform rectTransform;
+        [Tooltip("Image colored to communicate the concentration level required by this goal.")]
+        [SerializeField] private Image image;
+        [Tooltip("Distance between the ball and goal required for success.")]
+        [SerializeField] private float radius = 52f;
 
+        // Ball evaluated against this goal during the active exercise round.
         private TutorialBall _ball;
-        private bool _isEnabled;
+        // Mental-state level required to trigger this goal.
+        private MentalStateLevel _requiredConcentrationLevel;
+        // Prevents the completion event from firing more than once per configured round.
+        private bool _isTriggered;
 
-        // Raised once when the tracked ball enters the success radius.
-        public event Action Reached;
+        /// <summary>Raised once when the ball meets the position and concentration requirements.</summary>
+        public event Action OnTriggered;
 
-        // Gets or sets the goal position in its parent canvas space.
+        /// <summary>Gets or sets the goal position in its parent canvas space.</summary>
         public Vector2 Position
         {
-            get => initialGoalTransform.anchoredPosition;
-            set => initialGoalTransform.anchoredPosition = value;
+            get => rectTransform.anchoredPosition;
+            set => rectTransform.anchoredPosition = value;
         }
 
         private void Awake()
         {
-            if (initialGoalTransform == null)
-            {
-                initialGoalTransform = GetComponent<RectTransform>();
-            }
+            rectTransform = GetComponent<RectTransform>();
+            image = GetComponent<Image>();
         }
 
         private void Update()
         {
-            if (_isEnabled || _ball == null || Vector2.Distance(_ball.Position, Position) > successRadius) { return; }
-            _isEnabled = true;
-            Reached?.Invoke();
+            if (_isTriggered || _ball == null || Vector2.Distance(_ball.Position, Position) > radius) { return; }
+            if (!HasRequiredConcentrationLevel()) { return; }
+
+            _isTriggered = true;
+            OnTriggered?.Invoke();
         }
 
-        /// <summary>
-        /// Begins tracking a ball for the current exercise attempt.
-        /// </summary>
+        /// <summary>Configures the ball and concentration level required for the current round.</summary>
         /// <param name="ball">Ball that must enter this goal.</param>
-        public void Track(TutorialBall ball)
+        /// <param name="requiredConcentrationLevel">Concentration level required to trigger the goal.</param>
+        public void Configure(TutorialBall ball, MentalStateLevel requiredConcentrationLevel)
         {
             _ball = ball;
-            _isEnabled = false;
+            _requiredConcentrationLevel = requiredConcentrationLevel;
+            _isTriggered = false;
+            if (image != null && TutorialSettings.Instance != null)
+            {
+                image.color = TutorialSettings.Instance.GetColor(requiredConcentrationLevel);
+            }
+        }
+
+        /// <summary>Determines whether the tracked ball meets this goal's concentration requirement.</summary>
+        /// <returns>Whether the current concentration level is valid for this goal.</returns>
+        private bool HasRequiredConcentrationLevel()
+        {
+            if (_requiredConcentrationLevel == MentalStateLevel.None) { return true; }
+            if (!Utils.IsBrainLinkConnectionGood()) { return false; }
+            MentalStateLevel concentrationLevel = _ball.GetConcentrationLevel();
+            return _requiredConcentrationLevel == MentalStateLevel.Low ? concentrationLevel == MentalStateLevel.Low : concentrationLevel >= _requiredConcentrationLevel;
         }
     }
 }
