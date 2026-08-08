@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.04, g: 0.52, b: 1, a: 1}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
   screenType: 4
   canvasGroup: {fileID: 6332763304799101242}
@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 1925979261754386733}
   - component: {fileID: 6067092047518619972}
   - component: {fileID: 6068210141373181326}
+  - component: {fileID: 6488253316584606852}
   m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -260,9 +261,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Vamos a practicar
-
-    los controles.'
+  m_Text: ""
+--- !u!114 &6488253316584606852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137067229535804752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 12
 --- !u!1 &5872959240907663808
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +286,7 @@ GameObject:
   - component: {fileID: 5529524371128029639}
   - component: {fileID: 2415227920424323387}
   - component: {fileID: 8667791752986551766}
+  - component: {fileID: 8437351201703836182}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -318,7 +331,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -341,7 +354,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Solo te llevar\xE1 un minuto."
+  m_Text: ""
+--- !u!114 &8437351201703836182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872959240907663808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 13
 --- !u!1 &6559779704334980919
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +379,7 @@ GameObject:
   - component: {fileID: 8634977410021292524}
   - component: {fileID: 5062381640394840842}
   - component: {fileID: 19640048374630245}
+  - component: {fileID: 3619559799893167589}
   m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
@@ -397,7 +424,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -420,7 +447,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Empezar pr\xE1ctica"
+  m_Text: ""
+--- !u!114 &3619559799893167589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6559779704334980919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 14
 --- !u!1 &8691812110219292084
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +519,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.04, g: 0.52, b: 1, a: 1}
@@ -509,7 +549,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
     m_Mode: 3
@@ -565,7 +605,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bcf8c66601eb4eb79548a1f0b1b1a76, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.NodButtonActivator
   isSingleUse: 1
   button: {fileID: 0}

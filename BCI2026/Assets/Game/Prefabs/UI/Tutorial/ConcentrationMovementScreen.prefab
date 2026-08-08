@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -101,19 +101,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35f0eb1fbc3604d3f8c49c6cb981a604, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialMovementScreen
   screenType: 9
   canvasGroup: {fileID: 4491161570708889381}
   ballPrefab: {fileID: 826290326924768348, guid: a429b3c534ec14659b0ffc220dcaf873, type: 3}
   goalPrefab: {fileID: 1131800361932023386, guid: 3101506a8b5b149bba164fce057d0d38, type: 3}
   exerciseContainer: {fileID: 5490395217264229725}
-  movementState: 3
   minimumBallPosition: {x: 0, y: -180}
   maximumBallPosition: {x: 0, y: 180}
   initialBallPosition: {x: 0, y: 120}
   initialGoalPosition: {x: -180, y: -120}
-  requiresSecondRound: 0
   successParticles: {fileID: 0}
   instructionLabel: {fileID: 0}
 --- !u!1 &5942258119595434061
@@ -127,6 +125,7 @@ GameObject:
   - component: {fileID: 9005022373961967790}
   - component: {fileID: 7096868957533857066}
   - component: {fileID: 764251536560253387}
+  - component: {fileID: 758841648414279632}
   m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
@@ -171,7 +170,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -194,7 +193,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Movimiento vertical\nmediante concentraci\xF3n"
+  m_Text: ""
+--- !u!114 &758841648414279632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5942258119595434061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 31
 --- !u!1 &6582692081136405681
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +218,7 @@ GameObject:
   - component: {fileID: 1280540525369760839}
   - component: {fileID: 5482910232359012782}
   - component: {fileID: 4500734774791603860}
+  - component: {fileID: 8429511855171640176}
   m_Layer: 0
   m_Name: Instruction
   m_TagString: Untagged
@@ -250,7 +263,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -273,4 +286,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Ahora conc\xE9ntrate para bajar la pelota."
+  m_Text: ""
+--- !u!114 &8429511855171640176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582692081136405681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 32

@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3859a92a05d4f5d418cb6ca605290e74, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARSession
   m_AttemptUpdate: 1
   m_MatchFrameRate: 1
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa850fbd5b8aded44846f96e35f1a9f5, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARInputManager
 --- !u!1 &2000
 GameObject:
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Unity.XR.CoreUtils::Unity.XR.CoreUtils.XROrigin
   m_Camera: {fileID: 3002}
   m_OriginBaseGameObject: {fileID: 2000}
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caeceacb624484daf8e379c2252fd246, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARFaceManager
   <trackablesChanged>k__BackingField:
     m_PersistentCalls:
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dc7a56ec4770423fb22e24c3ba01e18, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.Input.HeadPoseTracker
   faceManager: {fileID: 2003}
   nodActivationPitchDegrees: 12
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARCameraManager
   m_FocusMode: -1
   m_LightEstimationMode: -1
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a01e92a8a2954eabb5d4814ba8f108b, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::ThinkGearManager
   isCircleOn: 0
   isApOn: 0
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdaccede39234d169d83e6078b28a486, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::AndroidBluetoothPermissions
 --- !u!1 &154393855
 GameObject:
@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.14, g: 0.12, b: 0.06, a: 0.96}
@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.04, g: 0.52, b: 1, a: 1}
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.82, b: 0.3, a: 1}
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0904ef26188f4cdcbf83b544f6456a5, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.Gameplay.TutorialController
   screens:
   - {fileID: 3152374398682212771}
@@ -791,11 +791,9 @@ MonoBehaviour:
   - {fileID: 6749351371473435201}
   - {fileID: 4010185841293218646}
   - {fileID: 1165573809350635852}
-  - {fileID: 5668117191448715255}
-  - {fileID: 781134996239078300}
   - {fileID: 3065967084311252439}
   headPoseTracker: {fileID: 2004}
-  nodHintLabel: {fileID: 50794126055947231}
+  nodHintText: {fileID: 8983541291899252996}
   nodCheck: {fileID: 1195963952429347471}
   eegIcon: {fileID: 943727096}
   eegWarning: {fileID: 820189120}
@@ -810,7 +808,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92179ff385e4844f59c1117f1c928925, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.Services.BrainLinkConnection
   thinkGearManager: {fileID: 4002}
 --- !u!4 &1066988531
@@ -856,7 +854,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
   m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
@@ -887,7 +885,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
@@ -936,7 +934,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
@@ -953,7 +951,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
@@ -1017,17 +1015,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6945491527491683598, guid: c2b5efa2075f84821bf3eddffdca8d5f, type: 3}
   m_PrefabInstance: {fileID: 1165573809350635851}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &50794126055947231 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6471768978564137641, guid: 9ef5701bd2c684497bd23a8adfe6baeb, type: 3}
-  m_PrefabInstance: {fileID: 8983541291899252995}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
 --- !u!1001 &781134996239078299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1042,7 +1029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356649458972365717, guid: 7ae86072710834e4a8da5c6b923a51a1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5490395217264229725, guid: 7ae86072710834e4a8da5c6b923a51a1, type: 3}
       propertyPath: m_Pivot.x
@@ -1129,17 +1116,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ae86072710834e4a8da5c6b923a51a1, type: 3}
---- !u!114 &781134996239078300 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4892140107463997627, guid: 7ae86072710834e4a8da5c6b923a51a1, type: 3}
-  m_PrefabInstance: {fileID: 781134996239078299}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35f0eb1fbc3604d3f8c49c6cb981a604, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialMovementScreen
 --- !u!1001 &1165573809350635851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1230,7 +1206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8820045363823735182, guid: c2b5efa2075f84821bf3eddffdca8d5f, type: 3}
       propertyPath: m_Name
-      value: HeadMovementScreen
+      value: MovementScreen
       objectReference: {fileID: 0}
     - target: {fileID: 8820045363823735182, guid: c2b5efa2075f84821bf3eddffdca8d5f, type: 3}
       propertyPath: m_IsActive
@@ -1250,7 +1226,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35f0eb1fbc3604d3f8c49c6cb981a604, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialMovementScreen
 --- !u!1 &1195963952429347471 stripped
 GameObject:
@@ -1371,7 +1347,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
 --- !u!114 &3065967084311252439 stripped
 MonoBehaviour:
@@ -1382,7 +1358,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
 --- !u!114 &3152374398682212771 stripped
 MonoBehaviour:
@@ -1393,7 +1369,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
 --- !u!224 &3919007480586117172 stripped
 RectTransform:
@@ -1510,7 +1486,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d3115463aa97400199205a406f64461, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialEegTrainingScreen
 --- !u!1001 &4127491532544070766
 PrefabInstance:
@@ -1622,7 +1598,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77bb65fa3d7c8493ea31ce05ec2af4c2, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialConnectionScreen
 --- !u!224 &4272890096053439939 stripped
 RectTransform:
@@ -1653,7 +1629,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
 --- !u!224 &5332478432687019775 stripped
 RectTransform:
@@ -1779,7 +1755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 753069571743737028, guid: 6561389ca33494284b92d9c9886292ae, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1076071798785971480, guid: 6561389ca33494284b92d9c9886292ae, type: 3}
       propertyPath: m_Pivot.x
@@ -1866,17 +1842,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6561389ca33494284b92d9c9886292ae, type: 3}
---- !u!114 &5668117191448715255 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7126814167781011523, guid: 6561389ca33494284b92d9c9886292ae, type: 3}
-  m_PrefabInstance: {fileID: 5668117191448715254}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35f0eb1fbc3604d3f8c49c6cb981a604, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialMovementScreen
 --- !u!224 &5897115658307605087 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3896011482897546750, guid: b2f66fc5a456448bf9734c7455041133, type: 3}
@@ -1992,7 +1957,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d3115463aa97400199205a406f64461, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialEegTrainingScreen
 --- !u!224 &7109853881059886047 stripped
 RectTransform:
@@ -2325,6 +2290,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ef5701bd2c684497bd23a8adfe6baeb, type: 3}
+--- !u!114 &8983541291899252996 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4232403790382717291, guid: 9ef5701bd2c684497bd23a8adfe6baeb, type: 3}
+  m_PrefabInstance: {fileID: 8983541291899252995}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
 --- !u!114 &9134655201231523452 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2717620440315283558, guid: c1ddb1749b0314e2496b35b2853dfae4, type: 3}
@@ -2334,7 +2310,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

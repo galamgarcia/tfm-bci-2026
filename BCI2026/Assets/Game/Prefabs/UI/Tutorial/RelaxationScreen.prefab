@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2820002922679884452}
   - component: {fileID: 2618080581081980599}
   - component: {fileID: 463162922424932321}
+  - component: {fileID: 1869809984490344364}
   m_Layer: 0
   m_Name: RightLabel
   m_TagString: Untagged
@@ -55,7 +56,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -78,7 +79,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Muy relajado
+  m_Text: ""
+--- !u!114 &1869809984490344364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827275468190607203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 18
 --- !u!1 &2311904193959651616
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +104,7 @@ GameObject:
   - component: {fileID: 5951418196020604305}
   - component: {fileID: 6290083509377824075}
   - component: {fileID: 3426814364415888012}
+  - component: {fileID: 5524985475063945986}
   m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
@@ -134,7 +149,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -157,7 +172,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Relajaci\xF3n"
+  m_Text: ""
+--- !u!114 &5524985475063945986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311904193959651616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 15
 --- !u!1 &2496078635798820113
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +241,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -289,7 +317,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.18, g: 0.2, b: 0.24, a: 1}
@@ -320,6 +348,7 @@ GameObject:
   - component: {fileID: 3677969136070585277}
   - component: {fileID: 933897354518500380}
   - component: {fileID: 3281359992881059651}
+  - component: {fileID: 6952769145846473968}
   m_Layer: 0
   m_Name: Instruction
   m_TagString: Untagged
@@ -364,7 +393,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -387,7 +416,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Intenta relajarte durante unos segundos.
+  m_Text: ""
+--- !u!114 &6952769145846473968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5124026035993152966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 16
 --- !u!1 &6458420787911971747
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +485,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.04, g: 0.52, b: 1, a: 1}
@@ -527,7 +569,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -569,17 +611,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d3115463aa97400199205a406f64461, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialEegTrainingScreen
   screenType: 5
   canvasGroup: {fileID: 5881695263247357947}
   trainingType: 0
   fillImage: {fileID: 0}
   successCheck: {fileID: 2496078635798820113}
-  resultLabel: {fileID: 5531412860391181068}
+  resultText: {fileID: 632381080572450869}
   target: 0.7
   holdSeconds: 2
-  successMessage: "\xA1Perfecto!"
 --- !u!1 &8175609453104083574
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +632,7 @@ GameObject:
   - component: {fileID: 4224558549478861901}
   - component: {fileID: 533767369088662218}
   - component: {fileID: 4938169339050143691}
+  - component: {fileID: 5689204710235682397}
   m_Layer: 0
   m_Name: LeftLabel
   m_TagString: Untagged
@@ -635,7 +677,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -658,7 +700,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Muy activado
+  m_Text: ""
+--- !u!114 &5689204710235682397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8175609453104083574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 17
 --- !u!1 &8261774048214546238
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +725,7 @@ GameObject:
   - component: {fileID: 4749254498684232062}
   - component: {fileID: 7072863323813582350}
   - component: {fileID: 5531412860391181068}
+  - component: {fileID: 632381080572450869}
   m_Layer: 0
   m_Name: Result
   m_TagString: Untagged
@@ -714,7 +770,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -737,4 +793,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: "\xA1Perfecto!"
+--- !u!114 &632381080572450869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261774048214546238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  textId: 19
