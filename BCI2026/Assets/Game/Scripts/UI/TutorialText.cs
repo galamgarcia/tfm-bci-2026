@@ -1,3 +1,9 @@
+/*
+ * BCI Interaction System for Videogames
+ * Master's Thesis · University of Alicante
+ * © 2026 Gala M. García
+ */
+
 using UnityEngine;
 using UnityEngine.UI;
 using BciGame.Core;
