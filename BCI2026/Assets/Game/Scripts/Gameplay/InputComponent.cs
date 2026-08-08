@@ -16,7 +16,7 @@ namespace BciGame.Gameplay
     /// <summary>
     /// Base component that exposes head-tracking and EEG input to movement implementations.
     /// </summary>
-    public class MoveComponent : MonoBehaviour
+    public class InputComponent : MonoBehaviour
     {
         [Header("Movement")]
         [Tooltip("Defines if horizontal head movement tracking is enabled.")]

@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace BciGame.UI
 {
+    /// <summary>Runs a bounded ball movement exercise as one tutorial screen.</summary>
     public sealed class TutorialMovementScreen : TutorialScreen
     {
         [Header("Prefabs")]
@@ -45,14 +46,17 @@ namespace BciGame.UI
         private TutorialGoal _goal;
         private int _round;
 
+        /// <summary>Gets the delay before transitioning after the exercise is completed.</summary>
         public override float CompletionDelay => 1f;
 
+        /// <summary>Spawns and initializes the movement exercise.</summary>
         public override void Activate()
         {
             _round = 0;
             SpawnExerciseObjects();
         }
 
+        /// <summary>Destroys the exercise objects and removes their event subscriptions.</summary>
         public override void Deactivate()
         {
             DespawnExerciseObjects();
@@ -75,7 +79,7 @@ namespace BciGame.UI
         }
 
         /// <summary>
-        /// Advances the two-round head exercise or completes the current movement screen.
+        /// Starts the optional mirrored round or completes the exercise..
         /// </summary>
         private void HandleGoalReached()
         {
@@ -111,7 +115,7 @@ namespace BciGame.UI
             _goal = Instantiate(goalPrefab, parent);
             _goal.Reached += HandleGoalReached;
             ResetExercise(initialBallPosition, initialGoalPosition);
-            _ball.GetMoveComponent().Configure(movementState, minimumBallPosition, maximumBallPosition);
+            _ball.Configure(movementState, minimumBallPosition, maximumBallPosition);
         }
 
         /// <summary>
@@ -133,6 +137,9 @@ namespace BciGame.UI
             }
         }
 
+        /// <summary>Hides success feedback after the requested real-time delay.</summary>
+        /// <param name="delay">Seconds to keep the feedback visible.</param>
+        /// <returns>The coroutine that waits for the delay.</returns>
         private IEnumerator HideParticlesAfter(float delay)
         {
             yield return new WaitForSecondsRealtime(delay);
