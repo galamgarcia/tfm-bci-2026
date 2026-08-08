@@ -7,15 +7,14 @@
 using BciGame.Services;
 using BciGame.Utilities;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BciGame.UI
 {
     public sealed class TutorialConnectionScreen : TutorialScreen
     {
         [Header("Feedback")]
-        [Tooltip("Label updated while the headset is connecting and after connection succeeds.")]
-        [SerializeField] private Text statusLabel;
+        [Tooltip("Text updated while the headset is connecting and after connection succeeds.")]
+        [SerializeField] private TutorialText statusText;
         [Tooltip("Visual confirmation displayed after BrainLink connects successfully.")]
         [SerializeField] private GameObject successCheck;
 
@@ -26,7 +25,7 @@ namespace BciGame.UI
         public override void Activate()
         {
             _isCompleted = false;
-            statusLabel.text = "Conectando…";
+            statusText.SetTextId(TutorialTextId.ConnectionConnecting);
             successCheck.SetActive(false);
             BrainLinkConnection.Instance?.StartConnection();
         }
@@ -35,7 +34,7 @@ namespace BciGame.UI
         {
             if (_isCompleted || !Utils.IsBrainLinkConnectionGood()) { return; }
             _isCompleted = true;
-            statusLabel.text = "Conectado correctamente";
+            statusText.SetTextId(TutorialTextId.ConnectionConnected);
             successCheck.SetActive(true);
             Complete();
         }

@@ -6,7 +6,6 @@
 
 using System.Collections;
 using BciGame.Input;
-using BciGame.Services;
 using BciGame.UI;
 using BciGame.Utilities;
 using UnityEngine;
@@ -29,8 +28,8 @@ namespace BciGame.Gameplay
         [SerializeField] private HeadPoseTracker headPoseTracker;
 
         [Header("Interaction")]
-        [Tooltip("Instruction label updated during headset confirmation.")]
-        [SerializeField] private Text nodHintLabel;
+        [Tooltip("Instruction text updated during headset confirmation.")]
+        [SerializeField] private TutorialText nodHintText;
         [Tooltip("Success indicator displayed after a valid nod gesture.")]
         [SerializeField] private GameObject nodCheck;
 
@@ -146,7 +145,7 @@ namespace BciGame.Gameplay
             switch (screenType)
             {
                 case TutorialScreenType.HeadsetConfirmation:
-                    nodHintLabel.text = "Afirma con la cabeza para continuar.";
+                    nodHintText.SetTextId(TutorialTextId.HeadsetInstruction);
                     nodCheck.SetActive(false);
                     headPoseTracker.BeginCalibration();
                     break;
@@ -164,7 +163,7 @@ namespace BciGame.Gameplay
         {
             // The headset confirmation is the only non-button screen completed by a nod.
             if (CurrentScreenType != TutorialScreenType.HeadsetConfirmation || _isTransitioning) { return; }
-            nodHintLabel.text = "Perfecto.";
+            nodHintText.SetTextId(TutorialTextId.HeadsetSuccess);
             nodCheck.SetActive(true);
             StartCoroutine(AdvanceAfter(0.8f));
         }

@@ -18,17 +18,14 @@ namespace BciGame.UI
         [SerializeField] private Image fillImage;
         [Tooltip("Visual confirmation shown after the training target is completed.")]
         [SerializeField] private GameObject successCheck;
-        [Tooltip("Label used to display the localized success message.")]
-        [SerializeField] private Text resultLabel;
+        [Tooltip("Text used to display the localized success message.")]
+        [SerializeField] private TutorialText resultText;
 
         [Header("Completion")]
         [Tooltip("Minimum normalized EEG value required to begin the completion hold.")]
         [SerializeField] private float target = 0.7f;
         [Tooltip("Seconds the EEG value must remain above the target to complete the step.")]
         [SerializeField] private float holdSeconds = 2f;
-        [Tooltip("Localized message displayed after the training step completes.")]
-        [SerializeField] private string successMessage;
-
         // Time at which the current valid target hold began.
         private float _holdStartedAt = -1f;
         // Prevents the completion event from firing more than once per screen activation.
@@ -41,9 +38,7 @@ namespace BciGame.UI
         /// </summary>
         private enum EegTrainingType
         {
-            /// <summary>Uses the relaxation EEG value.</summary>
             Relaxation,
-            /// <summary>Uses the concentration EEG value.</summary>
             Concentration
         }
 
@@ -53,7 +48,7 @@ namespace BciGame.UI
             _holdStartedAt = -1f;
             fillImage.fillAmount = 0f;
             successCheck.SetActive(false);
-            resultLabel.text = string.Empty;
+            resultText.SetTextId(TutorialTextId.None);
         }
 
         private void Update()
@@ -81,7 +76,7 @@ namespace BciGame.UI
 
             _isCompleted = true;
             successCheck.SetActive(true);
-            resultLabel.text = successMessage;
+            resultText.SetTextId(trainingType == EegTrainingType.Relaxation ? TutorialTextId.RelaxationSuccess : TutorialTextId.ConcentrationSuccess);
             Complete();
         }
     }
