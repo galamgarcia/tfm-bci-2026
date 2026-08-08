@@ -13,30 +13,35 @@ using UnityEngine.UI;
 namespace BciGame.UI
 {
     /// <summary>
-    /// Represents the tutorial ball.
+    /// Represents the tutorial ball, applying horizontal head input and concentration feedback.
     /// </summary>
     [RequireComponent(typeof(RectTransform), typeof(InputComponent))]
     public sealed class TutorialBall : MonoBehaviour
     {
-        [SerializeField] private RectTransform initialBallTransform;
-        [SerializeField] private Image ballImage;
+        [Tooltip("UI transform used to position the ball in canvas space.")]
+        [SerializeField] private RectTransform rectTransform;
+        [Tooltip("Image colored to reflect the active concentration feedback state.")]
+        [SerializeField] private Image image;
 
         private InputComponent _inputComponent;
+        // Horizontal and vertical bounds.
         private Vector2 _minPosition;
         private Vector2 _maxPosition;
+        // Most recently received concentration level from the input component.
         private MentalStateLevel _concentrationLevel;
+        // Indicates if the concentration levels update the ball color.
         private bool _usesConcentrationColor;
 
         public Vector2 Position
         {
-            get => initialBallTransform.anchoredPosition;
-            set => initialBallTransform.anchoredPosition = value;
+            get => rectTransform.anchoredPosition;
+            set => rectTransform.anchoredPosition = value;
         }
 
         private void Awake()
         { 
-            initialBallTransform = GetComponent<RectTransform>();
-            ballImage = GetComponent<Image>();
+            rectTransform = GetComponent<RectTransform>();
+            image = GetComponent<Image>();
             _inputComponent = GetComponent<InputComponent>();
         }
 
@@ -77,19 +82,24 @@ namespace BciGame.UI
             UpdateColor();
         }
 
+        /// <summary>Stores a new concentration level and updates the feedback color when enabled.</summary>
+        /// <param name="level">New concentration level received from the input component.</param>
         private void OnConcentrationChanged(MentalStateLevel level)
         {
             _concentrationLevel = level;
             UpdateColor();
         }
 
+        /// <summary>Updates the ball image color from the active feedback mode and concentration level.</summary>
         private void UpdateColor()
         {
-            if (ballImage == null || TutorialSettings.Instance == null) { return; }
+            if (image == null || TutorialSettings.Instance == null) { return; }
             MentalStateLevel colorLevel = _usesConcentrationColor ? _concentrationLevel : MentalStateLevel.None;
-            ballImage.color = TutorialSettings.Instance.GetColor(colorLevel);
+            image.color = TutorialSettings.Instance.GetColor(colorLevel);
         }
 
+        /// <summary>Moves the ball horizontally while keeping it within the configured canvas bounds.</summary>
+        /// <param name="delta">Horizontal canvas-space displacement received for this frame.</param>
         private void OnHorizontalMovementReceived(float delta)
         {
             float x = Mathf.Clamp(Position.x + delta, _minPosition.x, _maxPosition.x);
