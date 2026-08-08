@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7092278427834526557}
   - component: {fileID: 435848726640242432}
   - component: {fileID: 826290326924768348}
+  - component: {fileID: 5666774324731099207}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -56,7 +57,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.04, g: 0.52, b: 1, a: 1}
@@ -86,6 +87,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e684d42635b0a4488b8ac9b3c655074a, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialBall
   initialBallTransform: {fileID: 0}
+  ballImage: {fileID: 0}
+--- !u!114 &5666774324731099207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017100122534883766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6223c1de19a49f59b6c1fe03f4774f, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.Gameplay.InputComponent
+  isHorizontalMovementTracked: 1
+  isNodTracked: 1
+  isRelaxationStateTracked: 1
+  isConcentrationStateTracked: 1
+  horizontalMovementSpeed: 240
