@@ -230,18 +230,14 @@ namespace BciGame.Gameplay
                 or TutorialScreenType.PracticeIntro
                 or TutorialScreenType.Relaxation
                 or TutorialScreenType.Concentration
-                or TutorialScreenType.HeadMovement
-                or TutorialScreenType.RelaxationMovement
-                or TutorialScreenType.ConcentrationMovement;
+                or TutorialScreenType.Movement;
         }
 
         private static bool IsEegTraining(TutorialScreenType screenType)
         {
             return screenType is TutorialScreenType.Relaxation
                 or TutorialScreenType.Concentration
-                or TutorialScreenType.HeadMovement
-                or TutorialScreenType.RelaxationMovement
-                or TutorialScreenType.ConcentrationMovement;
+                or TutorialScreenType.Movement;
         }
 
         /// <summary>
