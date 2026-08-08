@@ -11,13 +11,13 @@ namespace Game.Scripts.Gameplay
     /// </summary>
     public enum MentalStateLevel
     {
-        /// <summary> No valid level is available. </summary>
+        /// <summary>No valid level is available.</summary>
         None,
-        /// <summary> Low level. </summary>
+        /// <summary>Low level.</summary>
         Low,
-        /// <summary> Medium level. </summary>
+        /// <summary>Medium level.</summary>
         Medium,
-        /// <summary> High level. </summary>
+        /// <summary>High level.</summary>
         High
     }
 }

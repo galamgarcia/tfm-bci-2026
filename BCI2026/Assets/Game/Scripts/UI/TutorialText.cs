@@ -25,9 +25,7 @@ namespace BciGame.UI
             Refresh();
         }
 
-        /// <summary>
-        /// Changes the configured text identifier and refreshes the label.
-        /// </summary>
+        /// <summary>Changes the configured text identifier and refreshes the label.</summary>
         /// <param name="id">Identifier of the text to display.</param>
         public void SetTextId(TutorialTextId id)
         {
@@ -35,9 +33,7 @@ namespace BciGame.UI
             Refresh();
         }
 
-        /// <summary>
-        /// Refreshes the localized text displayed using the current text identifier.
-        /// </summary>
+        /// <summary>Refreshes the localized text displayed using the current text identifier.</summary>
         private void Refresh()
         {
             _label.text = TutorialSettings.Instance.GetText(textId);

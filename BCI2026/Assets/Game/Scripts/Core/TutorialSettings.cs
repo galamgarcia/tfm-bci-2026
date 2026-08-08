@@ -21,23 +21,19 @@ namespace BciGame.Core
         private const string ResourcePath = "TutorialSettings";
         private static TutorialSettings _instance;
 
-        /// <summary> Associates one mental-state level with its tutorial feedback color. </summary>
+        /// <summary>Associates one mental-state level with its tutorial feedback color.</summary>
         [Serializable]
         private struct StateColor
         {
-            /// <summary> Mental-state level represented by this color entry. </summary>
             public MentalStateLevel state;
-            /// <summary> Color displayed for the configured mental-state level. </summary>
             public Color color;
         }
 
-        /// <summary> Associates one tutorial text identifier with its localized content. </summary>
+        /// <summary>Associates one tutorial text identifier with its localized content.</summary>
         [Serializable]
         private struct TextEntry
         {
-            /// <summary> Identifier used by UI components to request this text. </summary>
             public TutorialTextId id;
-            /// <summary> Localized string displayed for the configured identifier. </summary>
             [TextArea] public string value;
         }
 

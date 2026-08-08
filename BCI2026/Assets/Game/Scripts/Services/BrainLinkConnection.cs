@@ -24,21 +24,13 @@ namespace BciGame.Services
         // Prevents concurrent Bluetooth scans from being requested.
         private bool _isScanning;
 
-        /// <summary>
-        /// Gets whether a BrainLink device is currently connected.
-        /// </summary>
+        /// <summary>Indicates if the BrainLink device is currently connected.</summary>
         public bool IsConnected => thinkGearManager != null && thinkGearManager.IsHeadsetConnected();
-        /// <summary>
-        /// Gets whether the connected device reports sufficient EEG signal quality.
-        /// </summary>
+        /// <summary>Indicates if the connected device reports sufficient EEG signal quality.</summary>
         public bool HasGoodSignal => thinkGearManager != null && thinkGearManager.GetWave_quality() <= 75;
-        /// <summary>
-        /// Gets the normalized relaxation value reported by BrainLink.
-        /// </summary>
+        /// <summary>Gets the normalized relaxation value reported by BrainLink.</summary>
         public float Relaxation => thinkGearManager == null ? 0f : thinkGearManager.GetMeditation() / 100f;
-        /// <summary>
-        /// Gets the normalized concentration value reported by BrainLink.
-        /// </summary>
+        /// <summary>Gets the normalized concentration value reported by BrainLink.</summary>
         public float Concentration => thinkGearManager == null ? 0f : thinkGearManager.GetAttention() / 100f;
 
         private void Awake()
@@ -75,9 +67,7 @@ namespace BciGame.Services
             }
         }
 
-        /// <summary>
-        /// Starts scanning for the first available BrainLink device.
-        /// </summary>
+        /// <summary>Starts scanning for the first available BrainLink device.</summary>
         public void StartConnection()
         {
             if (thinkGearManager == null || _isScanning || IsConnected) { return; }
@@ -85,9 +75,7 @@ namespace BciGame.Services
             thinkGearManager.Scan();
         }
 
-        /// <summary>
-        /// Connects the first device reported by the SDK scan callback.
-        /// </summary>
+        /// <summary>Connects the first device reported by the SDK scan callback.</summary>
         /// <param name="device">Provider device payload containing its name and connection identifier.</param>
         private void ConnectFirstDevice(string device)
         {

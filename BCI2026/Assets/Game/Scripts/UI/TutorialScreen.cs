@@ -31,27 +31,19 @@ namespace BciGame.UI
         // Raised when this screen completes its own interaction.
         public event Action OnComplete;
 
-        /// <summary>
-        /// Starts this screen's specialized interaction lifecycle.
-        /// </summary>
+        /// <summary>Starts this screen's specialized interaction lifecycle.</summary>
         public virtual void Activate() { }
 
-        /// <summary>
-        /// Stops this screen's specialized interaction lifecycle.
-        /// </summary>
+        /// <summary>Stops this screen's specialized interaction lifecycle.</summary>
         public virtual void Deactivate() { }
 
-        /// <summary>
-        /// Notifies the tutorial flow that this screen has completed.
-        /// </summary>
+        /// <summary>Notifies the tutorial flow that this screen has completed.</summary>
         public void Complete()
         {
             OnComplete?.Invoke();
         }
 
-        /// <summary>
-        /// Assigns the required CanvasGroup when the component is added or reset in the Inspector.
-        /// </summary>
+        /// <summary>Assigns the required CanvasGroup when the component is added or reset in the Inspector.</summary>
         private void Reset()
         {
             canvasGroup = GetComponent<CanvasGroup>();

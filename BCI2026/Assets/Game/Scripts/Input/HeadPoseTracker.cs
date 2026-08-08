@@ -81,10 +81,7 @@ namespace BciGame.Input
             faceManager.trackablesChanged.RemoveListener(OnFacesChanged);
         }
 
-        /// <summary>
-        /// Starts a new calibration process using the current head orientation as the
-        /// neutral reference pose.
-        /// </summary>
+        /// <summary> Starts a new calibration process using the current head orientation as the neutral reference pose. </summary>
         public void BeginCalibration()
         {
             _isCalibrating = true;
@@ -92,10 +89,7 @@ namespace BciGame.Input
             ResetNodState();
         }
 
-        /// <summary>
-        /// Updates the tracked head pose and evaluates horizontal movement and nod
-        /// gestures whenever face tracking data changes.
-        /// </summary>
+        /// <summary> Updates the tracked head pose and evaluates horizontal movement and nod gestures whenever face tracking data changes. </summary>
         /// <param name="changes">Collection of tracked face changes reported by AR Foundation.</param>
         private void OnFacesChanged(ARTrackablesChangedEventArgs<ARFace> changes)
         {
@@ -134,11 +128,9 @@ namespace BciGame.Input
             UpdateNodDetection(pitchDelta, yawDelta);
         }
 
-        /// <summary>
-        /// Evaluates whether the current head movement matches a valid nod gesture.
-        /// </summary>
-        /// <param name="pitchDelta"> Vertical rotation relative to the calibrated pose, in degrees. </param>
-        /// <param name="yawDelta"> Horizontal rotation relative to the calibrated pose, in degrees. </param>
+        /// <summary>Evaluates if the current head movement matches a valid nod gesture.</summary>
+        /// <param name="pitchDelta">Vertical rotation relative to the calibrated pose, in degrees.</param>
+        /// <param name="yawDelta">Horizontal rotation relative to the calibrated pose, in degrees.</param>
         private void UpdateNodDetection(float pitchDelta, float yawDelta)
         {
             if (Mathf.Abs(yawDelta) > nodMaximumYawDeviationDegrees)
@@ -174,9 +166,7 @@ namespace BciGame.Input
             NodDetected?.Invoke();
         }
 
-        /// <summary>
-        /// Resets the internal nod detection state machine.
-        /// </summary>
+        /// <summary>Resets the internal nod detection state machine.</summary>
         private void ResetNodState()
         {
             _nodState = NodState.Waiting;

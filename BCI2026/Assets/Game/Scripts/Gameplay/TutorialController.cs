@@ -73,12 +73,12 @@ namespace BciGame.Gameplay
         {
             if (headPoseTracker != null)
             {
-                headPoseTracker.NodDetected += HandleNodDetected;
+                headPoseTracker.NodDetected += OnNodDetected;
             }
 
             foreach (TutorialScreen screen in screens)
             {
-                screen.OnComplete += HandleScreenCompleted;
+                screen.OnComplete += OnScreenCompleted;
             }
         }
 
@@ -86,12 +86,12 @@ namespace BciGame.Gameplay
         {
             if (headPoseTracker != null)
             {
-                headPoseTracker.NodDetected -= HandleNodDetected;
+                headPoseTracker.NodDetected -= OnNodDetected;
             }
 
             foreach (TutorialScreen screen in screens)
             {
-                screen.OnComplete -= HandleScreenCompleted;
+                screen.OnComplete -= OnScreenCompleted;
             }
         }
 
@@ -107,9 +107,7 @@ namespace BciGame.Gameplay
             eegWarning.alpha = isTraining && !hasSignal ? 1f : 0f;
         }
 
-        /// <summary>s
-        /// Advances to the next screen when no transition is already in progress.
-        /// </summary>
+        /// <summary>Advances to the next screen when no transition is already in progress.</summary>
         public void Continue()
         {
             if (!_isTransitioning)
@@ -118,25 +116,19 @@ namespace BciGame.Gameplay
             }
         }
 
-        /// <summary>
-        /// Starts the practice sequence from its introduction screen.
-        /// </summary>
+        /// <summary>Starts the practice sequence from its introduction screen.</summary>
         public void BeginPractice()
         {
             Continue();
         }
 
-        /// <summary>
-        /// Marks the tutorial as complete and provides the handoff point to the game experience.
-        /// </summary>
+        /// <summary>Marks the tutorial as complete and provides the handoff point to the game experience.</summary>
         public void StartExperience()
         {
             Debug.Log("Tutorial completed. The game experience can start here.");
         }
 
-        /// <summary>
-        /// Resets the visual state and hardware baseline required by a screen.
-        /// </summary>
+        /// <summary>Resets the visual state and hardware baseline required by a screen.</summary>
         /// <param name="screenIndex">Zero-based navigation index of the screen being activated.</param>
         private void ActivateScreen(int screenIndex)
         {
@@ -156,10 +148,8 @@ namespace BciGame.Gameplay
             }
         }
 
-        /// <summary>
-        /// Completes the headset confirmation when a valid nod is received.
-        /// </summary>
-        private void HandleNodDetected()
+        /// <summary>Completes the headset confirmation when a valid nod is received.</summary>
+        private void OnNodDetected()
         {
             // The headset confirmation is the only non-button screen completed by a nod.
             if (CurrentScreenType != TutorialScreenType.HeadsetConfirmation || _isTransitioning) { return; }
@@ -169,7 +159,7 @@ namespace BciGame.Gameplay
         }
 
         /// <summary>Advances after the active screen reports completion through its shared lifecycle event.</summary>
-        private void HandleScreenCompleted()
+        private void OnScreenCompleted()
         {
             if (!_isTransitioning)
             {
@@ -177,9 +167,7 @@ namespace BciGame.Gameplay
             }
         }
 
-        /// <summary>
-        /// Delays progression so success feedback remains visible before changing screen.
-        /// </summary>
+        /// <summary>Delays progression so success feedback remains visible before changing screen.</summary>
         /// <param name="delay">Unscaled delay in seconds before the transition begins.</param>
         private IEnumerator AdvanceAfter(float delay)
         {
@@ -189,9 +177,7 @@ namespace BciGame.Gameplay
             yield return TransitionTo(_currentScreenIndex + 1);
         }
 
-        /// <summary>
-        /// Fades from the current screen to the requested next screen.
-        /// </summary>
+        /// <summary>Fades from the current screen to the requested next screen.</summary>
         /// <param name="nextScreen">Zero-based index of the screen to reveal.</param>
         private IEnumerator TransitionTo(int nextScreen)
         {
@@ -223,6 +209,9 @@ namespace BciGame.Gameplay
             _isTransitioning = false;
         }
 
+        /// <summary>Determines if the screen should display the EEG signal status icon.</summary>
+        /// <param name="screenType">Tutorial screen type to evaluate.</param>
+        /// <returns>Whether the EEG status icon should be visible.</returns>
         private static bool HasEegStatus(TutorialScreenType screenType)
         {
             return screenType is TutorialScreenType.EegSignal
@@ -232,6 +221,9 @@ namespace BciGame.Gameplay
                 or TutorialScreenType.Movement;
         }
 
+        /// <summary>Determines if the screen requires a valid EEG signal to progress.</summary>
+        /// <param name="screenType">Tutorial screen type to evaluate.</param>
+        /// <returns>Whether the screen is an EEG-dependent training exercise.</returns>
         private static bool IsEegTraining(TutorialScreenType screenType)
         {
             return screenType is TutorialScreenType.Relaxation
@@ -239,11 +231,9 @@ namespace BciGame.Gameplay
                 or TutorialScreenType.Movement;
         }
 
-        /// <summary>
-        /// Sets a screen visibility, opacity and interaction state together.
-        /// </summary>
+        /// <summary>Sets a screen visibility, opacity and interaction state.</summary>
         /// <param name="screen">Screen whose CanvasGroup and GameObject are updated.</param>
-        /// <param name="visible">Whether the screen is active and can receive interactions.</param>
+        /// <param name="visible">Only if the screen is active and can receive interactions.</param>
         /// <param name="alpha">Canvas opacity applied to the screen.</param>
         private static void SetScreenVisible(TutorialScreen screen, bool visible, float alpha)
         {

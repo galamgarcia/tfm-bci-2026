@@ -6,9 +6,7 @@
 
 namespace BciGame.UI
 {
-    /// <summary>
-    /// IDs for all UI tutorial texts.
-    /// </summary>
+    /// <summary>IDs for all UI tutorial texts.</summary>
     public enum TutorialTextId
     {
         None = -1,

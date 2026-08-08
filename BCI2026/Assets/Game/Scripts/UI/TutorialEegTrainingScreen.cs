@@ -39,9 +39,7 @@ namespace BciGame.UI
 
         public override float CompletionDelay => 1f;
 
-        /// <summary>
-        /// Identifies the EEG metric evaluated by this training screen.
-        /// </summary>
+        /// <summary>Identifies the EEG metric evaluated by this training screen.</summary>
         private enum EegTrainingType
         {
             Relaxation,

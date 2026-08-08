@@ -16,8 +16,12 @@ namespace BciGame.UI
     [RequireComponent(typeof(Button))]
     public sealed class NodButton : MonoBehaviour
     {
+        [Header("Activation")]
+        [Tooltip("Indicates if this button can only be activated once.")]
         [SerializeField] private bool isSingleUse = true;
+        [Tooltip("Unity button invoked after a valid activation.")]
         [SerializeField] private Button button;
+        // Head-tracking service used to trigger the button from a nod gesture.
         private HeadPoseTracker _headPoseTracker;
 
         private void Awake()
