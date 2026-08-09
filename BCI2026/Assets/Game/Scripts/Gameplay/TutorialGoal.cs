@@ -6,12 +6,11 @@
 
 using System;
 using BciGame.Core;
-using BciGame.Gameplay;
 using Game.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BciGame.UI
+namespace BciGame.Gameplay
 {
     /// <summary>
     /// Represents the visual target for a tutorial ball and triggers when the ball reaches it

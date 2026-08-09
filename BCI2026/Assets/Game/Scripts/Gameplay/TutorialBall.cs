@@ -5,13 +5,12 @@
  */
 
 using BciGame.Core;
-using BciGame.Gameplay;
 using BciGame.Input;
 using Game.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BciGame.UI
+namespace BciGame.Gameplay
 {
     /// <summary>
     /// Represents the tutorial ball, applying horizontal head input and concentration feedback.
