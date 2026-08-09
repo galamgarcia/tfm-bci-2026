@@ -51,8 +51,8 @@ namespace BciGame.Gameplay
 
         private void Update()
         {
-            if (_isTriggered || _ball == null || Vector2.Distance(_ball.Position, Position) > radius) { return; }
-            if (!TutorialRules.AreGoalRequirementsMet(_requiredConcentrationLevel, _ball.GetConcentrationLevel(), _ball.HasValidEegSignal())) { return; }
+            if (_isTriggered || _ball == null) { return; }
+            if (!TutorialRules.CanTriggerGoal(_ball.Position, Position, radius, _requiredConcentrationLevel, _ball.GetConcentrationLevel(), _ball.HasValidEegSignal())) { return; }
 
             _isTriggered = true;
             OnTriggered?.Invoke();

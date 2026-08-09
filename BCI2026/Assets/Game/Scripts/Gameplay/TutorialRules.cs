@@ -20,6 +20,19 @@ namespace BciGame.Gameplay
             return requiredConcentration == MentalStateLevel.Low ? currentConcentration == MentalStateLevel.Low : currentConcentration >= requiredConcentration;
         }
 
+        /// <summary>Determines if the ball can trigger a goal from its position and EEG state.</summary>
+        /// <param name="ballPosition">Current ball position in canvas space.</param>
+        /// <param name="goalPosition">Goal position in canvas space.</param>
+        /// <param name="radius">Maximum distance allowed between ball and goal.</param>
+        /// <param name="requiredConcentration">Concentration level required by the goal.</param>
+        /// <param name="currentConcentration">Current concentration level reported by the input component.</param>
+        /// <param name="hasValidEegSignal">If the EEG signal is valid for non-neutral goals.</param>
+        /// <returns>If the ball satisfies the goal position and concentration requirements.</returns>
+        public static bool CanTriggerGoal(Vector2 ballPosition, Vector2 goalPosition, float radius, MentalStateLevel requiredConcentration, MentalStateLevel currentConcentration, bool hasValidEegSignal)
+        {
+            return Vector2.Distance(ballPosition, goalPosition) <= radius && AreGoalRequirementsMet(requiredConcentration, currentConcentration, hasValidEegSignal);
+        }
+
         /// <summary>Gets the first mental-state requirement after the neutral movement round.</summary>
         /// <param name="currentConcentration">Concentration level measured during the neutral round.</param>
         /// <returns>Low when already concentrated; otherwise Medium.</returns>
