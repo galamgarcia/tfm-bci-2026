@@ -78,6 +78,50 @@ namespace BciGame.Tests.PlayMode
             UnityEngine.Object.Destroy(screen.gameObject);
         }
 
+        [UnityTest]
+        public IEnumerator CompleteMovementPhase_RequiresFocusAndDefocusOnOppositeSides()
+        {
+            TutorialMovementScreen prefab = AssetDatabase.LoadAssetAtPath<TutorialMovementScreen>(MovementScreenPrefabPath);
+            Assert.That(prefab, Is.Not.Null);
+
+            TutorialMovementScreen screen = UnityEngine.Object.Instantiate(prefab);
+            bool isComplete = false;
+            screen.OnComplete += () => isComplete = true;
+            screen.Activate();
+            yield return null;
+
+            TutorialBall ball = screen.GetComponentInChildren<TutorialBall>(true);
+            TutorialGoal goal = screen.GetComponentInChildren<TutorialGoal>(true);
+            TestHeadInputSource headInputSource = new TestHeadInputSource();
+            TestMentalInputSource mentalInputSource = new TestMentalInputSource();
+            screen.ConfigureInputSources(headInputSource, mentalInputSource);
+
+            headInputSource.HorizontalInput = ExtremeHorizontalInput;
+            yield return null;
+            Assert.That(goal.Position.x, Is.EqualTo(-260f));
+
+            mentalInputSource.HasValidSignal = true;
+            mentalInputSource.Concentration = 0.1f;
+            headInputSource.HorizontalInput = -ExtremeHorizontalInput;
+            yield return null;
+            Assert.That(goal.Position.x, Is.EqualTo(-260f));
+
+            mentalInputSource.Concentration = 0.5f;
+            yield return null;
+            Assert.That(goal.Position.x, Is.EqualTo(260f));
+
+            headInputSource.HorizontalInput = ExtremeHorizontalInput;
+            yield return null;
+            Assert.That(isComplete, Is.False);
+
+            mentalInputSource.Concentration = 0.1f;
+            yield return null;
+            Assert.That(isComplete, Is.True);
+
+            screen.Deactivate();
+            UnityEngine.Object.Destroy(screen.gameObject);
+        }
+
         private sealed class TestHeadInputSource : IHeadInputSource
         {
             public bool HasFace => true;
@@ -88,6 +132,13 @@ namespace BciGame.Tests.PlayMode
                 add { }
                 remove { }
             }
+        }
+
+        private sealed class TestMentalInputSource : IMentalInputSource
+        {
+            public bool HasValidSignal { get; set; }
+            public float Relaxation { get; set; }
+            public float Concentration { get; set; }
         }
     }
 }
