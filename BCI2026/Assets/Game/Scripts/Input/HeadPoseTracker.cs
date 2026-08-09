@@ -19,7 +19,7 @@ namespace BciGame.Input
     /// The tracker must be calibrated before reporting meaningful values.
     /// Calibration is automatically started when the component is enabled.
     /// </remarks>
-    public sealed class HeadPoseTracker : MonoBehaviour
+    public sealed class HeadPoseTracker : MonoBehaviour, IHeadInputSource
     {
         [Tooltip("AR Face Manager used to track the user's head pose.")]
         [SerializeField] private ARFaceManager faceManager;

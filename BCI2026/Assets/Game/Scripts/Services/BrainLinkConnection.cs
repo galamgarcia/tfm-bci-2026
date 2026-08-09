@@ -4,6 +4,7 @@
  * © 2026 Gala M. García
  */
 
+using BciGame.Input;
 using UnityEngine;
 
 namespace BciGame.Services
@@ -12,7 +13,7 @@ namespace BciGame.Services
     /// Provides the persistent application-level connection to a BrainLink device.
     /// </summary>
     [DefaultExecutionOrder(-100)]
-    public sealed class BrainLinkConnection : MonoBehaviour
+    public sealed class BrainLinkConnection : MonoBehaviour, IMentalInputSource
     {
         [Header("References")]
         [Tooltip("BrainLink SDK manager that receives Bluetooth and EEG callbacks.")]
@@ -27,7 +28,7 @@ namespace BciGame.Services
         /// <summary>Indicates if the BrainLink device is currently connected.</summary>
         public bool IsConnected => thinkGearManager != null && thinkGearManager.IsHeadsetConnected();
         /// <summary>Indicates if the connected device reports sufficient EEG signal quality.</summary>
-        public bool HasGoodSignal => thinkGearManager != null && thinkGearManager.GetWave_quality() <= 75;
+        public bool HasValidSignal => thinkGearManager != null && thinkGearManager.GetWave_quality() <= 75;
         /// <summary>Gets the normalized relaxation value reported by BrainLink.</summary>
         public float Relaxation => thinkGearManager == null ? 0f : thinkGearManager.GetMeditation() / 100f;
         /// <summary>Gets the normalized concentration value reported by BrainLink.</summary>

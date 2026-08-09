@@ -65,7 +65,7 @@ namespace BciGame.UI
             float value = trainingType == EegTrainingType.Relaxation ? connection.Relaxation : connection.Concentration;
             fillImage.fillAmount = Mathf.MoveTowards(fillImage.fillAmount, value, Time.deltaTime * 1.5f);
 
-            if (!connection.HasGoodSignal || fillImage.fillAmount < target)
+            if (!connection.HasValidSignal || fillImage.fillAmount < target)
             {
                 _holdStartedAt = -1f;
                 return;

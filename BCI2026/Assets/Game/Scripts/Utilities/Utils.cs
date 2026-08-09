@@ -25,7 +25,7 @@ namespace BciGame.Utilities
         /// <returns>Whether the BrainLink signal quality is good.</returns>
         public static bool IsBrainLinkConnectionGood()
         {
-            return BrainLinkConnection.Instance != null && BrainLinkConnection.Instance.HasGoodSignal;
+            return BrainLinkConnection.Instance != null && BrainLinkConnection.Instance.HasValidSignal;
         }
     }
 }
