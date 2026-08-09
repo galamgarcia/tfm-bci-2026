@@ -1,0 +1,9 @@
+{
+  "name": "BciGame.Tutorial.PlayModeTests",
+  "references": [
+    "BciGame.Runtime"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
