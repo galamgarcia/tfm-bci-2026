@@ -1548,8 +1548,8 @@ MonoBehaviour:
   ballPrefab: {fileID: 826290326924768348, guid: a429b3c534ec14659b0ffc220dcaf873, type: 3}
   goalPrefab: {fileID: 1131800361932023386, guid: 3101506a8b5b149bba164fce057d0d38, type: 3}
   exerciseContainer: {fileID: 6945491527491683598}
-  minimumBallPosition: {x: -290, y: 0}
-  maximumBallPosition: {x: 290, y: 0}
+  minBallPosition: {x: -290, y: 0}
+  maxBallPosition: {x: 290, y: 0}
   initialBallPosition: {x: -260, y: 0}
   initialGoalPosition: {x: 260, y: 0}
   successParticles: {fileID: 8328338932878301743}

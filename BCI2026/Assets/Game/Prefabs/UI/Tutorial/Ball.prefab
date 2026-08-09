@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e684d42635b0a4488b8ac9b3c655074a, type: 3}
   m_Name: ""
   m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialBall
-  initialBallTransform: {fileID: 0}
-  ballImage: {fileID: 0}
+  rectTransform: {fileID: 0}
+  image: {fileID: 0}
 --- !u!114 &5666774324731099207
 MonoBehaviour:
   m_ObjectHideFlags: 0
