@@ -6,6 +6,7 @@
 
 using System.Collections;
 using BciGame.Gameplay;
+using BciGame.Input;
 using Game.Scripts.Gameplay;
 using UnityEngine;
 
@@ -44,6 +45,8 @@ namespace BciGame.UI
 
         private TutorialBall _ball;
         private TutorialGoal _goal;
+        private IHeadInputSource _headInputSource;
+        private IMentalInputSource _mentalInputSource;
         // Current exercise phase: neutral, first mental-state target, then opposite target.
         private int _round;
         // Mental-state target selected for the first EEG-dependent round.
@@ -61,6 +64,19 @@ namespace BciGame.UI
         public override void Deactivate()
         {
             DespawnExerciseObjects();
+        }
+
+        /// <summary>Configures the input sources used by dynamically spawned exercise objects.</summary>
+        /// <param name="headInputSource">Source that provides head movement and nod gestures.</param>
+        /// <param name="mentalInputSource">Source that provides EEG samples and signal quality.</param>
+        public void ConfigureInputSources(IHeadInputSource headInputSource, IMentalInputSource mentalInputSource)
+        {
+            _headInputSource = headInputSource;
+            _mentalInputSource = mentalInputSource;
+            if (_ball != null)
+            {
+                _ball.SetInputSources(_headInputSource, _mentalInputSource);
+            }
         }
 
         /// <summary>Advances the exercise after the active goal is reached.</summary>
@@ -129,6 +145,7 @@ namespace BciGame.UI
             _goal = Instantiate(goalPrefab, parent);
             _goal.OnTriggered += OnGoalTriggered;
             _ball.Configure(minBallPosition, maxBallPosition);
+            _ball.SetInputSources(_headInputSource, _mentalInputSource);
         }
 
         /// <summary>Unsubscribes from and destroys the spawned exercise objects.</summary>

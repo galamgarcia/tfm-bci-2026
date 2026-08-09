@@ -6,15 +6,13 @@
 
 using System;
 using BciGame.Input;
-using BciGame.Services;
-using BciGame.Utilities;
 using Game.Scripts.Gameplay;
 using UnityEngine;
 
 namespace BciGame.Gameplay
 {
     /// <summary>
-    /// Base component that exposes head-tracking and EEG input to movement implementations.
+    /// Transforms injected head and EEG samples into input events.
     /// </summary>
     public class InputComponent : MonoBehaviour
     {
@@ -30,41 +28,42 @@ namespace BciGame.Gameplay
         [Tooltip("Horizontal speed movement.")]
         [SerializeField] private float horizontalMovementSpeed = 240f;
 
-        /// <summary>Scene service that supplies face pose and confirmed nod gestures.</summary>
-        private HeadPoseTracker _headPoseTracker;
+        // Input sources injected.
+        private IHeadInputSource _headInputSource;
+        private IMentalInputSource _mentalInputSource;
+        private bool _isHeadSourceSubscribed;
+        // Last published EEG levels, reset when their tracking mode changes.
+        private MentalStateLevel _relaxationLevel = MentalStateLevel.None;
+        private MentalStateLevel _concentrationLevel = MentalStateLevel.None;
+
         /// <summary>Triggered when the relaxation level changes.</summary>
         public event Action<MentalStateLevel> OnRelaxationChanged;
         /// <summary>Triggered when the concentration level changes.</summary>
         public event Action<MentalStateLevel> OnConcentrationChanged;
         /// <summary>Triggered with the horizontal movement delta detected during the current frame.</summary>
         public event Action<float> OnHorizontalMovementReceived;
-        /// <summary>Triggered after the head tracker confirms a nod gesture.</summary>
-        public event Action OnNodReceived;
+        /// <summary>Triggered after the head input source confirms a nod gesture.</summary>
+        public event Action OnNodDetected;
 
-        /// <summary>Most recently notified relaxation level.</summary>
-        private MentalStateLevel _currentRelaxationStateLevel = MentalStateLevel.None;
-        /// <summary>Most recently notified concentration level.</summary>
-        private MentalStateLevel _currentConcentrationStateLevel = MentalStateLevel.None;
-
-        protected virtual void Awake()
+        /// <summary>Injects the head and EEG sources consumed by this input component.</summary>
+        /// <param name="headInputSource">Source that provides head movement and nod gestures.</param>
+        /// <param name="mentalInputSource">Source that provides signal quality and EEG samples.</param>
+        public void ConfigureSources(IHeadInputSource headInputSource, IMentalInputSource mentalInputSource)
         {
-            _headPoseTracker = FindFirstObjectByType<HeadPoseTracker>();
+            UnsubscribeFromHeadSource();
+            _headInputSource = headInputSource;
+            _mentalInputSource = mentalInputSource;
+            SubscribeToHeadSource();
         }
 
         protected virtual void OnEnable()
         {
-            if (_headPoseTracker != null)
-            {
-                _headPoseTracker.NodDetected += HandleNodDetected;
-            }
+            SubscribeToHeadSource();
         }
 
         protected virtual void OnDisable()
         {
-            if (_headPoseTracker != null)
-            {
-                _headPoseTracker.NodDetected -= HandleNodDetected;
-            }
+            UnsubscribeFromHeadSource();
         }
 
         protected virtual void Update()
@@ -77,13 +76,28 @@ namespace BciGame.Gameplay
 
             if (isRelaxationStateTracked)
             {
-                NotifyRelaxationChanged(TryGetRelaxationInput());
+                NotifyRelaxationChanged(GetRelaxationLevel());
             }
 
             if (isConcentrationStateTracked)
             {
-                NotifyConcentrationChanged(TryGetConcentrationInput());
+                NotifyConcentrationChanged(GetConcentrationLevel());
             }
+        }
+
+        public bool HasValidMentalSignal()
+        {
+            return _mentalInputSource != null && _mentalInputSource.HasValidSignal;
+        }
+
+        public MentalStateLevel GetCurrentRelaxationLevel()
+        {
+            return _relaxationLevel;
+        }
+
+        public MentalStateLevel GetCurrentConcentrationLevel()
+        {
+            return _concentrationLevel;
         }
 
         /// <summary>Enables the input sources required by a concrete movement mode.</summary>
@@ -97,76 +111,58 @@ namespace BciGame.Gameplay
             isNodTracked = nod;
             isRelaxationStateTracked = relaxation;
             isConcentrationStateTracked = concentration;
-            _currentRelaxationStateLevel = MentalStateLevel.None;
-            _currentConcentrationStateLevel = MentalStateLevel.None;
+            _relaxationLevel = MentalStateLevel.None;
+            _concentrationLevel = MentalStateLevel.None;
+        }
+
+        /// <summary>Classifies a normalized EEG metric into its mental-state level.</summary>
+        /// <param name="value">Normalized EEG value expected in the range from zero to one.</param>
+        /// <returns>The corresponding level, or None for invalid values.</returns>
+        public static MentalStateLevel ClassifyMentalState(float value)
+        {
+            if (float.IsNaN(value) || float.IsInfinity(value)) { return MentalStateLevel.None; }
+
+            value = Mathf.Clamp01(value);
+            if (value < 1f / 3f) { return MentalStateLevel.Low; }
+            if (value < 2f / 3f) { return MentalStateLevel.Medium; }
+            return MentalStateLevel.High;
         }
 
         /// <summary>Reads the normalized horizontal head input when face tracking is available.</summary>
         /// <param name="input">Normalized yaw input, where negative is left and positive is right.</param>
         /// <returns>True if a valid head input sample is available.</returns>
-        protected bool TryGetHeadHorizontalInput(out float input)
+        private bool TryGetHeadHorizontalInput(out float input)
         {
-            if (_headPoseTracker == null || !_headPoseTracker.HasFace)
+            if (_headInputSource == null || !_headInputSource.HasFace)
             {
                 input = 0f;
                 return false;
             }
 
-            input = _headPoseTracker.HorizontalInput;
+            input = _headInputSource.HorizontalInput;
             return true;
         }
 
         /// <summary>Reads a normalized relaxation value when BrainLink signal quality is sufficient.</summary>
         /// <returns>The relaxation level.</returns>
-        protected MentalStateLevel TryGetRelaxationInput()
+        private MentalStateLevel GetRelaxationLevel()
         {
-            if (!Utils.IsBrainLinkConnectionGood())
-            {
-                return MentalStateLevel.None;
-            }
-            return GetMentalStateLevel(BrainLinkConnection.Instance.Relaxation);
+            return HasValidMentalSignal() ? ClassifyMentalState(_mentalInputSource.Relaxation) : MentalStateLevel.None;
         }
 
         /// <summary>Reads a normalized concentration value when BrainLink signal quality is sufficient.</summary>
         /// <returns>The concentration level.</returns>
-        protected MentalStateLevel TryGetConcentrationInput()
+        private MentalStateLevel GetConcentrationLevel()
         {
-            if (!Utils.IsBrainLinkConnectionGood())
-            {
-                return MentalStateLevel.None;
-            }
-            return GetMentalStateLevel(BrainLinkConnection.Instance.Concentration);
-        }
-
-        /// <summary>Classifies a normalized BrainLink metric into three equally sized ranges.</summary>
-        /// <param name="value">Normalized BrainLink value, expected in the range from zero to one.</param>
-        /// <returns>The corresponding mental state level, or <see cref="MentalStateLevel.None"/> for invalid values.</returns>
-        private MentalStateLevel GetMentalStateLevel(float value)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value))
-            {
-                return MentalStateLevel.None;
-            }
-
-            value = Mathf.Clamp01(value);
-            if (value < 1f / 3f)
-            {
-                return MentalStateLevel.Low;
-            }
-            if (value < 2f / 3f)
-            {
-                return MentalStateLevel.Medium;
-            }
-
-            return MentalStateLevel.High;
+            return HasValidMentalSignal() ? ClassifyMentalState(_mentalInputSource.Concentration) : MentalStateLevel.None;
         }
 
         /// <summary>Notifies when the relaxation level differs from the previous level.</summary>
         /// <param name="state">New classified relaxation level.</param>
         private void NotifyRelaxationChanged(MentalStateLevel state)
         {
-            if (_currentRelaxationStateLevel == state) { return; }
-            _currentRelaxationStateLevel = state;
+            if (_relaxationLevel == state) { return; }
+            _relaxationLevel = state;
             OnRelaxationChanged?.Invoke(state);
         }
 
@@ -174,16 +170,32 @@ namespace BciGame.Gameplay
         /// <param name="state">New classified concentration level.</param>
         private void NotifyConcentrationChanged(MentalStateLevel state)
         {
-            if (_currentConcentrationStateLevel == state) { return; }
-            _currentConcentrationStateLevel = state;
+            if (_concentrationLevel == state) { return; }
+            _concentrationLevel = state;
             OnConcentrationChanged?.Invoke(state);
         }
 
+        /// <summary>Subscribes to nod events once a head source is available.</summary>
+        private void SubscribeToHeadSource()
+        {
+            if (_isHeadSourceSubscribed || _headInputSource == null) { return; }
+            _headInputSource.NodDetected += OnNodReceived;
+            _isHeadSourceSubscribed = true;
+        }
+
+        /// <summary>Removes the nod-event subscription while preserving the configured source.</summary>
+        private void UnsubscribeFromHeadSource()
+        {
+            if (!_isHeadSourceSubscribed || _headInputSource == null) { return; }
+            _headInputSource.NodDetected -= OnNodReceived;
+            _isHeadSourceSubscribed = false;
+        }
+
         /// <summary>Forwards a confirmed nod when nod input is enabled.</summary>
-        private void HandleNodDetected()
+        private void OnNodReceived()
         {
             if (!isNodTracked) { return; }
-            OnNodReceived?.Invoke();
+            OnNodDetected?.Invoke();
         }
     }
 }

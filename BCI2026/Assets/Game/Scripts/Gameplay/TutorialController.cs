@@ -6,6 +6,7 @@
 
 using System.Collections;
 using BciGame.Input;
+using BciGame.Services;
 using BciGame.UI;
 using BciGame.Utilities;
 using UnityEngine;
@@ -140,6 +141,9 @@ namespace BciGame.Gameplay
                     nodHintText.SetTextId(TutorialTextId.HeadsetInstruction);
                     nodCheck.SetActive(false);
                     headPoseTracker.BeginCalibration();
+                    break;
+                case TutorialScreenType.Movement:
+                    ((TutorialMovementScreen)screens[screenIndex]).ConfigureInputSources(headPoseTracker, BrainLinkConnection.Instance);
                     break;
                 case TutorialScreenType.Complete:
                     completeVFX.SetActive(true);

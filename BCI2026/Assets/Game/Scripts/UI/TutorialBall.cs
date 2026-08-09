@@ -6,6 +6,7 @@
 
 using BciGame.Core;
 using BciGame.Gameplay;
+using BciGame.Input;
 using Game.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,8 +28,6 @@ namespace BciGame.UI
         // Horizontal and vertical bounds.
         private Vector2 _minPosition;
         private Vector2 _maxPosition;
-        // Most recently received concentration level from the input component.
-        private MentalStateLevel _concentrationLevel;
         // Indicates if the concentration levels update the ball color.
         private bool _usesConcentrationColor;
 
@@ -67,12 +66,26 @@ namespace BciGame.UI
             SetConcentrationColorEnabled(false);
         }
 
+        /// <summary>Updates the sources consumed by the input component.</summary>
+        /// <param name="headInputSource">Source that provides head movement and nod gestures.</param>
+        /// <param name="mentalInputSource">Source that provides EEG samples and signal quality.</param>
+        public void SetInputSources(IHeadInputSource headInputSource, IMentalInputSource mentalInputSource)
+        {
+            _inputComponent.ConfigureSources(headInputSource, mentalInputSource);
+        }
+
         /// <summary>Gets the most recent concentration level received from the input component.</summary>
         /// <returns>The current concentration level.</returns>
         public MentalStateLevel GetConcentrationLevel()
         {
-            return _concentrationLevel;
+            return _inputComponent.GetCurrentConcentrationLevel();
         }
+
+        /// <summary>Gets whether the current EEG input source reports a valid signal.</summary>
+        public bool HasValidEegSignal()
+        {
+            return _inputComponent.HasValidMentalSignal();
+        } 
 
         /// <summary>Enables or disables concentration-based color feedback for the ball.</summary>
         /// <param name="enabled">Whether live concentration levels should update the ball color.</param>
@@ -86,7 +99,6 @@ namespace BciGame.UI
         /// <param name="level">New concentration level received from the input component.</param>
         private void OnConcentrationChanged(MentalStateLevel level)
         {
-            _concentrationLevel = level;
             UpdateColor();
         }
 
@@ -94,7 +106,7 @@ namespace BciGame.UI
         private void UpdateColor()
         {
             if (image == null || TutorialSettings.Instance == null) { return; }
-            MentalStateLevel colorLevel = _usesConcentrationColor ? _concentrationLevel : MentalStateLevel.None;
+            MentalStateLevel colorLevel = _usesConcentrationColor ? _inputComponent.GetCurrentRelaxationLevel() : MentalStateLevel.None;
             image.color = TutorialSettings.Instance.GetColor(colorLevel);
         }
 

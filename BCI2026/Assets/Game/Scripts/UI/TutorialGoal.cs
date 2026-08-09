@@ -7,7 +7,6 @@
 using System;
 using BciGame.Core;
 using BciGame.Gameplay;
-using BciGame.Utilities;
 using Game.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,7 +53,7 @@ namespace BciGame.UI
         private void Update()
         {
             if (_isTriggered || _ball == null || Vector2.Distance(_ball.Position, Position) > radius) { return; }
-            if (!TutorialRules.AreGoalRequirementsMet(_requiredConcentrationLevel, _ball.GetConcentrationLevel(), Utils.IsBrainLinkConnectionGood())) { return; }
+            if (!TutorialRules.AreGoalRequirementsMet(_requiredConcentrationLevel, _ball.GetConcentrationLevel(), _ball.HasValidEegSignal())) { return; }
 
             _isTriggered = true;
             OnTriggered?.Invoke();
