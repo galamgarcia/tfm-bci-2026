@@ -23,39 +23,39 @@ namespace BciGame.Tests.Editor
 
         [TestCase(MentalStateLevel.Medium)]
         [TestCase(MentalStateLevel.High)]
-        public void AreGoalRequirementsMet_ReturnsTrueForMediumOrHighConcentration(MentalStateLevel concentrationLevel)
+        public void AreGoalRequirementsMet_ReturnsTrueForMediumOrHighConcentration(MentalStateLevel level)
         {
-            bool result = TutorialRules.AreGoalRequirementsMet(MentalStateLevel.Medium, concentrationLevel, true);
+            bool result = TutorialRules.AreGoalRequirementsMet(MentalStateLevel.Medium, level, true);
             Assert.That(result, Is.True);
         }
 
         [TestCase(MentalStateLevel.Low)]
         [TestCase(MentalStateLevel.Medium)]
-        public void AreGoalRequirementsMet_ReturnsFalseForNonNeutralRequirementAndInvalidSignal(MentalStateLevel requiredLevel)
+        public void AreGoalRequirementsMet_ReturnsFalseWhenSignalIsInvalid(MentalStateLevel required)
         {
-            bool result = TutorialRules.AreGoalRequirementsMet(requiredLevel, requiredLevel, false);
+            bool result = TutorialRules.AreGoalRequirementsMet(required, required, false);
             Assert.That(result, Is.False);
         }
 
         [TestCase(MentalStateLevel.None)]
         [TestCase(MentalStateLevel.Low)]
-        public void GetFirstMentalRoundRequirement_ReturnsMediumForNonFocusedConcentration(MentalStateLevel concentrationLevel)
+        public void GetFirstMentalRoundRequirement_ReturnsMediumForUnfocusedPlayer(MentalStateLevel level)
         {
-            Assert.That(TutorialRules.GetFirstMentalMovementRoundRequirement(concentrationLevel), Is.EqualTo(MentalStateLevel.Medium));
+            Assert.That(TutorialRules.GetFirstMentalMovementRoundRequirement(level), Is.EqualTo(MentalStateLevel.Medium));
         }
 
         [TestCase(MentalStateLevel.Medium)]
         [TestCase(MentalStateLevel.High)]
-        public void GetFirstMentalRoundRequirement_ReturnsLowForFocusedConcentration(MentalStateLevel concentrationLevel)
+        public void GetFirstMentalMovementRoundRequirement_ReturnsLowForFocusedConcentration(MentalStateLevel level)
         {
-            Assert.That(TutorialRules.GetFirstMentalMovementRoundRequirement(concentrationLevel), Is.EqualTo(MentalStateLevel.Low));
+            Assert.That(TutorialRules.GetFirstMentalMovementRoundRequirement(level), Is.EqualTo(MentalStateLevel.Low));
         }
 
         [TestCase(MentalStateLevel.Low, MentalStateLevel.Medium)]
         [TestCase(MentalStateLevel.Medium, MentalStateLevel.Low)]
-        public void GetNextMentalRoundRequirement_ReturnsOppositeRequirement(MentalStateLevel previousRequirement, MentalStateLevel expectedRequirement)
+        public void GetOppositeMentalMovementRoundRequirement_ReturnsOppositeRequirement(MentalStateLevel previous, MentalStateLevel expected)
         {
-            Assert.That(TutorialRules.GetOppositeMentalMovementRoundRequirement(previousRequirement), Is.EqualTo(expectedRequirement));
+            Assert.That(TutorialRules.GetOppositeMentalMovementRoundRequirement(previous), Is.EqualTo(expected));
         }
 
         [TestCase(-260f, -100f, -290f, 290f, -290f)]
