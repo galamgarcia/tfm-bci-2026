@@ -102,7 +102,7 @@ namespace BciGame.UI
         /// <param name="delta">Horizontal canvas-space displacement received for this frame.</param>
         private void OnHorizontalMovementReceived(float delta)
         {
-            float x = Mathf.Clamp(Position.x + delta, _minPosition.x, _maxPosition.x);
+            float x = TutorialRules.GetBoundedHorizontalPosition(Position.x, delta, _minPosition.x, _maxPosition.x);
             Position = new Vector2(x, Position.y);
         }
     }

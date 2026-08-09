@@ -1,4 +1,5 @@
 using Game.Scripts.Gameplay;
+using UnityEngine;
 
 namespace BciGame.Gameplay
 {
@@ -33,6 +34,17 @@ namespace BciGame.Gameplay
         public static MentalStateLevel GetOppositeMentalMovementRoundRequirement(MentalStateLevel previousRequirement)
         {
             return previousRequirement == MentalStateLevel.Medium ? MentalStateLevel.Low : MentalStateLevel.Medium;
+        }
+
+        /// <summary>Gets a horizontal position constrained to the configured movement bounds.</summary>
+        /// <param name="position">Current horizontal canvas position.</param>
+        /// <param name="delta">Horizontal displacement to apply.</param>
+        /// <param name="min">Minimum permitted horizontal position.</param>
+        /// <param name="max">Maximum permitted horizontal position.</param>
+        /// <returns>The resulting horizontal position within the configured bounds.</returns>
+        public static float GetBoundedHorizontalPosition(float position, float delta, float min, float max)
+        {
+            return Mathf.Clamp(position + delta, min, max);
         }
     }
 }

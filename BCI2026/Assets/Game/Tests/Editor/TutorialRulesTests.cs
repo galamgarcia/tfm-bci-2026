@@ -57,5 +57,14 @@ namespace BciGame.Tests.Editor
         {
             Assert.That(TutorialRules.GetOppositeMentalMovementRoundRequirement(previousRequirement), Is.EqualTo(expectedRequirement));
         }
+
+        [TestCase(-260f, -100f, -290f, 290f, -290f)]
+        [TestCase(260f, 100f, -290f, 290f, 290f)]
+        [TestCase(0f, 50f, -290f, 290f, 50f)]
+        public void GetBoundedHorizontalPosition_ReturnsPositionWithinBounds(float current, float delta, float min, float max, float expectedPosition)
+        {
+            float position = TutorialRules.GetBoundedHorizontalPosition(current, delta, min, max);
+            Assert.That(position, Is.EqualTo(expectedPosition));
+        }
     }
 }
