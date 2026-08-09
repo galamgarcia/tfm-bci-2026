@@ -5,6 +5,7 @@
  */
 
 using System.Collections;
+using BciGame.Gameplay;
 using Game.Scripts.Gameplay;
 using UnityEngine;
 
@@ -68,7 +69,7 @@ namespace BciGame.UI
             if (_round == 0)
             {
                 _round = 1;
-                _firstMentalState = _ball.GetConcentrationLevel() >= MentalStateLevel.Medium ? MentalStateLevel.Low : MentalStateLevel.Medium;
+                _firstMentalState = TutorialRules.GetFirstMentalMovementRoundRequirement(_ball.GetConcentrationLevel());
                 StartMentalRound(_firstMentalState, -initialGoalPosition.x);
                 ShowSuccessParticles();
                 return;
@@ -77,7 +78,7 @@ namespace BciGame.UI
             if (_round == 1)
             {
                 _round = 2;
-                MentalStateLevel finalState = _firstMentalState == MentalStateLevel.Medium ? MentalStateLevel.Low : MentalStateLevel.Medium;
+                MentalStateLevel finalState = TutorialRules.GetOppositeMentalMovementRoundRequirement(_firstMentalState);
                 StartMentalRound(finalState, initialGoalPosition.x);
                 ShowSuccessParticles();
                 return;

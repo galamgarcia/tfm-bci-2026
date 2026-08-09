@@ -6,6 +6,7 @@
 
 using System;
 using BciGame.Core;
+using BciGame.Gameplay;
 using BciGame.Utilities;
 using Game.Scripts.Gameplay;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace BciGame.UI
         private void Update()
         {
             if (_isTriggered || _ball == null || Vector2.Distance(_ball.Position, Position) > radius) { return; }
-            if (!HasRequiredConcentrationLevel()) { return; }
+            if (!TutorialRules.AreGoalRequirementsMet(_requiredConcentrationLevel, _ball.GetConcentrationLevel(), Utils.IsBrainLinkConnectionGood())) { return; }
 
             _isTriggered = true;
             OnTriggered?.Invoke();
@@ -73,14 +74,5 @@ namespace BciGame.UI
             }
         }
 
-        /// <summary>Determines whether the tracked ball meets this goal's concentration requirement.</summary>
-        /// <returns>Whether the current concentration level is valid for this goal.</returns>
-        private bool HasRequiredConcentrationLevel()
-        {
-            if (_requiredConcentrationLevel == MentalStateLevel.None) { return true; }
-            if (!Utils.IsBrainLinkConnectionGood()) { return false; }
-            MentalStateLevel concentrationLevel = _ball.GetConcentrationLevel();
-            return _requiredConcentrationLevel == MentalStateLevel.Low ? concentrationLevel == MentalStateLevel.Low : concentrationLevel >= _requiredConcentrationLevel;
-        }
     }
 }
