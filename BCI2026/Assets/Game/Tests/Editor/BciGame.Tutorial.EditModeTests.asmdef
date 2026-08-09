@@ -1,0 +1,12 @@
+{
+  "name": "BciGame.Tutorial.EditModeTests",
+  "references": [
+    "BciGame.Runtime"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
