@@ -25,7 +25,7 @@ namespace BciGame.Tests.Editor
         [TestCase(true, true, true, true, BrainLinkDataStatus.CompleteData)]
         public void Resolve_ClassifiesConnectionState(bool connected, bool hasData, bool hasCompleteData, bool hasValidSignal, BrainLinkDataStatus expected)
         {
-            Assert.That(BrainLinkDataStatusResolver.Resolve(connected, hasData, hasCompleteData, hasValidSignal), Is.EqualTo(expected));
+            Assert.That(BrainLinkDataManager.Resolve(connected, hasData, hasCompleteData, hasValidSignal), Is.EqualTo(expected));
         }
     }
 }
