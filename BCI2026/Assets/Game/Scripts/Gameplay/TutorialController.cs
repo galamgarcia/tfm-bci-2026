@@ -10,7 +10,6 @@ using BciGame.Services;
 using BciGame.UI;
 using BciGame.Utilities;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BciGame.Gameplay
 {
@@ -35,8 +34,6 @@ namespace BciGame.Gameplay
         [SerializeField] private GameObject nodCheck;
 
         [Header("EEG Status")]
-        [Tooltip("Persistent icon that communicates current EEG signal quality.")]
-        [SerializeField] private Image eegIcon;
         [Tooltip("Warning panel shown when EEG-dependent exercises lose signal quality.")]
         [SerializeField] private CanvasGroup eegWarning;
 
@@ -98,12 +95,7 @@ namespace BciGame.Gameplay
 
         private void Update()
         {
-            bool shouldShowStatus = HasEegStatus(CurrentScreenType);
-            eegIcon.gameObject.SetActive(shouldShowStatus);
-            if (!shouldShowStatus) { return; }
-
             bool hasSignal = Utils.IsBrainLinkConnectionGood();
-            eegIcon.color = hasSignal ? new Color(0.04f, 0.52f, 1f) : new Color(0.45f, 0.47f, 0.5f);
             bool isTraining = IsEegTraining(CurrentScreenType);
             eegWarning.alpha = isTraining && !hasSignal ? 1f : 0f;
         }
@@ -211,18 +203,6 @@ namespace BciGame.Gameplay
             SetScreenVisible(current, false, 0f);
             SetScreenVisible(next, true, 1f);
             _isTransitioning = false;
-        }
-
-        /// <summary>Determines if the screen should display the EEG signal status icon.</summary>
-        /// <param name="screenType">Tutorial screen type to evaluate.</param>
-        /// <returns>Whether the EEG status icon should be visible.</returns>
-        private static bool HasEegStatus(TutorialScreenType screenType)
-        {
-            return screenType is TutorialScreenType.EegSignal
-                or TutorialScreenType.PracticeIntro
-                or TutorialScreenType.Relaxation
-                or TutorialScreenType.Concentration
-                or TutorialScreenType.Movement;
         }
 
         /// <summary>Determines if the screen requires a valid EEG signal to progress.</summary>
