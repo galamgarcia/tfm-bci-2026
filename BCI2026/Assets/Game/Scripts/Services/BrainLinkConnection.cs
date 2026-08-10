@@ -31,6 +31,18 @@ namespace BciGame.Services
         public bool IsConnected => thinkGearManager != null && thinkGearManager.IsHeadsetConnected();
         /// <summary>Indicates if the connected device reports sufficient EEG signal quality.</summary>
         public bool HasValidSignal => thinkGearManager != null && thinkGearManager.GetWave_quality() <= 75;
+        /// <summary>Gets the current connection and EEG-data completeness state.</summary>
+        public BrainLinkDataStatus DataStatus
+        {
+            get
+            {
+                return BrainLinkDataManager.Resolve(
+                    IsConnected,
+                    thinkGearManager != null && thinkGearManager.HasRecentEegData(),
+                    thinkGearManager != null && thinkGearManager.HasRecentCompleteEegData(),
+                    HasValidSignal);
+            }
+        }
         /// <summary>Gets the normalized relaxation value reported by BrainLink.</summary>
         public float Relaxation => thinkGearManager == null ? 0f : thinkGearManager.GetMeditation() / 100f;
         /// <summary>Gets the normalized concentration value reported by BrainLink.</summary>
