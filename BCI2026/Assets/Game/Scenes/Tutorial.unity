@@ -797,7 +797,7 @@ MonoBehaviour:
   nodCheck: {fileID: 1195963952429347471}
   eegIcon: {fileID: 943727096}
   eegWarning: {fileID: 820189120}
-  finalConfetti: {fileID: 5058269410550854496}
+  completeVFX: {fileID: 5058269410550854496}
 --- !u!114 &1066988530
 MonoBehaviour:
   m_ObjectHideFlags: 0

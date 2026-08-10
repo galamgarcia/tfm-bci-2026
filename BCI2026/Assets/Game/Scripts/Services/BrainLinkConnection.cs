@@ -24,6 +24,8 @@ namespace BciGame.Services
 
         // Prevents concurrent Bluetooth scans from being requested.
         private bool _isScanning;
+        // Tracks the SDK event subscription across component enable/disable cycles.
+        private bool _isScanListenerRegistered;
 
         /// <summary>Indicates if the BrainLink device is currently connected.</summary>
         public bool IsConnected => thinkGearManager != null && thinkGearManager.IsHeadsetConnected();
@@ -54,17 +56,20 @@ namespace BciGame.Services
 
         private void OnEnable()
         {
-            if (Instance == this && thinkGearManager != null)
-            {
-                thinkGearManager.receiveScanDevice.AddListener(ConnectFirstDevice);
-            }
+            RegisterScanListener();
+        }
+
+        private void Start()
+        {
+            RegisterScanListener();
         }
 
         private void OnDisable()
         {
-            if (Instance == this && thinkGearManager != null)
+            if (Instance == this && thinkGearManager != null && _isScanListenerRegistered)
             {
                 thinkGearManager.receiveScanDevice.RemoveListener(ConnectFirstDevice);
+                _isScanListenerRegistered = false;
             }
         }
 
@@ -72,8 +77,23 @@ namespace BciGame.Services
         public void StartConnection()
         {
             if (thinkGearManager == null || _isScanning || IsConnected) { return; }
+            RegisterScanListener();
             _isScanning = true;
+            Debug.Log("BrainLink: starting device scan.");
             thinkGearManager.Scan();
+        }
+
+        /// <summary>Subscribes after the SDK manager has initialized its scan event.</summary>
+        private void RegisterScanListener()
+        {
+            if (Instance != this || thinkGearManager == null || thinkGearManager.receiveScanDevice == null || _isScanListenerRegistered)
+            {
+                return;
+            }
+
+            thinkGearManager.receiveScanDevice.AddListener(ConnectFirstDevice);
+            _isScanListenerRegistered = true;
+            Debug.Log("BrainLink: scan listener registered.");
         }
 
         /// <summary>Connects the first device reported by the SDK scan callback.</summary>
@@ -84,6 +104,7 @@ namespace BciGame.Services
             string[] parts = device.Split(',');
             string identifier = parts.Length >= 2 ? parts[1].Trim() : parts[0].Trim();
             _isScanning = false;
+            Debug.Log("BrainLink: device found; connecting.");
             thinkGearManager.connectDevice(identifier);
         }
 

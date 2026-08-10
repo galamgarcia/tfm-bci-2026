@@ -17,7 +17,7 @@ public class ThinkGearManager : MonoBehaviour
     public int isApOn = 0;
 
     [Tooltip("Evento lanzado cada vez que se detecta un BrainLink durante el escaneo Bluetooth.")]
-    public ReceiveScanDevice receiveScanDevice;
+    public ReceiveScanDevice receiveScanDevice = new ReceiveScanDevice();
 
     // === Connection Status ===
     [HideInInspector]
@@ -163,7 +163,7 @@ public class ThinkGearManager : MonoBehaviour
     public void DeviceFound(string nameIdentifierOrAddressRiss)
     {
         Debug.Log("unity===nameAddressRiss:====" + nameIdentifierOrAddressRiss);
-        receiveScanDevice.Invoke(nameIdentifierOrAddressRiss);
+        receiveScanDevice?.Invoke(nameIdentifierOrAddressRiss);
     }
 
     public void OnApplicationQuit()
