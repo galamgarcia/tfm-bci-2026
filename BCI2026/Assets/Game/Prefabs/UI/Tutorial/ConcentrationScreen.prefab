@@ -802,7 +802,7 @@ MonoBehaviour:
   screenType: 6
   canvasGroup: {fileID: 3231538469170477343}
   trainingType: 1
-  fillImage: {fileID: 0}
+  fillImage: {fileID: 2911669292899788203}
   successCheck: {fileID: 5605462882227307101}
   resultText: {fileID: 7134553013554207254}
   target: 0.7

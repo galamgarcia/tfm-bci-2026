@@ -609,6 +609,7 @@ GameObject:
   - component: {fileID: 943727095}
   - component: {fileID: 943727097}
   - component: {fileID: 943727096}
+  - component: {fileID: 943727098}
   m_Layer: 0
   m_Name: EegStatusIcon
   m_TagString: Untagged
@@ -630,10 +631,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1366687643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.955, y: 0.92}
-  m_AnchorMax: {x: 0.955, y: 0.92}
+  m_AnchorMin: {x: 0.045, y: 0.92}
+  m_AnchorMax: {x: 0.045, y: 0.92}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 48, y: 48}
+  m_SizeDelta: {x: 56, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &943727096
 MonoBehaviour:
@@ -673,6 +674,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943727094}
   m_CullTransparentMesh: 1
+--- !u!114 &943727098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943727094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d6604f35c8408e8482fa856c65b5f2, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.BrainLinkStatusIcon
+  iconImage: {fileID: 943727096}
 --- !u!1 &1033192613
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +809,6 @@ MonoBehaviour:
   headPoseTracker: {fileID: 2004}
   nodHintText: {fileID: 8983541291899252996}
   nodCheck: {fileID: 1195963952429347471}
-  eegIcon: {fileID: 943727096}
   eegWarning: {fileID: 820189120}
   completeVFX: {fileID: 5058269410550854496}
 --- !u!114 &1066988530
