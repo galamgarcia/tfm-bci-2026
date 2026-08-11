@@ -143,6 +143,7 @@ namespace BciGame.UI
             Transform parent = exerciseContainer == null ? transform : exerciseContainer;
             _ball = Instantiate(ballPrefab, parent);
             _goal = Instantiate(goalPrefab, parent);
+            _ball.transform.SetAsLastSibling();
             _goal.OnTriggered += OnGoalTriggered;
             _ball.Configure(minBallPosition, maxBallPosition);
             _ball.SetInputSources(_headInputSource, _mentalInputSource);
