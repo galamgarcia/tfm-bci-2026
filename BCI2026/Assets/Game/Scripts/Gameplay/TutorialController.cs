@@ -135,7 +135,11 @@ namespace BciGame.Gameplay
                     headPoseTracker.BeginCalibration();
                     break;
                 case TutorialScreenType.Movement:
-                    ((TutorialMovementScreen)screens[screenIndex]).ConfigureInputSources(headPoseTracker, BrainLinkConnection.Instance);
+                    ((TutorialMovementScreen)screens[screenIndex]).ConfigureInputSources(headPoseTracker, FilteredMentalInputSource.Instance);
+                    break;
+                case TutorialScreenType.Relaxation:
+                case TutorialScreenType.Concentration:
+                    ((TutorialEegTrainingScreen)screens[screenIndex]).ConfigureInputSource(FilteredMentalInputSource.Instance);
                     break;
                 case TutorialScreenType.Complete:
                     completeVFX.SetActive(true);

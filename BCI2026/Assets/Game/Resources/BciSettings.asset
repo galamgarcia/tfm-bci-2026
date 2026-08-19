@@ -16,3 +16,7 @@ MonoBehaviour:
   connectedNoDataIcon: {fileID: 3286163911610860551, guid: 33c91bd218ce4206b9f9ffdff3792498, type: 3}
   partialDataIcon: {fileID: 3286163911610860551, guid: 2e843cd5eb2e42ba9d771666470ae79b, type: 3}
   completeDataIcon: {fileID: 3286163911610860551, guid: 29783c6884be4a20a99c9f772188a3a1, type: 3}
+  sampleIntervalSeconds: 0.25
+  publishIntervalSeconds: 0.5
+  averagingWindowSeconds: 1
+  outlierTrimPercentage: 0.1
