@@ -22,6 +22,10 @@ namespace BciGame.UI
         [Header("Feedback")]
         [Tooltip("Fill image that visualizes the current normalized EEG value.")]
         [SerializeField] private Image fillImage;
+        [Tooltip("Vertical marker that identifies the configured completion target on the rail.")]
+        [SerializeField] private Image targetMarker;
+        [Tooltip("Centered text shown below the rail with the current filtered percentage.")]
+        [SerializeField] private Text targetText;
         [Tooltip("Visual confirmation shown after the training target is completed.")]
         [SerializeField] private GameObject successCheck;
         [Tooltip("Text used to display the localized success message.")]
@@ -51,6 +55,12 @@ namespace BciGame.UI
             _isCompleted = false;
             _holdStartedAt = -1f;
             fillImage.fillAmount = 0f;
+            if (targetMarker != null)
+            {
+                targetMarker.rectTransform.anchorMin = new Vector2(target, 0.5f);
+                targetMarker.rectTransform.anchorMax = new Vector2(target, 0.5f);
+            }
+            if (targetText != null) { targetText.text = "0%"; }
             successCheck.SetActive(false);
             resultText.SetTextId(TutorialTextId.None);
         }
@@ -64,6 +74,10 @@ namespace BciGame.UI
 
             float value = trainingType == EegTrainingType.Relaxation ? connection.Relaxation : connection.Concentration;
             fillImage.fillAmount = Mathf.MoveTowards(fillImage.fillAmount, value, Time.deltaTime * 1.5f);
+            if (targetText != null)
+            {
+                targetText.text = $"{fillImage.fillAmount:P0}";
+            }
 
             if (!connection.HasValidSignal || fillImage.fillAmount < target)
             {
