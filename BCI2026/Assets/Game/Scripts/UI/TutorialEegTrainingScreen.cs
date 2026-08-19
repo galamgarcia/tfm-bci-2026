@@ -5,6 +5,7 @@
  */
 
 using BciGame.Services;
+using BciGame.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,8 +41,15 @@ namespace BciGame.UI
         private float _holdStartedAt = -1f;
         // Prevents the completion event from firing more than once per screen activation.
         private bool _isCompleted;
+        private IMentalInputSource _mentalInputSource;
 
         public override float CompletionDelay => 1f;
+
+        /// <summary>Configures the filtered mental input used for training feedback.</summary>
+        public void ConfigureInputSource(IMentalInputSource mentalInputSource)
+        {
+            _mentalInputSource = mentalInputSource;
+        }
 
         /// <summary>Identifies the EEG metric evaluated by this training screen.</summary>
         private enum EegTrainingType
@@ -69,17 +77,17 @@ namespace BciGame.UI
         {
             if (_isCompleted) { return; }
 
-            BrainLinkConnection connection = BrainLinkConnection.Instance;
-            if (connection == null) { return; }
+            IMentalInputSource mentalInput = _mentalInputSource ?? FilteredMentalInputSource.Instance;
+            if (mentalInput == null) { return; }
 
-            float value = trainingType == EegTrainingType.Relaxation ? connection.Relaxation : connection.Concentration;
+            float value = trainingType == EegTrainingType.Relaxation ? mentalInput.Relaxation : mentalInput.Concentration;
             fillImage.fillAmount = Mathf.MoveTowards(fillImage.fillAmount, value, Time.deltaTime * 1.5f);
             if (targetText != null)
             {
                 targetText.text = $"{fillImage.fillAmount:P0}";
             }
 
-            if (!connection.HasValidSignal || fillImage.fillAmount < target)
+            if (!mentalInput.HasValidSignal || fillImage.fillAmount < target)
             {
                 _holdStartedAt = -1f;
                 return;
