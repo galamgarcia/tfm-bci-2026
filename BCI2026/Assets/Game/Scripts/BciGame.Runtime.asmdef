@@ -1,0 +1,8 @@
+{
+  "name": "BciGame.Runtime",
+  "references": [
+    "BciGame.BrainLink",
+    "Unity.XR.ARFoundation",
+    "Unity.XR.ARSubsystems"
+  ]
+}

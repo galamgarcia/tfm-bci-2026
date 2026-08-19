@@ -6,6 +6,7 @@ public static class BuildAndroid
 {
     public static void Build()
     {
+        ConfigureARCore.Configure();
         EditorUserBuildSettings.buildAppBundle = false;
 
         var scenes = EditorBuildSettings.scenes
@@ -16,7 +17,7 @@ public static class BuildAndroid
         var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
         {
             scenes = scenes,
-            locationPathName = "Builds/BrainLinkDemo.apk",
+            locationPathName = "Builds/BCI2026.apk",
             target = BuildTarget.Android,
             options = BuildOptions.None
         });
