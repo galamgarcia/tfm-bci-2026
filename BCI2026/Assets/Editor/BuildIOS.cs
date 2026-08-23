@@ -2,8 +2,10 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 
+/// <summary>Builds the enabled scenes as an iOS Xcode project. </summary>
 public static class BuildIOS
 {
+    /// <summary>Configures iOS settings and builds the player. </summary>
     public static void Build()
     {
         ConfigureARKit.Configure();

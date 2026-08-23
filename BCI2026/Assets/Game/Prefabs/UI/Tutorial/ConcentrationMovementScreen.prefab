@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35f0eb1fbc3604d3f8c49c6cb981a604, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialMovementScreen
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.Gameplay.Tutorial.TutorialMovementScreen
   screenType: 9
   canvasGroup: {fileID: 4491161570708889381}
   ballPrefab: {fileID: 826290326924768348, guid: a429b3c534ec14659b0ffc220dcaf873, type: 3}
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 31
 --- !u!1 &6582692081136405681
 GameObject:
@@ -298,5 +298,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 32

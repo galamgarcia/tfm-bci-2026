@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99c4f40a1319847b4b9f5c6efe35c940, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialGoal
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.Gameplay.Tutorial.TutorialGoal
   rectTransform: {fileID: 0}
   image: {fileID: 0}
   radius: 52

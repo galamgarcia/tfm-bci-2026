@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialScreen
   screenType: 4
   canvasGroup: {fileID: 6332763304799101242}
 --- !u!1 &3137067229535804752
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 12
 --- !u!1 &5872959240907663808
 GameObject:
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 13
 --- !u!1 &6559779704334980919
 GameObject:
@@ -459,7 +459,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 14
 --- !u!1 &8691812110219292084
 GameObject:
@@ -584,7 +584,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BciGame.Gameplay.TutorialController, Assembly-CSharp
+        m_TargetAssemblyTypeName: BciGame.Gameplay.Tutorial.TutorialController, BciGame.Runtime
         m_MethodName: BeginPractice
         m_Mode: 0
         m_Arguments:
@@ -606,6 +606,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bcf8c66601eb4eb79548a1f0b1b1a76, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.NodButtonActivator
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.NodButton
   isSingleUse: 1
   button: {fileID: 0}

@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Services;
+using BciGame.Input.Signals;
 
 namespace BciGame.Utilities
 {

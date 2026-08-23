@@ -7,19 +7,19 @@ public class UnityThinkGear
 
 #if UNITY_IOS
 
-    [DllImport("__Internal")]
+    [DllImport("_Internal")]
     public static extern void SetWhiteList(string whiteList);
     
-    [DllImport("__Internal")]
+    [DllImport("_Internal")]
     public static extern void Scan();
     
-    [DllImport("__Internal")]
+    [DllImport("_Internal")]
     public static extern void ConnectDevice(string identifier);
     
-    // [DllImport("__Internal")]
+    // [DllImport("_Internal")]
     // public static extern void DisConnect();
     
-    [DllImport("__Internal")]
+    [DllImport("_Internal")]
     public static extern void SendSettings(string send);
  
 #endif

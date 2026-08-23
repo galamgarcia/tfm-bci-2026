@@ -86,13 +86,6 @@ public class ThinkGearManager : MonoBehaviour
     private string deviceName = string.Empty;
     // Indica si ya se enviaron los parámetros iniciales al dispositivo y evita reenviarlos cada vez que llega un paquete de señal.
     private bool isSendFirst;
-    // Timestamps distinguish a real zero-valued sample from no incoming EEG data.
-    private float lastPoorSignalAt = float.NegativeInfinity;
-    private float lastAttentionAt = float.NegativeInfinity;
-    private float lastMeditationAt = float.NegativeInfinity;
-
-    private const float DataTimeoutSeconds = 5f;
-
     // Returns whether the headset is connected on the active mobile platform.
     private bool IsPlatformHeadsetConnected
     {
@@ -256,18 +249,6 @@ public class ThinkGearManager : MonoBehaviour
         return IsPlatformHeadsetConnected;
     }
 
-    /// <summary>Returns whether any essential EEG packet was received recently.</summary>
-    public bool HasRecentEegData()
-    {
-        return IsRecent(lastPoorSignalAt) || IsRecent(lastAttentionAt) || IsRecent(lastMeditationAt);
-    }
-
-    /// <summary>Returns whether quality, attention and meditation packets are all current.</summary>
-    public bool HasRecentCompleteEegData()
-    {
-        return IsRecent(lastPoorSignalAt) && IsRecent(lastAttentionAt) && IsRecent(lastMeditationAt);
-    }
-
     public string GetHardwareversion4_0()
     {
         return IsPlatformHeadsetConnected ? Hardwareversion4_0 : string.Empty;
@@ -319,7 +300,7 @@ public class ThinkGearManager : MonoBehaviour
     
 
     // Accessory connect state...
-    void ReceiveContentState(string data)
+    protected virtual void ReceiveContentState(string data)
     {
         Debug.Log("ReceiveContentState   data = " + data);
         bool connected = string.Equals(data, "yes", StringComparison.OrdinalIgnoreCase);
@@ -342,9 +323,6 @@ public class ThinkGearManager : MonoBehaviour
         isSendFirst = false;
         isApOn = 0;
         isCircleOn = 0;
-        lastPoorSignalAt = float.NegativeInfinity;
-        lastAttentionAt = float.NegativeInfinity;
-        lastMeditationAt = float.NegativeInfinity;
     }
 
     void ReceiveRawdata(string data)
@@ -365,10 +343,9 @@ public class ThinkGearManager : MonoBehaviour
 #endif
     }
 
-    void ReceivePoorSignal(string data)
+    protected virtual void ReceivePoorSignal(string data)
     {
         PoorSignal = int.Parse(data);
-        lastPoorSignalAt = Time.realtimeSinceStartup;
         if (!isSendFirst)
         {
             isApOn = 0;
@@ -380,20 +357,13 @@ public class ThinkGearManager : MonoBehaviour
     }
     
     
-    void ReceiveAttention(string data)
+    protected virtual void ReceiveAttention(string data)
     {
         Attention = int.Parse(data);
-        lastAttentionAt = Time.realtimeSinceStartup;
     }
-    void ReceiveMeditation(string data)
+    protected virtual void ReceiveMeditation(string data)
     {
         Meditation = int.Parse(data);
-        lastMeditationAt = Time.realtimeSinceStartup;
-    }
-
-    private static bool IsRecent(float timestamp)
-    {
-        return Time.realtimeSinceStartup - timestamp <= DataTimeoutSeconds;
     }
     void ReceiveBatteryCapacity(string data)
     {

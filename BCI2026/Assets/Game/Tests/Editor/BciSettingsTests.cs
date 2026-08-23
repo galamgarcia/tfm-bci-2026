@@ -1,12 +1,21 @@
+/*
+ * BCI Interaction System for Videogames
+ * Master's Thesis · University of Alicante
+ * © 2026 Gala M. García
+ */
+
 using BciGame.Core;
-using BciGame.Services;
+using BciGame.Input.Signals;
 using NUnit.Framework;
 using UnityEngine;
 
 namespace BciGame.Tests.Editor
 {
+    /// <summary>Validates the shared BCI settings and data-status rules.</summary>
     public sealed class BciSettingsTests
     {
+        /// <summary>Verifies that each data status resolves to a configured icon.</summary>
+        /// <param name="status">BrainLink data status whose icon is requested.</param>
         [TestCase(BrainLinkDataStatus.Disconnected)]
         [TestCase(BrainLinkDataStatus.ConnectedNoData)]
         [TestCase(BrainLinkDataStatus.PartialData)]
@@ -18,6 +27,12 @@ namespace BciGame.Tests.Editor
             Assert.That(settings.GetConnectionStatusIcon(status), Is.Not.Null, $"Missing icon for {status}.");
         }
 
+        /// <summary>Verifies classification of a BrainLink connection state.</summary>
+        /// <param name="connected">Whether the device is connected.</param>
+        /// <param name="hasData">Whether recent EEG data is available.</param>
+        /// <param name="hasCompleteData">Whether recent complete EEG data is available.</param>
+        /// <param name="hasValidSignal">Whether the EEG signal quality is valid.</param>
+        /// <param name="expected">Expected data status.</param>
         [TestCase(false, false, false, false, BrainLinkDataStatus.Disconnected)]
         [TestCase(true, false, false, false, BrainLinkDataStatus.ConnectedNoData)]
         [TestCase(true, true, false, false, BrainLinkDataStatus.PartialData)]

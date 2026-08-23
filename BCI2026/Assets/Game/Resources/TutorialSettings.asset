@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab02, type: 3}
   m_Name: TutorialSettings
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.Core.TutorialSettings
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.Core.TutorialSettings
   stateColors:
   - state: 0
     color: {r: 1, g: 1, b: 1, a: 1}

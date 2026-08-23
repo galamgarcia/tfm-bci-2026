@@ -3,6 +3,7 @@
   "references": [
     "BciGame.BrainLink",
     "Unity.XR.ARFoundation",
+    "Unity.XR.CoreUtils",
     "Unity.XR.ARSubsystems"
   ]
 }
