@@ -4,13 +4,12 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Core;
-using BciGame.Input;
-using BciGame.Services;
-using BciGame.Core;
+using Bit.Core;
+using Bit.Input;
+using Bit.Services;
 using UnityEngine;
 
-namespace BciGame.UI
+namespace Bit.UI
 {
     /// <summary>Connects BrainLink and completes when its signal is valid.</summary>
     public sealed class TutorialConnectionScreen : TutorialScreen

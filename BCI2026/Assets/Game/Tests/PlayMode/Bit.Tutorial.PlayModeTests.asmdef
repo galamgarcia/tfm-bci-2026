@@ -1,7 +1,7 @@
 {
-  "name": "BciGame.Tutorial.PlayModeTests",
+  "name": "Bit.Tutorial.PlayModeTests",
   "references": [
-    "BciGame.Runtime"
+    "Bit.Runtime"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

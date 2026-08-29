@@ -5,12 +5,12 @@
  */
 
 using System;
-using BciGame.Core;
-using BciGame.Gameplay;
-using BciGame.UI;
+using Bit.Core;
+using Bit.Gameplay;
+using Bit.UI;
 using UnityEngine;
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Represents the visual target for a tutorial ball and triggers when the ball reaches it with the concentration level required by the current exercise round. </summary>
     [RequireComponent(typeof(RectTransform))]

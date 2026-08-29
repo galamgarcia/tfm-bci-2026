@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Represents a normalized level for a mental state metric, such as relaxation or concentration.</summary>
     public enum MentalStateLevel

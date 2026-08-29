@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Describes the Bluetooth connection and the availability of recent EEG data.</summary>
     public enum BrainLinkDataStatus

@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Provides device-independent EEG signal quality and mental-state samples.</summary>
     public interface IMentalInputSource

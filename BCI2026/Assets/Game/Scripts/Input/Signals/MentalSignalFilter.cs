@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Averages recent mental-state samples and removes isolated extreme values.</summary>
     public sealed class MentalSignalFilter

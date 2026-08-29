@@ -4,17 +4,17 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Gameplay;
-using BciGame.Input;
-using BciGame.Services;
-using BciGame.UI;
+using Bit.Gameplay;
+using Bit.Input;
+using Bit.Services;
+using Bit.UI;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BciGame.Tests.Editor
+namespace Bit.Tests.Editor
 {
     /// <summary>Validates tutorial prefab and scene references.</summary>
     public sealed class TutorialScreenTests

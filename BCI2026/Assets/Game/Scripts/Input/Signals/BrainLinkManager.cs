@@ -7,7 +7,7 @@
 using System;
 using UnityEngine;
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Extends the BrainLink SDK manager with application-specific EEG packet freshness tracking.</summary>
     public sealed class BrainLinkManager : ThinkGearManager

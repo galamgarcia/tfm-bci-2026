@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-namespace BciGame.Core
+namespace Bit.Core
 {
     /// <summary>IDs for all UI tutorial texts.</summary>
     public enum TutorialTextId

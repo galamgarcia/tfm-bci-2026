@@ -5,13 +5,13 @@
  */
 
 using System.Collections;
-using BciGame.Core;
-using BciGame.Gameplay;
-using BciGame.Input;
-using BciGame.UI;
+using Bit.Core;
+using Bit.Gameplay;
+using Bit.Input;
+using Bit.UI;
 using UnityEngine;
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Runs the horizontal head-control exercise and its two EEG-state rounds.</summary>
     public sealed class TutorialMovementScreen : TutorialScreen

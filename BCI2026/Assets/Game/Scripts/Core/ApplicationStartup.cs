@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace BciGame.Core
+namespace Bit.Core
 {
     /// <summary>Applies shared application settings before loading the first scene.</summary>
     public static class ApplicationStartup

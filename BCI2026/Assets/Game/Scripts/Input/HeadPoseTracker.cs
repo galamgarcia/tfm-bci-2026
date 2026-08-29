@@ -5,11 +5,11 @@
  */
 
 using System;
-using BciGame.Core;
+using Bit.Core;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Tracks the user's head pose using AR Foundation face tracking and exposes normalized horizontal movement together with nod gesture detection.</summary>
     /// <remarks>The tracker must be calibrated before reporting meaningful values. Calibration is automatically started when the component is enabled.</remarks>

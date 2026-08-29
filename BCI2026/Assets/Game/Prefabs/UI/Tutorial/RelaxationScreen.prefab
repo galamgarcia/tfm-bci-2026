@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 18
 --- !u!1 &2311904193959651616
 GameObject:
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 15
 --- !u!1 &2496078635798820113
 GameObject:
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 16
 --- !u!1 &6458420787911971747
 GameObject:
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d3115463aa97400199205a406f64461, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialEegTrainingScreen
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialEegTrainingScreen
   screenType: 5
   canvasGroup: {fileID: 5881695263247357947}
   trainingType: 0
@@ -862,7 +862,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 17
 --- !u!1 &8261774048214546238
 GameObject:
@@ -955,5 +955,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 19

@@ -5,13 +5,12 @@
  */
 
 using System.Collections;
-using BciGame.Core;
-using BciGame.Input;
-using BciGame.UI;
-using BciGame.Core;
+using Bit.Core;
+using Bit.Input;
+using Bit.UI;
 using UnityEngine;
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Coordinates the tutorial screens.</summary>
     public sealed class TutorialController : MonoBehaviour
