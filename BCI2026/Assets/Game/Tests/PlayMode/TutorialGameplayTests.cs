@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
-using BciGame.Gameplay;
-using BciGame.Input;
-using BciGame.UI;
+using Bit.Gameplay;
+using Bit.Input;
+using Bit.UI;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace BciGame.Tests.PlayMode
+namespace Bit.Tests.PlayMode
 {
     /// <summary>Validates tutorial movement gameplay in play mode.</summary>
     public sealed class TutorialGameplayTests

@@ -5,10 +5,10 @@
  */
 
 using System;
-using BciGame.Input;
+using Bit.Input;
 using UnityEngine;
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Transforms injected head and EEG samples into input events.</summary>
     public class InputController : MonoBehaviour

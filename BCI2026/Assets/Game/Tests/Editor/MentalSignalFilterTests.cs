@@ -4,10 +4,10 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Input;
+using Bit.Input;
 using NUnit.Framework;
 
-namespace BciGame.Tests.Editor
+namespace Bit.Tests.Editor
 {
     /// <summary>Validates mental-signal filtering behavior.</summary>
     public sealed class MentalSignalFilterTests

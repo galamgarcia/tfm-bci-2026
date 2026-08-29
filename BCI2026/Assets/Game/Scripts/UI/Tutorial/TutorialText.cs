@@ -6,9 +6,9 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using BciGame.Core;
+using Bit.Core;
 
-namespace BciGame.UI
+namespace Bit.UI
 {
     /// <summary>Assigns a centrally configured tutorial string to a UI label.</summary>
     [RequireComponent(typeof(Text))]

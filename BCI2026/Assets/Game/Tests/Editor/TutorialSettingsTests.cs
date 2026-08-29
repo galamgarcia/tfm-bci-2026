@@ -5,12 +5,12 @@
  */
 
 using System;
-using BciGame.Core;
-using BciGame.Gameplay;
+using Bit.Core;
+using Bit.Gameplay;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace BciGame.Tests.Editor
+namespace Bit.Tests.Editor
 {
     /// <summary>Validates configured tutorial text and feedback colors.</summary>
     public sealed class TutorialSettingsTests

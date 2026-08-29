@@ -4,11 +4,11 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Core;
+using Bit.Core;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace BciGame.Tests.Editor
+namespace Bit.Tests.Editor
 {
     /// <summary>Validates the shared application settings asset.</summary>
     public sealed class ApplicationSettingsTests

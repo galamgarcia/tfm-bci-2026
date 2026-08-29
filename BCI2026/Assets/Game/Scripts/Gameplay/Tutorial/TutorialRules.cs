@@ -4,10 +4,10 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Gameplay;
+using Bit.Gameplay;
 using UnityEngine;
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Provides pure gameplay rules used by the tutorial flow.</summary>
     public static class TutorialRules

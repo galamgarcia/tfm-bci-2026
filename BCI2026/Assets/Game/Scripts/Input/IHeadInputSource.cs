@@ -6,7 +6,7 @@
 
 using System;
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Provides device-independent head movement and nod input. </summary>
     public interface IHeadInputSource

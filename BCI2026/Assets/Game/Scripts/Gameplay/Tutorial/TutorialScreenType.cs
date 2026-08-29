@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Identifies the behavior associated with a tutorial screen independently of its navigation order.</summary>
     public enum TutorialScreenType

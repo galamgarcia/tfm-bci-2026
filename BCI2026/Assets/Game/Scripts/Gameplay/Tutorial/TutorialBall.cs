@@ -4,13 +4,13 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Core;
-using BciGame.Gameplay;
-using BciGame.Input;
-using BciGame.UI;
+using Bit.Core;
+using Bit.Gameplay;
+using Bit.Input;
+using Bit.UI;
 using UnityEngine;
 
-namespace BciGame.Gameplay
+namespace Bit.Gameplay
 {
     /// <summary>Represents the tutorial ball.</summary>
     [RequireComponent(typeof(RectTransform), typeof(InputController))]

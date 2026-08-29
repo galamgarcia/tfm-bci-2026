@@ -4,10 +4,10 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Gameplay;
+using Bit.Gameplay;
 using NUnit.Framework;
 
-namespace BciGame.Tests.Editor
+namespace Bit.Tests.Editor
 {
     /// <summary>Validates pure rules used by the tutorial flow.</summary>
     public sealed class TutorialRulesTests

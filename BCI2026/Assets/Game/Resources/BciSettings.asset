@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17e784d7c309421e926a12e274fe2a2e, type: 3}
   m_Name: BciSettings
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.Core.BciSettings
+  m_EditorClassIdentifier: Bit.Runtime::Bit.Core.BciSettings
   disconnectedIcon: {fileID: 3286163911610860551, guid: e6ccc6b8e43d45b280a6ae5d8215c21e, type: 3}
   connectedNoDataIcon: {fileID: 3286163911610860551, guid: 33c91bd218ce4206b9f9ffdff3792498, type: 3}
   partialDataIcon: {fileID: 3286163911610860551, guid: 2e843cd5eb2e42ba9d771666470ae79b, type: 3}

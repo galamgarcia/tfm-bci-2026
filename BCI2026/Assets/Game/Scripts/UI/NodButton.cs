@@ -4,11 +4,11 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Input;
+using Bit.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BciGame.UI
+namespace Bit.UI
 {
     /// <summary>
     /// Invokes a UI button from a touch click or a detected head nod.

@@ -6,10 +6,10 @@
 
 using UnityEngine;
 
-namespace BciGame.Core
+namespace Bit.Core
 {
     /// <summary>Stores settings shared by the whole application.</summary>
-    [CreateAssetMenu(menuName = "BCI Game/Application Settings", fileName = "ApplicationSettings")]
+    [CreateAssetMenu(menuName = "BIT Game/Application Settings", fileName = "ApplicationSettings")]
     public sealed class ApplicationSettings : ScriptableObject
     {
         // Resource path used to load the shared settings asset.

@@ -4,13 +4,13 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Core;
-using BciGame.Input;
-using BciGame.Services;
+using Bit.Core;
+using Bit.Input;
+using Bit.Services;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace BciGame.Tests.Editor
+namespace Bit.Tests.Editor
 {
     /// <summary>Validates the shared BCI settings and data-status rules.</summary>
     public sealed class BciSettingsTests

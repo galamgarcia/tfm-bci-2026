@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77bb65fa3d7c8493ea31ce05ec2af4c2, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialConnectionScreen
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialConnectionScreen
   screenType: 2
   canvasGroup: {fileID: 1032192349611331449}
   statusText: {fileID: 7682675761348559444}
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 6
 --- !u!1 &4703538923867753893
 GameObject:
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 7
 --- !u!1 &9120119985661698690
 GameObject:

@@ -7,7 +7,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BciGame.UI
+namespace Bit.UI
 {
     /// <summary>Provides position and color operations for an image in a canvas.</summary>
     [RequireComponent(typeof(RectTransform), typeof(Image))]

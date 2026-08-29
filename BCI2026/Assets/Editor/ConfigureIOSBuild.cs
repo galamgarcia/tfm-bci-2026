@@ -8,7 +8,7 @@ using UnityEditor.iOS.Xcode;
 public static class ConfigureIOSBuild
 {
     // Describes the application's Bluetooth usage to iOS.
-    private const string BluetoothUsageDescription = "BCI2026 uses Bluetooth to connect to your BrainLink headset.";
+    private const string BluetoothUsageDescription = "BIT uses Bluetooth to connect to your BrainLink headset.";
 
     /// <summary>Configures an iOS build after Unity generates the Xcode project. </summary>
     /// <param name="target">The platform build target.</param>

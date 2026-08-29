@@ -4,12 +4,12 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Core;
-using BciGame.Input;
-using BciGame.Services;
+using Bit.Core;
+using Bit.Input;
+using Bit.Services;
 using UnityEngine;
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Provides one shared filtered mental input source for gameplay consumers.</summary>
     [DefaultExecutionOrder(-50)]

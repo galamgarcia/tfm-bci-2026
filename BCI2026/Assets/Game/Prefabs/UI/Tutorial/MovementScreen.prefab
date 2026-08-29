@@ -466,7 +466,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 25
 --- !u!1 &3177165770637174847
 GameObject:
@@ -559,7 +559,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.Tutorial.TutorialText
   textId: 26
 --- !u!1 &3766287827510327926
 GameObject:
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35f0eb1fbc3604d3f8c49c6cb981a604, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.Gameplay.Tutorial.TutorialMovementScreen
+  m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.Tutorial.TutorialMovementScreen
   screenType: 7
   canvasGroup: {fileID: 6602819805320552226}
   ballPrefab: {fileID: 826290326924768348, guid: a429b3c534ec14659b0ffc220dcaf873, type: 3}

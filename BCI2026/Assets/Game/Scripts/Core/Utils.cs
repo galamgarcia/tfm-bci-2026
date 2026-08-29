@@ -4,9 +4,9 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Services;
+using Bit.Services;
 
-namespace BciGame.Core
+namespace Bit.Core
 {
     /// <summary>
     /// Provides shared utility methods used across the application.

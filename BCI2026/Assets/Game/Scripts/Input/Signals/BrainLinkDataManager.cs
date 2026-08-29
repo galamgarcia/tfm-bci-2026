@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-namespace BciGame.Input
+namespace Bit.Input
 {
     /// <summary>Centralizes the rules that classify Bluetooth and EEG packet availability.</summary>
     public static class BrainLinkDataManager

@@ -4,12 +4,12 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Core;
-using BciGame.Input;
+using Bit.Core;
+using Bit.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BciGame.UI
+namespace Bit.UI
 {
     /// <summary>Runs one EEG training step and reports completion after a sustained target value.</summary>
     public sealed class TutorialEegTrainingScreen : TutorialScreen

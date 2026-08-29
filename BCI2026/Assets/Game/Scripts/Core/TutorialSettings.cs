@@ -5,13 +5,13 @@
  */
 
 using System;
-using BciGame.Gameplay;
+using Bit.Gameplay;
 using UnityEngine;
 
-namespace BciGame.Core
+namespace Bit.Core
 {
     /// <summary>Shared tutorial configuration, loaded once from Resources.</summary>
-    [CreateAssetMenu(menuName = "BCI Game/Tutorial Settings", fileName = "TutorialSettings")]
+    [CreateAssetMenu(menuName = "BIT Game/Tutorial Settings", fileName = "TutorialSettings")]
     public sealed class TutorialSettings : ScriptableObject
     {
         // Resource path used by the singleton to load the shared settings asset.

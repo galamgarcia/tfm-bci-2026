@@ -5,10 +5,10 @@
  */
 
 using System;
-using BciGame.Gameplay;
+using Bit.Gameplay;
 using UnityEngine;
 
-namespace BciGame.UI
+namespace Bit.UI
 {
     /// <summary>Defines the shared metadata and fade group for one tutorial screen prefab.</summary>
     [RequireComponent(typeof(CanvasGroup))]

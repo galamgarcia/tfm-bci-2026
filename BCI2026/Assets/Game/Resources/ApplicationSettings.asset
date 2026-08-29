@@ -11,5 +11,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ba902cae1348a380d2900fc75f8374, type: 3}
   m_Name: ApplicationSettings
-  m_EditorClassIdentifier: BciGame.Runtime::BciGame.Core.ApplicationSettings
+  m_EditorClassIdentifier: Bit.Runtime::Bit.Core.ApplicationSettings
   targetFrameRate: 60

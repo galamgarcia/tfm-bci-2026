@@ -4,13 +4,13 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Input;
+using Bit.Input;
 using UnityEngine;
 
-namespace BciGame.Core
+namespace Bit.Core
 {
     /// <summary>Stores visual resources shared by the tutorial and game experience.</summary>
-    [CreateAssetMenu(menuName = "BCI Game/BCI Settings", fileName = "BciSettings")]
+    [CreateAssetMenu(menuName = "BIT Game/BCI Settings", fileName = "BciSettings")]
     public sealed class BciSettings : ScriptableObject
     {
         // Resource path used to load the shared settings asset.

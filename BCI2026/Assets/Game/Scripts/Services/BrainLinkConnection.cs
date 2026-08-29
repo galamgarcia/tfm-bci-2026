@@ -4,10 +4,10 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Input;
+using Bit.Input;
 using UnityEngine;
 
-namespace BciGame.Services
+namespace Bit.Services
 {
     /// <summary>Provides the persistent application-level connection to a BrainLink device.</summary>
     [DefaultExecutionOrder(-100)]
