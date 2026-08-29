@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 21
 --- !u!1 &1767393882795198153
 GameObject:
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 22
 --- !u!1 &2045743122650916084
 GameObject:
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 20
 --- !u!1 &2157951233072577375
 GameObject:
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 24
 --- !u!1 &2621220466960767407
 GameObject:
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 23
 --- !u!1 &5605462882227307101
 GameObject:
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d3115463aa97400199205a406f64461, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialEegTrainingScreen
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialEegTrainingScreen
   screenType: 6
   canvasGroup: {fileID: 3231538469170477343}
   trainingType: 1

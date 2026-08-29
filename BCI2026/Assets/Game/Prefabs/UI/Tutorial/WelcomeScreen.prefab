@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 2
 --- !u!1 &4381849963606560896
 GameObject:
@@ -216,7 +216,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BciGame.Gameplay.TutorialController, Assembly-CSharp
+        m_TargetAssemblyTypeName: BciGame.Gameplay.Tutorial.TutorialController, BciGame.Runtime
         m_MethodName: Continue
         m_Mode: 0
         m_Arguments:
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bcf8c66601eb4eb79548a1f0b1b1a76, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.NodButtonActivator
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.NodButton
   isSingleUse: 1
   button: {fileID: 0}
 --- !u!1 &6096552893008297839
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 1
 --- !u!1 &6979552894219812706
 GameObject:
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275dab1158694423af61aa7d72a64ba, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialScreen
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialScreen
   screenType: 0
   canvasGroup: {fileID: 8223309314420689896}
 --- !u!1 &8616439164316554127
@@ -531,5 +531,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f692c1b9c3644e3a9fbd2b3d469ab06, type: 3}
   m_Name: ""
-  m_EditorClassIdentifier: Assembly-CSharp::BciGame.UI.TutorialText
+  m_EditorClassIdentifier: BciGame.Runtime::BciGame.UI.Tutorial.TutorialText
   textId: 0

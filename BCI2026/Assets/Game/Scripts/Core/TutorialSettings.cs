@@ -5,35 +5,41 @@
  */
 
 using System;
-using BciGame.UI;
-using Game.Scripts.Gameplay;
+using BciGame.Gameplay;
 using UnityEngine;
 
 namespace BciGame.Core
 {
-    /// <summary>
-    /// Shared tutorial configuration, loaded once from Resources.
-    /// </summary>
+    /// <summary>Shared tutorial configuration, loaded once from Resources.</summary>
     [CreateAssetMenu(menuName = "BCI Game/Tutorial Settings", fileName = "TutorialSettings")]
     public sealed class TutorialSettings : ScriptableObject
     {
         // Resource path used by the singleton to load the shared settings asset.
         private const string ResourcePath = "TutorialSettings";
+        // Cached shared settings instance.
         private static TutorialSettings _instance;
 
         /// <summary>Associates one mental-state level with its tutorial feedback color.</summary>
         [Serializable]
         private struct StateColor
         {
+            [Header("State")]
+            [Tooltip("Mental-state level represented by this color.")]
             public MentalStateLevel state;
+            [Header("Color")]
+            [Tooltip("Feedback color displayed for this mental-state level.")]
             public Color color;
         }
 
-        /// <summary>Associates one tutorial text identifier with its localized content.</summary>
+        /// <summary>Associates one tutorial text identifier with its configured text.</summary>
         [Serializable]
         private struct TextEntry
         {
+            [Header("Identifier")]
+            [Tooltip("Tutorial text identifier associated with this entry.")]
             public TutorialTextId id;
+            [Header("Content")]
+            [Tooltip("Text displayed for this tutorial identifier.")]
             [TextArea] public string value;
         }
 
@@ -62,7 +68,7 @@ namespace BciGame.Core
             return Color.white;
         }
 
-        /// <summary>Gets the localized text configured for a tutorial identifier.</summary>
+        /// <summary>Gets the configured text for a tutorial identifier.</summary>
         /// <param name="id">Identifier of the requested tutorial text.</param>
         /// <returns>The configured text, or an empty string when no entry is available.</returns>
         public string GetText(TutorialTextId id)

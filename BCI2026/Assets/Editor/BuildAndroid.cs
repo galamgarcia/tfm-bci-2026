@@ -2,8 +2,10 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 
+/// <summary>Builds the enabled scenes as an Android APK.</summary>
 public static class BuildAndroid
 {
+    /// <summary>Configures Android settings and builds the player.</summary>
     public static void Build()
     {
         ConfigureARCore.Configure();

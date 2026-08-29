@@ -5,11 +5,15 @@ using UnityEditor.XR.Management.Metadata;
 using UnityEngine;
 using UnityEngine.XR.Management;
 
+/// <summary>Configures ARKit as the iOS XR loader. </summary>
 public static class ConfigureARKit
 {
+    // Identifies the shared XR settings asset.
     private const string SettingsPath = "Assets/XR/XRGeneralSettingsPerBuildTarget.asset";
+    // Identifies the ARKit loader type registered by the XR package.
     private const string ARKitLoaderType = "UnityEngine.XR.ARKit.ARKitLoader";
 
+    /// <summary>Creates missing iOS XR settings and assigns the ARKit loader. </summary>
     public static void Configure()
     {
         EditorBuildSettings.TryGetConfigObject(XRGeneralSettings.k_SettingsKey, out XRGeneralSettingsPerBuildTarget settings);

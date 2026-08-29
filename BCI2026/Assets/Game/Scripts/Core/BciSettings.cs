@@ -4,7 +4,7 @@
  * © 2026 Gala M. García
  */
 
-using BciGame.Services;
+using BciGame.Input;
 using UnityEngine;
 
 namespace BciGame.Core
@@ -13,7 +13,9 @@ namespace BciGame.Core
     [CreateAssetMenu(menuName = "BCI Game/BCI Settings", fileName = "BciSettings")]
     public sealed class BciSettings : ScriptableObject
     {
+        // Resource path used to load the shared settings asset.
         private const string ResourcePath = "BciSettings";
+        // Cached shared settings instance.
         private static BciSettings _instance;
 
         [Header("Connection Status")]
@@ -45,6 +47,8 @@ namespace BciGame.Core
         public float OutlierTrimPercentage => outlierTrimPercentage;
 
         /// <summary>Gets the icon associated with a BrainLink connection state.</summary>
+        /// <param name="status">Connection and EEG data status to represent.</param>
+        /// <returns>The icon configured for the requested status.</returns>
         public Sprite GetConnectionStatusIcon(BrainLinkDataStatus status)
         {
             return status switch

@@ -69,6 +69,7 @@ namespace BciGame.UI
             }
         }
 
+        /// <summary>Invokes the button after a detected nod when it remains interactable.</summary>
         private void OnNodClick()
         {
             if (!button.interactable) { return; }

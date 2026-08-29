@@ -9,43 +9,24 @@ using UnityEngine;
 
 namespace BciGame.Services
 {
-    /// <summary>
-    /// Provides the persistent application-level connection to a BrainLink device.
-    /// </summary>
+    /// <summary>Provides the persistent application-level connection to a BrainLink device.</summary>
     [DefaultExecutionOrder(-100)]
     public sealed class BrainLinkConnection : MonoBehaviour, IMentalInputSource
     {
         [Header("References")]
         [Tooltip("BrainLink SDK manager that receives Bluetooth and EEG callbacks.")]
-        [SerializeField] private ThinkGearManager thinkGearManager;
+        [SerializeField] private BrainLinkManager thinkGearManager;
 
         /// <summary>Gets the persistent BrainLink connection service instance.</summary>
         public static BrainLinkConnection Instance { get; private set; }
 
-        // Prevents concurrent Bluetooth scans from being requested.
+        // Determines if a Bluetooth scan is already in progress.
         private bool _isScanning;
-        // Tracks the SDK event subscription across component enable/disable cycles.
+        // Determines if the SDK scan listener is registered.
         private bool _isScanListenerRegistered;
 
-        /// <summary>Indicates if the BrainLink device is currently connected.</summary>
-        public bool IsConnected => thinkGearManager != null && thinkGearManager.IsHeadsetConnected();
-        /// <summary>Indicates if the connected device reports sufficient EEG signal quality.</summary>
         public bool HasValidSignal => thinkGearManager != null && thinkGearManager.GetWave_quality() <= 75;
-        /// <summary>Gets the current connection and EEG-data completeness state.</summary>
-        public BrainLinkDataStatus DataStatus
-        {
-            get
-            {
-                return BrainLinkDataManager.Resolve(
-                    IsConnected,
-                    thinkGearManager != null && thinkGearManager.HasRecentEegData(),
-                    thinkGearManager != null && thinkGearManager.HasRecentCompleteEegData(),
-                    HasValidSignal);
-            }
-        }
-        /// <summary>Gets the normalized relaxation value reported by BrainLink.</summary>
         public float Relaxation => thinkGearManager == null ? 0f : thinkGearManager.GetMeditation() / 100f;
-        /// <summary>Gets the normalized concentration value reported by BrainLink.</summary>
         public float Concentration => thinkGearManager == null ? 0f : thinkGearManager.GetAttention() / 100f;
 
         private void Awake()
@@ -62,7 +43,15 @@ namespace BciGame.Services
 
             if (thinkGearManager == null)
             {
-                thinkGearManager = ThinkGearManager.instance;
+                thinkGearManager = ThinkGearManager.instance as BrainLinkManager;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
             }
         }
 
@@ -88,7 +77,7 @@ namespace BciGame.Services
         /// <summary>Starts scanning for the first available BrainLink device.</summary>
         public void StartConnection()
         {
-            if (thinkGearManager == null || _isScanning || IsConnected) { return; }
+            if (thinkGearManager == null || _isScanning || IsConnected()) { return; }
             RegisterScanListener();
             _isScanning = true;
             Debug.Log("BrainLink: starting device scan.");
@@ -98,11 +87,7 @@ namespace BciGame.Services
         /// <summary>Subscribes after the SDK manager has initialized its scan event.</summary>
         private void RegisterScanListener()
         {
-            if (Instance != this || thinkGearManager == null || thinkGearManager.receiveScanDevice == null || _isScanListenerRegistered)
-            {
-                return;
-            }
-
+            if (Instance != this || thinkGearManager == null || thinkGearManager.receiveScanDevice == null || _isScanListenerRegistered) { return; }
             thinkGearManager.receiveScanDevice.AddListener(ConnectFirstDevice);
             _isScanListenerRegistered = true;
             Debug.Log("BrainLink: scan listener registered.");
@@ -120,12 +105,22 @@ namespace BciGame.Services
             thinkGearManager.connectDevice(identifier);
         }
 
-        private void OnDestroy()
+        /// <summary>Indicates if the BrainLink device is currently connected.</summary>
+        /// <returns>True, the device is connected.</returns>
+        public bool IsConnected()
         {
-            if (Instance == this)
-            {
-                Instance = null;
-            }
+            return thinkGearManager != null && thinkGearManager.IsHeadsetConnected();
+        }
+
+        /// <summary>Gets the current connection and EEG-data completeness state.</summary>
+        /// <returns>The current BrainLink connection and data status.</returns>
+        public BrainLinkDataStatus GetDataStatus()
+        {
+            return BrainLinkDataManager.Resolve(
+                IsConnected(),
+                thinkGearManager != null && thinkGearManager.HasRecentEegData(),
+                thinkGearManager != null && thinkGearManager.HasRecentCompleteEegData(),
+                HasValidSignal);
         }
     }
 }

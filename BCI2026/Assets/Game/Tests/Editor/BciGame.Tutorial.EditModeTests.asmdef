@@ -1,7 +1,8 @@
 {
   "name": "BciGame.Tutorial.EditModeTests",
   "references": [
-    "BciGame.Runtime"
+    "BciGame.Runtime",
+    "BciGame.BrainLink"
   ],
   "includePlatforms": [
     "Editor"

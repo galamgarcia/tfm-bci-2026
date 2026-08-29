@@ -3,10 +3,13 @@ using System.IO.Compression;
 using System.Text;
 using UnityEditor.Android;
 
+/// <summary>Patches the ARCore permissions AAR package name after Gradle project generation. </summary>
 public sealed class PatchARCorePermissionsAar : IPostGenerateGradleAndroidProject
 {
     public int callbackOrder => 100;
 
+    /// <summary>Rewrites the generated permissions AAR when its manifest uses the ARCore package name. </summary>
+    /// <param name="path">The path to the generated Gradle project.</param>
     public void OnPostGenerateGradleAndroidProject(string path)
     {
         string aarPath = Path.Combine(path, "libs", "unityandroidpermissions.aar");
@@ -15,6 +18,7 @@ public sealed class PatchARCorePermissionsAar : IPostGenerateGradleAndroidProjec
             return;
         }
 
+        // Matches the package declaration that conflicts with Unity permissions.
         const string oldPackage = "package=\"com.google.ar.core\"";
         string temporaryPath = aarPath + ".tmp";
         bool wasPatched = false;

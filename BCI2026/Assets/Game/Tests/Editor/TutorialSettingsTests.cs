@@ -1,14 +1,21 @@
+/*
+ * BCI Interaction System for Videogames
+ * Master's Thesis · University of Alicante
+ * © 2026 Gala M. García
+ */
+
 using System;
 using BciGame.Core;
-using BciGame.UI;
-using Game.Scripts.Gameplay;
+using BciGame.Gameplay;
 using NUnit.Framework;
 using UnityEngine;
 
 namespace BciGame.Tests.Editor
 {
+    /// <summary>Validates configured tutorial text and feedback colors.</summary>
     public sealed class TutorialSettingsTests
     {
+        /// <summary>Verifies that every tutorial text identifier has configured content.</summary>
         [Test]
         public void GetText_ReturnsContentForEveryConfiguredTextId()
         {
@@ -21,6 +28,7 @@ namespace BciGame.Tests.Editor
             }
         }
 
+        /// <summary>Verifies that every mental-state level has its expected feedback color.</summary>
         [Test]
         public void GetColor_ReturnsColorForEveryMentalStateLevel()
         {
