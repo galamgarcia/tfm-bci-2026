@@ -26,6 +26,9 @@ namespace Bit.Gameplay
         [Tooltip("Enables concentration level tracking.")]
         [SerializeField] private bool isConcentrationStateTracked = true;
         [Header("Input Tracking")]
+        [Tooltip("Enables BrainLink blink gesture tracking.")]
+        [SerializeField] private bool isBlinkTracked = true;
+        [Header("Input Tracking")]
         [Tooltip("Horizontal movement speed.")]
         [SerializeField] private float horizontalMovementSpeed = 240f;
 
@@ -35,6 +38,10 @@ namespace Bit.Gameplay
         private IMentalInputSource _mentalInput;
         // Determines whether the nod event subscription is active.
         private bool _isHeadSourceSubscribed;
+        // Determines whether the blink event subscription is active.
+        private bool _isBlinkSourceSubscribed;
+        // Configured discrete blink source.
+        private IBlinkInputSource _blinkInput;
         // Last published relaxation level.
         private MentalStateLevel _relaxationLevel = MentalStateLevel.None;
         // Last published concentration level.
@@ -48,15 +55,19 @@ namespace Bit.Gameplay
         public event Action<float> OnHorizontalMovementReceived;
         /// <summary>Triggered after the head input source confirms a nod gesture.</summary>
         public event Action OnNodDetected;
+        /// <summary>Triggered after the blink source confirms a blink gesture.</summary>
+        public event Action OnBlinkDetected;
 
         protected virtual void OnEnable()
         {
             SubscribeToHeadSource();
+            SubscribeToBlinkSource();
         }
 
         protected virtual void OnDisable()
         {
             UnsubscribeFromHeadSource();
+            UnsubscribeFromBlinkSource();
         }
 
         protected virtual void Update()
@@ -71,9 +82,23 @@ namespace Bit.Gameplay
         public void ConfigureSources(IHeadInputSource head, IMentalInputSource mental)
         {
             UnsubscribeFromHeadSource();
+            UnsubscribeFromBlinkSource();
             _headInput = head;
             _mentalInput = mental;
+            _blinkInput = null;
             SubscribeToHeadSource();
+        }
+
+        /// <summary>Injects a discrete blink source in addition to the head and EEG sources.</summary>
+        /// <param name="head">Source that provides head movement and nod gestures.</param>
+        /// <param name="mental">Source that provides signal quality and EEG samples.</param>
+        /// <param name="blink">Source that provides validated blink gestures.</param>
+        public void ConfigureSources(IHeadInputSource head, IMentalInputSource mental, IBlinkInputSource blink)
+        {
+            ConfigureSources(head, mental);
+            UnsubscribeFromBlinkSource();
+            _blinkInput = blink;
+            SubscribeToBlinkSource();
         }
 
         /// <summary>Updates horizontal movement for the current frame when enabled.</summary>
@@ -138,12 +163,14 @@ namespace Bit.Gameplay
         /// <param name="nod">Indicates if confirmed nod gestures are enabled.</param>
         /// <param name="relaxation">Indicates if relaxation levels are enabled.</param>
         /// <param name="concentration">Indicates if concentration levels are enabled.</param>
-        public void SetInputTracking(bool horizontal, bool nod, bool relaxation, bool concentration)
+        /// <param name="blink">Indicates if blink gestures are enabled.</param>
+        public void SetInputTracking(bool horizontal, bool nod, bool relaxation, bool concentration, bool blink)
         {
             isHorizontalMovementTracked = horizontal;
             isNodTracked = nod;
             isRelaxationStateTracked = relaxation;
             isConcentrationStateTracked = concentration;
+            isBlinkTracked = blink;
             _relaxationLevel = MentalStateLevel.None;
             _concentrationLevel = MentalStateLevel.None;
         }
@@ -215,6 +242,29 @@ namespace Bit.Gameplay
         {
             if (!isNodTracked) { return; }
             OnNodDetected?.Invoke();
+        }
+
+        /// <summary>Subscribes to blink events once a blink source is available.</summary>
+        private void SubscribeToBlinkSource()
+        {
+            if (_isBlinkSourceSubscribed || _blinkInput == null) { return; }
+            _blinkInput.OnBlinkDetected += OnBlinkReceived;
+            _isBlinkSourceSubscribed = true;
+        }
+
+        /// <summary>Removes the blink-event subscription while preserving the configured source.</summary>
+        private void UnsubscribeFromBlinkSource()
+        {
+            if (!_isBlinkSourceSubscribed || _blinkInput == null) { return; }
+            _blinkInput.OnBlinkDetected -= OnBlinkReceived;
+            _isBlinkSourceSubscribed = false;
+        }
+
+        /// <summary>Forwards a confirmed blink when blink input is enabled.</summary>
+        private void OnBlinkReceived()
+        {
+            if (!isBlinkTracked) { return; }
+            OnBlinkDetected?.Invoke();
         }
     }
 }

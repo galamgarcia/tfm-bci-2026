@@ -428,7 +428,7 @@ public class ThinkGearManager : MonoBehaviour
         zvalue4_0 = float.Parse(data);
     }
     //眨眼
-    private void ReceiveBlink(string data)
+    protected virtual void ReceiveBlink(string data)
     {
         Blink = int.Parse(data);
     }
