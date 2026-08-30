@@ -22,6 +22,9 @@ namespace Bit.Input
         // Maximum age accepted for an EEG packet.
         private const float DataTimeoutSeconds = 5f;
 
+        /// <summary>Triggered when the BrainLink provider reports blink intensity.</summary>
+        public event Action<int> OnBlinkReceived;
+
         /// <summary>Updates the application packet state after the SDK processes a connection callback.</summary>
         /// <param name="data">Connection state sent by the BrainLink SDK.</param>
         protected override void ReceiveContentState(string data)
@@ -55,6 +58,17 @@ namespace Bit.Input
         {
             base.ReceiveMeditation(data);
             _lastMeditationAt = Time.realtimeSinceStartup;
+        }
+
+        /// <summary>Forwards provider blink intensity to the signal-processing layer.</summary>
+        /// <param name="data">Blink intensity sent by the BrainLink SDK.</param>
+        protected override void ReceiveBlink(string data)
+        {
+            base.ReceiveBlink(data);
+            if (int.TryParse(data, out int intensity))
+            {
+                OnBlinkReceived?.Invoke(intensity);
+            }
         }
 
         /// <summary>Returns whether any essential EEG packet was received recently.</summary>

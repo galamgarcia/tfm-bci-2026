@@ -54,6 +54,7 @@ static void ConfigureCallbacks(void)
             }
 
             if (blueType == BlueType_Pro) {
+                SendUnityInteger(@"ReceiveBlink", blueData.blinkeye);
                 SendUnityInteger(@"ReceiveHeaetRate", blueData.heartRate.intValue);
                 SendUnityMessage(@"ReceiveTemperature", [NSString stringWithFormat:@"%@", blueData.temperature ?: @"0"]);
                 SendUnityInteger(@"ReceiveGrind4_0", blueData.grind.intValue);

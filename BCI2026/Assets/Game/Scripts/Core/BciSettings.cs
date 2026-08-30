@@ -38,6 +38,12 @@ namespace Bit.Core
         [Tooltip("Proportion of extreme values removed before calculating the average.")]
         [SerializeField, Range(0f, 0.4f)] private float outlierTrimPercentage = 0.2f;
 
+        [Header("Blink Detection")]
+        [Tooltip("Minimum BrainLink blink intensity required to emit a blink gesture.")]
+        [SerializeField, Min(1)] private int blinkIntensity = 50;
+        [Tooltip("Minimum seconds between accepted BrainLink blink gestures.")]
+        [SerializeField, Min(0f)] private float blinkCooldown = 0.35f;
+
         /// <summary>Gets the shared BCI settings loaded from Resources.</summary>
         public static BciSettings Instance => _instance ??= Resources.Load<BciSettings>(ResourcePath);
 
@@ -45,6 +51,8 @@ namespace Bit.Core
         public float PublishIntervalSeconds => publishIntervalSeconds;
         public float AveragingWindowSeconds => averagingWindowSeconds;
         public float OutlierTrimPercentage => outlierTrimPercentage;
+        public int BlinkIntensity => blinkIntensity;
+        public float blinkCooldown => blinkCooldown;
 
         /// <summary>Gets the icon associated with a BrainLink connection state.</summary>
         /// <param name="status">Connection and EEG data status to represent.</param>

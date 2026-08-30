@@ -171,6 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578215114}
   - component: {fileID: 578215113}
+  - component: {fileID: 578215115}
   m_Layer: 0
   m_Name: BrainLink Services
   m_TagString: Untagged
@@ -188,9 +189,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92179ff385e4844f59c1117f1c928925, type: 3}
-  m_Name: 
+  m_Name: ""
   m_EditorClassIdentifier: Bit.Runtime::Bit.Services.BrainLinkConnection
   thinkGearManager: {fileID: 1175042233}
+--- !u!114 &578215115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578215112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478899aabbccddeeff01, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Bit.Runtime::Bit.Input.BrainLinkBlinkInputSource
+  brainLinkManager: {fileID: 1175042233}
 --- !u!4 &578215114
 Transform:
   m_ObjectHideFlags: 0
