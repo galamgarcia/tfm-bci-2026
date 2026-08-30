@@ -2,6 +2,7 @@
   "name": "Bit.Runtime",
   "references": [
     "Bit.BrainLink",
+    "Unity.InputSystem",
     "Unity.XR.ARFoundation",
     "Unity.XR.CoreUtils",
     "Unity.XR.ARSubsystems"
