@@ -1,4 +1,2 @@
-/build
-/docs
-/references
+.idea/
 .DS_Store
