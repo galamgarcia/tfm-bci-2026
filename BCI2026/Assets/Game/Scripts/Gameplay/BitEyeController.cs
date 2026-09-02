@@ -52,15 +52,9 @@ namespace Bit.Gameplay
         [Tooltip("Vertical scale retained by the eyes at full relaxation.")]
         [SerializeField, Range(0f, 1f)] private float relaxedEyeScale = 0.4f;
 
-        [Header("Idle")]
-        [Tooltip("Maximum fraction of the eye margin used by the idle pupil drift.")]
-        [SerializeField, Range(0f, 1f)] private float idleLookAmount = 0.12f;
-
-        [Tooltip("Time in seconds for one complete idle gaze cycle.")]
-        [SerializeField, Min(0.5f)] private float idleLookPeriod = 4f;
-
-        [Tooltip("Time in seconds between automatic idle blinks.")]
-        [SerializeField, Min(0.5f)] private float idleBlinkInterval = 3.5f;
+        [Header("Idle Blink")]
+        [Tooltip("Minimum and maximum time in seconds between automatic idle blinks.")]
+        [SerializeField] private Vector2 idleBlinkInterval = new Vector2(3f, 6f);
 
         // The target positions for both pupils.
         private Vector3 _leftTarget;
@@ -88,12 +82,12 @@ namespace Bit.Gameplay
         private float _landingElapsed;
         // Current normalized relaxation expression intensity.
         private float _relaxationIntensity;
-        // Whether subtle autonomous eye movement is active.
+        // Whether automatic idle blinks are active.
         private bool _isIdle;
-        // Elapsed time used by the continuous idle gaze cycle.
-        private float _idleElapsed;
         // Elapsed time used to schedule the next idle blink.
         private float _idleBlinkElapsed;
+        // Random interval currently used for the next idle blink.
+        private float _nextIdleBlinkInterval;
 
         private void Awake()
         {
@@ -108,7 +102,6 @@ namespace Bit.Gameplay
             _blinkElapsed = 0f;
             _isBlinking = false;
             _isIdle = false;
-            _idleElapsed = 0f;
             _idleBlinkElapsed = 0f;
             SetLookDirection(BitLookDirection.Neutral);
         }
@@ -163,17 +156,15 @@ namespace Bit.Gameplay
         public void StartEyesIdle()
         {
             _isIdle = true;
-            _idleElapsed = 0f;
             _idleBlinkElapsed = 0f;
+            _nextIdleBlinkInterval = GetNextBlinkInterval();
         }
 
-        /// <summary>Stops autonomous pupil movement and returns the gaze to neutral.</summary>
+        /// <summary>Stops automatic idle blinks while preserving the current gaze.</summary>
         public void StopEyesIdle()
         {
             _isIdle = false;
-            _idleElapsed = 0f;
             _idleBlinkElapsed = 0f;
-            SetLookDirection(BitLookDirection.Neutral);
         }
 
         /// <summary>Starts a complete procedural blink without changing the current gaze.</summary>
@@ -259,25 +250,27 @@ namespace Bit.Gameplay
             }
         }
 
-        /// <summary>Advances the idle gaze and starts a blink at the configured interval.</summary>
+        /// <summary>Advances the idle blink timer without changing the user's gaze direction.</summary>
         private void UpdateIdle()
         {
             float delta = Application.isPlaying ? Time.deltaTime : 1f / 60f;
-            _idleElapsed += delta;
             _idleBlinkElapsed += delta;
 
-            float period = Mathf.Max(0.5f, idleLookPeriod);
-            float angle = _idleElapsed / period * Mathf.PI * 2f;
-            Vector2 gaze = new Vector2(Mathf.Sin(angle), Mathf.Sin(angle * 0.7f + 1.2f));
-            _leftTarget = GetTarget(gaze, _leftEyeSize, _leftPupilSize, idleLookAmount);
-            _rightTarget = GetTarget(gaze, _rightEyeSize, _rightPupilSize, idleLookAmount);
-
-            float interval = Mathf.Max(0.5f, idleBlinkInterval);
-            if (!_isBlinking && _idleBlinkElapsed >= interval)
+            if (!_isBlinking && _idleBlinkElapsed >= _nextIdleBlinkInterval)
             {
                 Blink();
                 _idleBlinkElapsed = 0f;
+                _nextIdleBlinkInterval = GetNextBlinkInterval();
             }
+        }
+
+        /// <summary>Chooses the delay before the next automatic idle blink.</summary>
+        /// <returns>A random blink interval within the configured range.</returns>
+        private float GetNextBlinkInterval()
+        {
+            float min = Mathf.Max(0.5f, idleBlinkInterval.x);
+            float max = Mathf.Max(min, idleBlinkInterval.y);
+            return Random.Range(min, max);
         }
 
         /// <summary>Advances the blink and restores the original eye scales when it ends.</summary>

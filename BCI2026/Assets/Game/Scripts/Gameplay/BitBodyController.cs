@@ -29,6 +29,9 @@ namespace Bit.Gameplay
         [Tooltip("Time in seconds for one complete idle body cycle.")]
         [SerializeField, Min(0.5f)] private float idlePeriod = 4f;
 
+        [Tooltip("Minimum and maximum seconds between the floating and breathing idle phases.")]
+        [SerializeField] private Vector2 idleInterval = new Vector2(3f, 6f);
+
         [Tooltip("Maximum proportional body deformation used by the breathing idle.")]
         [SerializeField, Range(0f, 0.05f)] private float breathingAmount = 0.015f;
 
@@ -43,8 +46,8 @@ namespace Bit.Gameplay
         [SerializeField, Min(0.02f)] private float landingPoseDuration = 0.45f;
 
         [Header("Concentration")]
-        [Tooltip("Dark blue body color reached during the concentration transition.")]
-        [SerializeField] private Color concentrationColor = new Color(0.019608f, 0.435294f, 0.545098f, 1f);
+        [Tooltip("Strong blue body color shown while concentration is high.")]
+        [SerializeField] private Color concentrationColor = new Color(0f, 0.545098f, 1f, 1f);
 
         [Tooltip("Total time in seconds for the body to darken and return to normal.")]
         [SerializeField, Min(0.02f)] private float concentrationTransitionDuration = 2.4f;
@@ -71,6 +74,10 @@ namespace Bit.Gameplay
         private float _concentrationElapsed;
         // Reusable property block for temporary body color overrides.
         private MaterialPropertyBlock _bodyPropertyBlock;
+        // Time elapsed in the current idle phase.
+        private float _idleElapsed;
+        // Duration selected for the current idle phase.
+        private float _nextIdleInterval;
         private enum BodyState
         {
             None,
@@ -98,6 +105,8 @@ namespace Bit.Gameplay
             _state = BodyState.None;
             _stateAfterJump = BodyState.None;
             _stateElapsed = 0f;
+            _idleElapsed = 0f;
+            _nextIdleInterval = GetNextIdleInterval();
         }
 
         private void OnDisable()
@@ -105,6 +114,8 @@ namespace Bit.Gameplay
             _state = BodyState.None;
             _stateAfterJump = BodyState.None;
             _stateElapsed = 0f;
+            _idleElapsed = 0f;
+            _nextIdleInterval = GetNextIdleInterval();
             ResetConcentrationTransition();
         }
 
@@ -139,6 +150,11 @@ namespace Bit.Gameplay
                 return;
             }
 
+            if (IsIdleState(_state))
+            {
+                UpdateIdleAlternation(delta);
+            }
+
             _stateElapsed += delta;
             float period = Mathf.Max(0.5f, idlePeriod);
             float angle = _stateElapsed / period * Mathf.PI * 2f;
@@ -152,6 +168,12 @@ namespace Bit.Gameplay
             }
         }
 
+        /// <summary>Starts the alternating floating and breathing body idle sequence.</summary>
+        public void StartIdle()
+        {
+            StartFloatingIdle();
+        }
+
         /// <summary>Starts the floating body idle that moves the visual root vertically.</summary>
         public void StartFloatingIdle()
         {
@@ -163,6 +185,8 @@ namespace Bit.Gameplay
             ResetVisualState();
             _state = BodyState.FloatingIdle;
             _stateElapsed = 0f;
+            _idleElapsed = 0f;
+            _nextIdleInterval = GetNextIdleInterval();
         }
 
         /// <summary>Starts the breathing body idle that deforms the body without moving it.</summary>
@@ -176,6 +200,8 @@ namespace Bit.Gameplay
             ResetVisualState();
             _state = BodyState.BreathingIdle;
             _stateElapsed = 0f;
+            _idleElapsed = 0f;
+            _nextIdleInterval = GetNextIdleInterval();
         }
 
         /// <summary>Stops either body idle mode and restores the original visual state.</summary>
@@ -187,6 +213,7 @@ namespace Bit.Gameplay
             }
 
             _stateElapsed = 0f;
+            _idleElapsed = 0f;
             ResetVisualState();
         }
 
@@ -207,6 +234,21 @@ namespace Bit.Gameplay
             _concentrationElapsed = Mathf.Max(0.02f, concentrationTransitionDuration) * 0.5f;
             _isConcentrationTransitioning = true;
             SetBodyColor(concentrationColor);
+        }
+
+        /// <summary>Shows or clears the persistent high-concentration body feedback.</summary>
+        /// <param name="isHigh">Whether concentration is currently high.</param>
+        public void SetConcentrationHigh(bool isHigh)
+        {
+            if (isHigh)
+            {
+                _isConcentrationTransitioning = false;
+                SetBodyColor(concentrationColor);
+            }
+            else
+            {
+                ResetConcentrationTransition();
+            }
         }
 
         /// <summary>Gets the visual root moved by the floating and jump previews.</summary>
@@ -255,6 +297,32 @@ namespace Bit.Gameplay
             {
                 ResetConcentrationTransition();
             }
+        }
+
+        /// <summary>Alternates the floating and breathing idle phases.</summary>
+        /// <param name="delta">Elapsed time since the previous update.</param>
+        private void UpdateIdleAlternation(float delta)
+        {
+            _idleElapsed += delta;
+            if (_idleElapsed < _nextIdleInterval) { return; }
+
+            if (_state == BodyState.FloatingIdle)
+            {
+                StartBreathingIdle();
+            }
+            else
+            {
+                StartFloatingIdle();
+            }
+        }
+
+        /// <summary>Chooses the duration of the next body idle phase.</summary>
+        /// <returns>A random idle interval within the configured range.</returns>
+        private float GetNextIdleInterval()
+        {
+            float min = Mathf.Max(0.5f, idleInterval.x);
+            float max = Mathf.Max(min, idleInterval.y);
+            return Random.Range(min, max);
         }
 
         /// <summary>Restores the normal body color and stops concentration feedback.</summary>

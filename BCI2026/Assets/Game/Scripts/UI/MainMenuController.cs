@@ -7,6 +7,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Bit.UI
 {
@@ -42,6 +43,12 @@ namespace Bit.UI
         public void Exit()
         {
             Application.Quit();
+        }
+
+        /// <summary>Starts the first playable level from the new-game button.</summary>
+        public void StartNewGame()
+        {
+            SceneManager.LoadScene("Level01");
         }
     }
 }

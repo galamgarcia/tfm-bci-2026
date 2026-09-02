@@ -1,0 +1,10 @@
+{
+  "name": "Bit.EditorInput",
+  "references": [
+    "Bit.Runtime",
+    "Unity.InputSystem"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

@@ -6,6 +6,7 @@
 
 using Bit.Input;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Bit.Core
 {
@@ -44,6 +45,10 @@ namespace Bit.Core
         [Tooltip("Minimum seconds between accepted BrainLink blink gestures.")]
         [SerializeField, Min(0f)] private float blinkCooldown = 0.35f;
 
+        [Header("Input")]
+        [Tooltip("Input actions shared by gameplay and the Editor keyboard simulator.")]
+        [SerializeField] private InputActionAsset inputActions;
+
         /// <summary>Gets the shared BCI settings loaded from Resources.</summary>
         public static BciSettings Instance => _instance ??= Resources.Load<BciSettings>(ResourcePath);
 
@@ -52,7 +57,8 @@ namespace Bit.Core
         public float AveragingWindowSeconds => averagingWindowSeconds;
         public float OutlierTrimPercentage => outlierTrimPercentage;
         public int BlinkIntensity => blinkIntensity;
-        public float blinkCooldown => blinkCooldown;
+        public float BlinkCooldown => blinkCooldown;
+        public InputActionAsset InputActions => inputActions;
 
         /// <summary>Gets the icon associated with a BrainLink connection state.</summary>
         /// <param name="status">Connection and EEG data status to represent.</param>
