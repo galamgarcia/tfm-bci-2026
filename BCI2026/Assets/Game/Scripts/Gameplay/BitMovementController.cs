@@ -40,6 +40,10 @@ namespace Bit.Gameplay
         private float _jumpHorizontalInput;
         // Jump height multiplier controlled by the confirmed relaxation state.
         private float _jumpVelocityMultiplier = 1f;
+        // Whether external movement input is temporarily blocked.
+        private bool _isMovementLocked;
+        // Gravity state preserved while movement is locked.
+        private bool _wasGravityEnabled;
 
         /// <summary>Triggered when a grounded jump is accepted.</summary>
         public event Action JumpStarted;
@@ -65,6 +69,12 @@ namespace Bit.Gameplay
         private void FixedUpdate()
         {
             if (physicsBody == null) { return; }
+            if (_isMovementLocked)
+            {
+                physicsBody.linearVelocity = Vector3.zero;
+                return;
+            }
+
             if (_isJumping && physicsBody.linearVelocity.y <= 0f && IsGrounded())
             {
                 _isJumping = false;
@@ -106,6 +116,45 @@ namespace Bit.Gameplay
         private void OnRelaxationChanged(MentalStateLevel level)
         {
             _jumpVelocityMultiplier = level == MentalStateLevel.High ? 1.25f : 1f;
+        }
+
+        /// <summary>Enables or disables player-controlled movement.</summary>
+        /// <param name="isLocked">Whether horizontal movement and jumping should be blocked.</param>
+        public void SetMovementLocked(bool isLocked)
+        {
+            _isMovementLocked = isLocked;
+            if (!isLocked)
+            {
+                if (physicsBody != null) { physicsBody.useGravity = _wasGravityEnabled; }
+                return;
+            }
+
+            _horizontalInput = 0f;
+            _jumpHorizontalInput = 0f;
+            _isJumping = false;
+            if (physicsBody != null)
+            {
+                _wasGravityEnabled = physicsBody.useGravity;
+                physicsBody.useGravity = false;
+                physicsBody.linearVelocity = Vector3.zero;
+            }
+        }
+
+        /// <summary>Moves the locked physics body to a world position and clears its velocity.</summary>
+        /// <param name="position">World position to assign to Bit.</param>
+        public void MoveTo(Vector3 position)
+        {
+            if (physicsBody == null) { return; }
+            position.z = physicsBody.position.z;
+            physicsBody.position = position;
+            physicsBody.linearVelocity = Vector3.zero;
+        }
+
+        /// <summary>Gets the current world position of Bit's physics body.</summary>
+        /// <returns>The physics body's current world position.</returns>
+        public Vector3 GetPosition()
+        {
+            return physicsBody == null ? transform.position : physicsBody.position;
         }
 
         /// <summary>Checks whether the configured collider is touching a ground layer.</summary>
