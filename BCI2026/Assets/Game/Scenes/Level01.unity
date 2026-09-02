@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 1001}
   - component: {fileID: 1002}
   - component: {fileID: 1003}
+  - component: {fileID: 1004}
   m_Layer: 0
   m_Name: Level01Camera
   m_TagString: MainCamera
@@ -213,7 +214,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
-  m_Name: 
+  m_Name: ''
   m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARCameraManager
   m_FocusMode: -1
   m_LightEstimationMode: -1
@@ -222,6 +223,30 @@ MonoBehaviour:
   m_LightEstimation: 0
   m_FacingDirection: 2
   m_RenderMode: 0
+--- !u!114 &1004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ead280fac5bf4fa29b6bc9592015f63, type: 3}
+  m_Name: ''
+  m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.GameplayCamera
+  target: {fileID: 2002}
+  cameraSource: {fileID: 1002}
+  leftBoundary: 0.3
+  rightBoundary: 0.7
+  bottomBoundary: 0.3
+  topBoundary: 0.7
+  horizontalSmoothing: 0.25
+  verticalSmoothing: 0.35
+  hasCameraBounds: 0
+  cameraBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 10, y: 5, z: 0.5}
 --- !u!1001 &2000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -258,6 +283,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6223c1de19a49f59b6c1fe03f4774f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.InputController
+--- !u!4 &2002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1000000000000000011, guid: 3ef5c4d4a2ec43d0a8f4a7a2b21bd506, type: 3}
+  m_PrefabInstance: {fileID: 2000}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3000
 GameObject:
   m_ObjectHideFlags: 0

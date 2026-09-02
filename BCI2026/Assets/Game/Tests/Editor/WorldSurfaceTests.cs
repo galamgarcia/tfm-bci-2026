@@ -24,6 +24,7 @@ namespace Bit.Gameplay
 
             Assert.That(prefab, Is.Not.Null);
             Assert.That(prefab.GetComponent<WorldSurface>(), Is.Not.Null);
+            Assert.That(prefab.transform.Find("Body"), Is.Not.Null);
             Assert.That(prefab.GetComponent<BoxCollider>().isTrigger, Is.False);
             Assert.That(prefab.GetComponent<Rigidbody>(), Is.Null);
             Assert.That(prefab.GetComponentsInChildren<Collider>(true), Has.Length.EqualTo(1));
