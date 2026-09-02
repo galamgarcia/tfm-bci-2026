@@ -16,7 +16,7 @@ namespace Bit.Editor
     [CustomEditor(typeof(ConnectionPopup))]
     public sealed class ConnectionPopupEditor : UnityEditor.Editor
     {
-        private const string SandboxPath = "Assets/Game/Scenes/BitSandbox.unity";
+        private const string SandboxPath = "Assets/Game/Scenes/Test/BitSandbox.unity";
         private const string PopupPath = "Assets/Game/Prefabs/UI/ConnectionPopup.prefab";
         private const string SandboxObjectName = "ConnectionPopupSandbox";
 
