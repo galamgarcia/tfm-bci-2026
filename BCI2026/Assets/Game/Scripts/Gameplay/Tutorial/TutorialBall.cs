@@ -16,6 +16,10 @@ namespace Bit.Gameplay
     [RequireComponent(typeof(RectTransform), typeof(InputController))]
     public sealed class TutorialBall : CanvasImage
     {
+        [Header("Movement")]
+        [Tooltip("Horizontal movement speed in canvas units per second.")]
+        [SerializeField, Min(0f)] private float movementSpeed = 240f;
+
         // Input component that supplies ball movement and color feedback.
         private InputController _inputComponent;
         // Whether concentration levels update the ball color.
@@ -29,13 +33,13 @@ namespace Bit.Gameplay
 
         private void OnEnable()
         {
-            _inputComponent.OnHorizontalMovementReceived += OnHorizontalMovementReceived;
+            _inputComponent.OnHorizontalInputReceived += OnHorizontalInputReceived;
             _inputComponent.OnConcentrationChanged += OnConcentrationChanged;
         }
 
         private void OnDisable()
         {
-            _inputComponent.OnHorizontalMovementReceived -= OnHorizontalMovementReceived;
+            _inputComponent.OnHorizontalInputReceived -= OnHorizontalInputReceived;
             _inputComponent.OnConcentrationChanged -= OnConcentrationChanged;
         }
 
@@ -93,11 +97,12 @@ namespace Bit.Gameplay
             UpdateColor();
         }
 
-        /// <summary>Moves the ball horizontally while keeping it within the configured canvas bounds.</summary>
-        /// <param name="delta">Horizontal canvas-space displacement received for this frame.</param>
-        private void OnHorizontalMovementReceived(float delta)
+        /// <summary>Moves the ball from normalized horizontal input while keeping it within its bounds.</summary>
+        /// <param name="input">Normalized horizontal input from minus one to one.</param>
+        private void OnHorizontalInputReceived(float input)
         {
             Vector2 position = GetPosition();
+            float delta = input * movementSpeed * Time.deltaTime;
             float x = GetBoundedHorizontal(position.x, delta);
             SetPosition(new Vector2(x, position.y));
         }

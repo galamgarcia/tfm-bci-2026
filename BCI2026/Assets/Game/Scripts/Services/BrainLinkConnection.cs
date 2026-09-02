@@ -4,6 +4,8 @@
  * © 2026 Gala M. García
  */
 
+using System;
+using System.Collections;
 using Bit.Input;
 using UnityEngine;
 
@@ -20,10 +22,15 @@ namespace Bit.Services
         /// <summary>Gets the persistent BrainLink connection service instance.</summary>
         public static BrainLinkConnection Instance { get; private set; }
 
+        /// <summary>Raised when the Bluetooth scan reports a device that will be connected.</summary>
+        public event Action OnDeviceFound;
+
         // Determines if a Bluetooth scan is already in progress.
         private bool _isScanning;
         // Determines if the SDK scan listener is registered.
         private bool _isScanListenerRegistered;
+        // Prevents duplicate runtime permission requests.
+        private bool _isPermissionRequesting;
 
         public bool HasValidSignal => thinkGearManager != null && thinkGearManager.GetWave_quality() <= 75;
         public float Relaxation => thinkGearManager == null ? 0f : thinkGearManager.GetMeditation() / 100f;
@@ -77,12 +84,62 @@ namespace Bit.Services
         /// <summary>Starts scanning for the first available BrainLink device.</summary>
         public void StartConnection()
         {
-            if (thinkGearManager == null || _isScanning || IsConnected()) { return; }
+            if (thinkGearManager == null || _isScanning || _isPermissionRequesting || IsConnected()) { return; }
+#if UNITY_ANDROID && !UNITY_EDITOR
+            if (!AreBluetoothPermissionsGranted())
+            {
+                StartCoroutine(RequestBluetoothPermissions());
+                return;
+            }
+#endif
+            StartScan();
+        }
+
+        /// <summary>Starts the SDK scan after all platform permissions are available.</summary>
+        private void StartScan()
+        {
             RegisterScanListener();
             _isScanning = true;
             Debug.Log("BrainLink: starting device scan.");
             thinkGearManager.Scan();
         }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        /// <summary>Checks the Bluetooth permissions required by Android 12 and newer.</summary>
+        /// <returns>True when the app may scan and connect to Bluetooth devices.</returns>
+        private static bool AreBluetoothPermissionsGranted()
+        {
+            return UnityEngine.Android.Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_SCAN")
+                && UnityEngine.Android.Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_CONNECT");
+        }
+
+        /// <summary>Requests Bluetooth permissions and resumes scanning when they are granted.</summary>
+        /// <returns>Coroutine that waits for the Android permission dialog result.</returns>
+        private IEnumerator RequestBluetoothPermissions()
+        {
+            _isPermissionRequesting = true;
+            UnityEngine.Android.Permission.RequestUserPermissions(new[]
+            {
+                "android.permission.BLUETOOTH_SCAN",
+                "android.permission.BLUETOOTH_CONNECT"
+            });
+            float deadline = Time.unscaledTime + 30f;
+            while (!AreBluetoothPermissionsGranted() && Time.unscaledTime < deadline)
+            {
+                yield return null;
+            }
+
+            _isPermissionRequesting = false;
+            if (AreBluetoothPermissionsGranted())
+            {
+                StartScan();
+            }
+            else
+            {
+                Debug.LogWarning("BrainLink: Bluetooth permissions were not granted.");
+            }
+        }
+#endif
 
         /// <summary>Subscribes after the SDK manager has initialized its scan event.</summary>
         private void RegisterScanListener()
@@ -102,6 +159,7 @@ namespace Bit.Services
             string identifier = parts.Length >= 2 ? parts[1].Trim() : parts[0].Trim();
             _isScanning = false;
             Debug.Log("BrainLink: device found; connecting.");
+            OnDeviceFound?.Invoke();
             thinkGearManager.connectDevice(identifier);
         }
 

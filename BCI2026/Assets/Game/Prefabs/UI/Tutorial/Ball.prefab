@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.Tutorial.TutorialBall
   rectTransform: {fileID: 0}
   image: {fileID: 0}
+  movementSpeed: 240
 --- !u!114 &5666774324731099207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,4 +108,3 @@ MonoBehaviour:
   isNodTracked: 1
   isRelaxationStateTracked: 1
   isConcentrationStateTracked: 1
-  horizontalMovementSpeed: 240

@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 596904955}
   - component: {fileID: 596904954}
   - component: {fileID: 596904956}
+  - component: {fileID: 596904957}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -314,7 +315,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
@@ -348,6 +349,25 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &596904957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596904953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARCameraManager
+  m_FocusMode: -1
+  m_LightEstimationMode: -1
+  m_AutoFocus: 1
+  m_ImageStabilization: 0
+  m_LightEstimation: 0
+  m_FacingDirection: 2
+  m_RenderMode: 0
 --- !u!114 &759557136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +482,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: OPCIONES
       objectReference: {fileID: 0}
+    - target: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -572,6 +596,26 @@ PrefabInstance:
       propertyPath: m_Text
       value: NUEVA PARTIDA
       objectReference: {fileID: 0}
+    - target: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value:
+      objectReference: {fileID: 1816930760}
+    - target: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartNewGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Bit.UI.MainMenuController, Bit.Runtime
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -591,7 +635,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &1090681987
 MonoBehaviour:
@@ -927,6 +971,10 @@ PrefabInstance:
     - target: {fileID: 9018156272898838184, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
       propertyPath: m_Text
       value: CALIBRAR
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1280,7 +1328,7 @@ RectTransform:
   m_GameObject: {fileID: 1673672342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1755329269}
@@ -2268,6 +2316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1816930759}
   - component: {fileID: 1816930760}
+  - component: {fileID: 1816930761}
   m_Layer: 0
   m_Name: MainMenuController
   m_TagString: Untagged
@@ -2304,6 +2353,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Bit.Runtime::Bit.UI.MainMenuController
   continueButton: {fileID: 1639715162}
   initialButton: {fileID: 891631610}
+--- !u!114 &1816930761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816930758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3f2a1d9c4e5f708192a3b4c5d6e7f8, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.MenuInputController
+  inputController: {fileID: 3000000013}
+  headPoseTracker: {fileID: 3000000008}
+  blinkInputSource: {fileID: 578215115}
+  connectionPopup: {fileID: 3000000003}
+  options:
+  - {fileID: 891631610}
+  - {fileID: 3000000011}
+  initialOption: {fileID: 891631610}
 --- !u!1001 &1881233798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2328,6 +2397,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bit
       objectReference: {fileID: 0}
+    - target: {fileID: 1000000000000010013, guid: 3ef5c4d4a2ec43d0a8f4a7a2b21bd506, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000000000000010013, guid: 3ef5c4d4a2ec43d0a8f4a7a2b21bd506, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1000000000000000001, guid: 3ef5c4d4a2ec43d0a8f4a7a2b21bd506, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
@@ -2342,11 +2419,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000000000000000001, guid: 3ef5c4d4a2ec43d0a8f4a7a2b21bd506, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.2
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 1000000000000000001, guid: 3ef5c4d4a2ec43d0a8f4a7a2b21bd506, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.55
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1000000000000000001, guid: 3ef5c4d4a2ec43d0a8f4a7a2b21bd506, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2573,7 +2650,7 @@ RectTransform:
   m_GameObject: {fileID: 2026384011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2123707410}
@@ -2799,6 +2876,168 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123707409}
   m_CullTransparentMesh: 1
+--- !u!114 &3000000003 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1007, guid: 4f941c11e5a54b5ba43d14f4b19ac32b, type: 3}
+  m_PrefabInstance: {fileID: 1680505507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3000000011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1488833557479738622, guid: 2c83f46b5d8e4aa1a5f2b9d4c7e60183, type: 3}
+  m_PrefabInstance: {fileID: 2043531565}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3000000001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3000000004}
+  - component: {fileID: 3000000005}
+  - component: {fileID: 3000000006}
+  m_Layer: 0
+  m_Name: AR Session
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3000000004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &3000000005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000001}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 3859a92a05d4f5d418cb6ca605290e74, type: 3}
+  m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARSession
+  m_AttemptUpdate: 1
+  m_MatchFrameRate: 1
+  m_TrackingMode: 2
+--- !u!114 &3000000006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000001}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: fa850fbd5b8aded44846f96e35f1a9f5, type: 3}
+  m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARInputManager
+--- !u!1 &3000000007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3000000009}
+  - component: {fileID: 3000000014}
+  - component: {fileID: 3000000008}
+  - component: {fileID: 3000000012}
+  - component: {fileID: 3000000013}
+  m_Layer: 0
+  m_Name: MenuTracking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3000000009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &3000000008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000007}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 2dc7a56ec4770423fb22e24c3ba01e18, type: 3}
+  m_EditorClassIdentifier: Bit.Runtime::Bit.Input.HeadPoseTracker
+  faceManager: {fileID: 3000000012}
+  nodMinPitch: 12
+  nodReturnPitch: 4
+  nodMaxYaw: 8
+  nodMinDuration: 0.2
+  nodMaxDuration: 0.9
+  inputYaw: 12
+--- !u!114 &3000000014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000007}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
+  m_EditorClassIdentifier: Unity.XR.CoreUtils::Unity.XR.CoreUtils.XROrigin
+  m_Camera: {fileID: 596904954}
+  m_OriginBaseGameObject: {fileID: 3000000007}
+  m_CameraFloorOffsetObject: {fileID: 0}
+  m_RequestedTrackingOriginMode: 0
+  m_CameraYOffset: 0
+--- !u!114 &3000000012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000007}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: caeceacb624484daf8e379c2252fd246, type: 3}
+  m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARFaceManager
+  <trackablesChanged>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FacePrefab: {fileID: 0}
+  m_MaximumFaceCount: 1
+--- !u!114 &3000000013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000000007}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 5a6223c1de19a49f59b6c1fe03f4774f, type: 3}
+  m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.InputController
+  isHorizontalMovementTracked: 0
+  isNodTracked: 1
+  isRelaxationStateTracked: 0
+  isConcentrationStateTracked: 0
+  isBlinkTracked: 1
+  highValue: 0.6
+  lowValue: 0.4
+  confirmationTime: 0.25
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2807,6 +3046,8 @@ SceneRoots:
   - {fileID: 2026384015}
   - {fileID: 1691245344}
   - {fileID: 1175042234}
+  - {fileID: 3000000001}
+  - {fileID: 3000000007}
   - {fileID: 578215114}
   - {fileID: 1881233798}
   - {fileID: 1680505507}

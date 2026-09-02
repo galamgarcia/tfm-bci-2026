@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Tutorial.unity
     guid: 51a30000000000000000000000000004
+  - enabled: 1
+    path: Assets/Game/Scenes/Level01.unity
+    guid: 7c4e9a1d2b3f4c5d8e6a7b9c0d1e2f30
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 001b7a640ff874147adfb6af5f0c0621, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 4f3b505b5dcfd4d27b6078d67c928009, type: 2}

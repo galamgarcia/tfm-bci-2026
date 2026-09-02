@@ -28,10 +28,14 @@ namespace Bit.Gameplay
         [Header("Input Tracking")]
         [Tooltip("Enables BrainLink blink gesture tracking.")]
         [SerializeField] private bool isBlinkTracked = true;
-        [Header("Input Tracking")]
-        [Tooltip("Horizontal movement speed.")]
-        [SerializeField] private float horizontalMovementSpeed = 240f;
 
+        [Header("Mental State")]
+        [Tooltip("Value at which a mental state starts moving to High.")]
+        [SerializeField, Range(0f, 1f)] private float highValue = 0.6f;
+        [Tooltip("Value at which a mental state starts moving to Low.")]
+        [SerializeField, Range(0f, 1f)] private float lowValue = 0.4f;
+        [Tooltip("Seconds the new mental state must remain stable before it is published.")]
+        [SerializeField, Min(0f)] private float confirmationTime = 0.25f;
         // Configured head input source.
         private IHeadInputSource _headInput;
         // Configured mental input source.
@@ -46,13 +50,21 @@ namespace Bit.Gameplay
         private MentalStateLevel _relaxationLevel = MentalStateLevel.None;
         // Last published concentration level.
         private MentalStateLevel _concentrationLevel = MentalStateLevel.None;
+        // Candidate relaxation state waiting for confirmation.
+        private MentalStateLevel _relaxationCandidate = MentalStateLevel.None;
+        // Candidate concentration state waiting for confirmation.
+        private MentalStateLevel _concentrationCandidate = MentalStateLevel.None;
+        // Time the relaxation candidate has remained stable.
+        private float _relaxationCandidateTime;
+        // Time the concentration candidate has remained stable.
+        private float _concentrationCandidateTime;
 
         /// <summary>Triggered when the relaxation level changes.</summary>
         public event Action<MentalStateLevel> OnRelaxationChanged;
         /// <summary>Triggered when the concentration level changes.</summary>
         public event Action<MentalStateLevel> OnConcentrationChanged;
-        /// <summary>Triggered with the horizontal movement delta detected during the current frame.</summary>
-        public event Action<float> OnHorizontalMovementReceived;
+        /// <summary>Triggered with the normalized horizontal intent from the current input source.</summary>
+        public event Action<float> OnHorizontalInputReceived;
         /// <summary>Triggered after the head input source confirms a nod gesture.</summary>
         public event Action OnNodDetected;
         /// <summary>Triggered after the blink source confirms a blink gesture.</summary>
@@ -72,7 +84,7 @@ namespace Bit.Gameplay
 
         protected virtual void Update()
         {
-            UpdateHorizontalMovement();
+            UpdateHorizontalInput();
             UpdateMentalStateChanges();
         }
 
@@ -81,6 +93,7 @@ namespace Bit.Gameplay
         /// <param name="mental">Source that provides signal quality and EEG samples.</param>
         public void ConfigureSources(IHeadInputSource head, IMentalInputSource mental)
         {
+            if (ReferenceEquals(_headInput, head) && ReferenceEquals(_mentalInput, mental) && _blinkInput == null) { return; }
             UnsubscribeFromHeadSource();
             UnsubscribeFromBlinkSource();
             _headInput = head;
@@ -101,12 +114,17 @@ namespace Bit.Gameplay
             SubscribeToBlinkSource();
         }
 
-        /// <summary>Updates horizontal movement for the current frame when enabled.</summary>
-        private void UpdateHorizontalMovement()
+        /// <summary>Publishes normalized horizontal input for the current frame when enabled.</summary>
+        private void UpdateHorizontalInput()
         {
-            if (!isHorizontalMovementTracked || !TryGetHeadHorizontalInput(out float input)) { return; }
-            float delta = input * horizontalMovementSpeed * Time.deltaTime;
-            OnHorizontalMovementReceived?.Invoke(delta);
+            if (!isHorizontalMovementTracked)
+            {
+                OnHorizontalInputReceived?.Invoke(0f);
+                return;
+            }
+
+            bool hasInput = TryGetHeadHorizontalInput(out float input);
+            OnHorizontalInputReceived?.Invoke(hasInput ? input : 0f);
         }
 
         /// <summary>Updates changes to tracked relaxation and concentration levels.</summary>
@@ -114,12 +132,14 @@ namespace Bit.Gameplay
         {
             if (isRelaxationStateTracked)
             {
-                NotifyRelaxationChanged(GetRelaxationLevel());
+                NotifyRelaxationChanged(UpdateStableLevel(_mentalInput == null ? float.NaN : _mentalInput.Relaxation,
+                    _relaxationLevel, ref _relaxationCandidate, ref _relaxationCandidateTime));
             }
 
             if (isConcentrationStateTracked)
             {
-                NotifyConcentrationChanged(GetConcentrationLevel());
+                NotifyConcentrationChanged(UpdateStableLevel(_mentalInput == null ? float.NaN : _mentalInput.Concentration,
+                    _concentrationLevel, ref _concentrationCandidate, ref _concentrationCandidateTime));
             }
         }
 
@@ -144,20 +164,6 @@ namespace Bit.Gameplay
             return _concentrationLevel;
         }
 
-        /// <summary>Reads a normalized relaxation value when BrainLink signal quality is sufficient.</summary>
-        /// <returns>The relaxation level.</returns>
-        private MentalStateLevel GetRelaxationLevel()
-        {
-            return HasValidMentalSignal() ? ClassifyMentalState(_mentalInput.Relaxation) : MentalStateLevel.None;
-        }
-
-        /// <summary>Reads a normalized concentration value when BrainLink signal quality is sufficient.</summary>
-        /// <returns>The concentration level.</returns>
-        private MentalStateLevel GetConcentrationLevel()
-        {
-            return HasValidMentalSignal() ? ClassifyMentalState(_mentalInput.Concentration) : MentalStateLevel.None;
-        }
-
         /// <summary>Enables the input sources required by a concrete movement mode.</summary>
         /// <param name="horizontal">Indicates if horizontal head movement is enabled.</param>
         /// <param name="nod">Indicates if confirmed nod gestures are enabled.</param>
@@ -173,19 +179,65 @@ namespace Bit.Gameplay
             isBlinkTracked = blink;
             _relaxationLevel = MentalStateLevel.None;
             _concentrationLevel = MentalStateLevel.None;
+            _relaxationCandidate = MentalStateLevel.None;
+            _concentrationCandidate = MentalStateLevel.None;
+            _relaxationCandidateTime = 0f;
+            _concentrationCandidateTime = 0f;
         }
 
-        /// <summary>Classifies a normalized EEG metric into its mental-state level.</summary>
+        /// <summary>Updates a low/high state after the candidate has remained stable.</summary>
         /// <param name="value">Normalized EEG value expected in the range [0,1].</param>
-        /// <returns>The corresponding level, or None for invalid values.</returns>
-        public static MentalStateLevel ClassifyMentalState(float value)
+        /// <param name="current">Currently published state.</param>
+        /// <param name="candidate">Candidate state being confirmed.</param>
+        /// <param name="candidateTime">Time accumulated by the candidate state.</param>
+        /// <returns>The currently published state.</returns>
+        private MentalStateLevel UpdateStableLevel(float value, MentalStateLevel current,
+            ref MentalStateLevel candidate, ref float candidateTime)
         {
-            if (float.IsNaN(value) || float.IsInfinity(value)) { return MentalStateLevel.None; }
+            if (!HasValidMentalSignal() || float.IsNaN(value) || float.IsInfinity(value))
+            {
+                candidate = MentalStateLevel.None;
+                candidateTime = 0f;
+                return MentalStateLevel.None;
+            }
 
             value = Mathf.Clamp01(value);
-            if (value < 1f / 3f) { return MentalStateLevel.Low; }
-            if (value < 2f / 3f) { return MentalStateLevel.Medium; }
-            return MentalStateLevel.High;
+            MentalStateLevel next = current;
+            if (current == MentalStateLevel.None)
+            {
+                next = value >= highValue ? MentalStateLevel.High : value <= lowValue ? MentalStateLevel.Low : MentalStateLevel.None;
+            }
+            else if (current == MentalStateLevel.Low && value >= highValue)
+            {
+                next = MentalStateLevel.High;
+            }
+            else if (current == MentalStateLevel.High && value <= lowValue)
+            {
+                next = MentalStateLevel.Low;
+            }
+
+            if (next == current || next == MentalStateLevel.None)
+            {
+                candidate = MentalStateLevel.None;
+                candidateTime = 0f;
+                return current;
+            }
+
+            if (candidate != next)
+            {
+                candidate = next;
+                candidateTime = 0f;
+            }
+
+            candidateTime += Time.deltaTime;
+            if (candidateTime >= Mathf.Max(0f, confirmationTime))
+            {
+                candidate = MentalStateLevel.None;
+                candidateTime = 0f;
+                return next;
+            }
+
+            return current;
         }
 
         /// <summary>Reads the normalized horizontal head input when face tracking is available.</summary>

@@ -41,6 +41,8 @@ namespace Bit.UI
         private bool _wasConnected;
         // Indicates whether the blocking lifecycle has started.
         private bool _isBlocking;
+        // Connection service currently subscribed to device-found notifications.
+        private BrainLinkConnection _subscribedConnection;
 
         /// <summary>Raised when the popup starts blocking application interaction.</summary>
         public event Action OnBlockingStarted;
@@ -53,6 +55,16 @@ namespace Bit.UI
             _popup = GetComponent<ConnectionPopup>();
         }
 
+        private void OnEnable()
+        {
+            SubscribeToConnection();
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeFromConnection();
+        }
+
         private void Start()
         {
             BeginConnection();
@@ -61,6 +73,7 @@ namespace Bit.UI
         private void Update()
         {
             _connection = BrainLinkConnection.Instance;
+            EnsureConnectionSubscription();
             bool isConnected = _connection != null && _connection.IsConnected();
 
             if (isConnected && !_wasConnected)
@@ -90,6 +103,44 @@ namespace Bit.UI
             _wasConnected = isConnected;
         }
 
+        /// <summary>Shows the connecting state only after the scan reports a device.</summary>
+        private void OnDeviceFound()
+        {
+            if (_isBlocking && _popup != null)
+            {
+                _popup.ShowConnecting();
+            }
+        }
+
+        /// <summary>Subscribes to the current persistent connection service.</summary>
+        private void SubscribeToConnection()
+        {
+            EnsureConnectionSubscription();
+        }
+
+        /// <summary>Removes the connection service subscription when the popup is disabled.</summary>
+        private void UnsubscribeFromConnection()
+        {
+            if (_subscribedConnection != null)
+            {
+                _subscribedConnection.OnDeviceFound -= OnDeviceFound;
+                _subscribedConnection = null;
+            }
+        }
+
+        /// <summary>Subscribes once the persistent connection service is available.</summary>
+        private void EnsureConnectionSubscription()
+        {
+            BrainLinkConnection connection = BrainLinkConnection.Instance;
+            if (_subscribedConnection == connection) { return; }
+            UnsubscribeFromConnection();
+            if (connection != null)
+            {
+                _subscribedConnection = connection;
+                _subscribedConnection.OnDeviceFound += OnDeviceFound;
+            }
+        }
+
         /// <summary>Starts a new connection attempt and keeps the popup blocking.</summary>
         private void BeginConnection()
         {
@@ -106,11 +157,7 @@ namespace Bit.UI
                 return;
             }
 
-            if (_connection != null)
-            {
-                _popup.ShowConnecting();
-                _connection.StartConnection();
-            }
+            _connection?.StartConnection();
         }
 
         /// <summary>Notifies application systems that interaction is blocked or released.</summary>

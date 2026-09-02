@@ -102,7 +102,8 @@ namespace Bit.Gameplay
             main.startSpeed = 0f;
             main.startSize = new ParticleSystem.MinMaxCurve(0.025f, 0.06f);
             main.startColor = new Color(1f, 1f, 1f, 0.75f);
-            main.simulationSpace = ParticleSystemSimulationSpace.Local;
+            // Particles keep their world position after spawning instead of following Bit.
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
 
             var emission = _relaxationBubbles.emission;
             emission.rateOverTime = 0f;

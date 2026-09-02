@@ -84,6 +84,9 @@ namespace Bit.Input
         private void OnDisable()
         {
             faceManager.trackablesChanged.RemoveListener(OnFacesChanged);
+            HasFace = false;
+            HorizontalInput = 0f;
+            ResetNodState();
         }
 
         /// <summary>Starts a calibration process using recent head orientation samples.</summary>
@@ -102,6 +105,7 @@ namespace Bit.Input
             HasFace = face != null;
             if (!HasFace)
             {
+                HorizontalInput = 0f;
                 ResetNodState();
                 return;
             }
@@ -112,6 +116,7 @@ namespace Bit.Input
 
             if (_isCalibrating)
             {
+                HorizontalInput = 0f;
                 UpdateCalibration();
                 return;
             }
