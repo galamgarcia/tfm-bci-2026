@@ -20,8 +20,10 @@ namespace Bit.Input
         public static BrainLinkBlinkInputSource Instance { get; private set; }
         // Detector that stabilizes raw provider blink intensities.
         private BlinkDetector _detector;
+        // Last blink intensity reported to avoid repeating identical diagnostics.
+        private int _lastIntensity = -1;
 
-        public bool HasValidSignal => brainLinkManager != null && brainLinkManager.GetWave_quality() <= 75;
+        public bool HasValidSignal => brainLinkManager != null && brainLinkManager.IsHeadsetConnected();
         public event Action OnBlinkDetected;
 
         private void Awake()
@@ -35,7 +37,17 @@ namespace Bit.Input
             Instance = this;
             DontDestroyOnLoad(gameObject);
             BciSettings settings = BciSettings.Instance;
-            _detector = new BlinkDetector(settings.BlinkIntensity, settings.blinkCooldown);
+            _detector = new BlinkDetector(settings.BlinkIntensity, settings.BlinkCooldown);
+        }
+
+        private void Start()
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            using (AndroidJavaClass bridge = new AndroidJavaClass("bit.brainlink.BrainLinkBridge"))
+            {
+                bridge.CallStatic("install", brainLinkManager == null ? "ThinkGearManager" : brainLinkManager.gameObject.name);
+            }
+#endif
         }
 
         private void OnEnable()
@@ -54,6 +66,14 @@ namespace Bit.Input
             }
         }
 
+        private void Update()
+        {
+            if (brainLinkManager != null)
+            {
+                ProcessBlink(brainLinkManager.GetBlink());
+            }
+        }
+
         private void OnDestroy()
         {
             if (Instance == this)
@@ -66,6 +86,18 @@ namespace Bit.Input
         /// <param name="intensity">Raw blink intensity reported by BrainLink.</param>
         private void OnBlinkReceived(int intensity)
         {
+            ProcessBlink(intensity);
+        }
+
+        /// <summary>Processes one blink intensity from either the SDK callback or its current value.</summary>
+        /// <param name="intensity">Raw blink intensity reported by BrainLink.</param>
+        private void ProcessBlink(int intensity)
+        {
+            if (intensity != _lastIntensity && intensity > 0)
+            {
+                _lastIntensity = intensity;
+            }
+
             if (_detector != null && _detector.Process(intensity, HasValidSignal, Time.unscaledTime))
             {
                 OnBlinkDetected?.Invoke();

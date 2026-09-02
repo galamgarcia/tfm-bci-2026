@@ -20,3 +20,5 @@ MonoBehaviour:
   publishIntervalSeconds: 0.5
   averagingWindowSeconds: 1
   outlierTrimPercentage: 0.1
+  blinkIntensity: 1000
+  blinkCooldown: 0.35
