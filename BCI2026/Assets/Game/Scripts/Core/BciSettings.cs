@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 
 namespace Bit.Core
 {
-    /// <summary>Stores visual resources shared by the tutorial and game experience.</summary>
+    /// <summary>Stores shared BCI settings and visual resources for the game.</summary>
     [CreateAssetMenu(menuName = "BIT Game/BCI Settings", fileName = "BciSettings")]
     public sealed class BciSettings : ScriptableObject
     {

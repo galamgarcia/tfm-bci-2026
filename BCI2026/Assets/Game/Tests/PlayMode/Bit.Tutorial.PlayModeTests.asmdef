@@ -1,9 +1,0 @@
-{
-  "name": "Bit.Tutorial.PlayModeTests",
-  "references": [
-    "Bit.Runtime"
-  ],
-  "optionalUnityReferences": [
-    "TestAssemblies"
-  ]
-}

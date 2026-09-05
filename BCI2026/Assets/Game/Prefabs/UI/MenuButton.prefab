@@ -654,7 +654,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_Script: {fileID: 11500000, guid: 36d7f0b4a9c54e1f8b2a6c3d5e7f9012, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.DashFrame
+  m_EditorClassIdentifier: Bit.Runtime::Bit.UI.SelectedButtonFrame
 --- !u!224 &24229327107827485
 RectTransform:
   m_ObjectHideFlags: 0

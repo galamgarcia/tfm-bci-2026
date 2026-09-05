@@ -225,7 +225,7 @@ namespace Bit.Gameplay
         [Test]
         public void MentalPlatformPrefab_UsesThreeDimensionalCollision()
         {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Game/Prefabs/Gameplay/MentalPlatform.prefab");
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Game/Prefabs/Gameplay/World/MentalPlatform.prefab");
 
             Assert.That(prefab, Is.Not.Null);
             Assert.That(prefab.GetComponent<MentalPlatform>(), Is.Not.Null);
@@ -245,7 +245,7 @@ namespace Bit.Gameplay
         [Test]
         public void MentalPlatformSize_UpdatesAnchoredColliderAndFill()
         {
-            const string path = "Assets/Game/Prefabs/Gameplay/MentalPlatform.prefab";
+            const string path = "Assets/Game/Prefabs/Gameplay/World/MentalPlatform.prefab";
             GameObject instance = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(path));
             try
             {
@@ -271,7 +271,7 @@ namespace Bit.Gameplay
         /// <returns>Whether the platform collider remains a physical surface.</returns>
         private static bool GetMentalPlatformState(bool requiresFocus, MentalStateLevel level)
         {
-            const string path = "Assets/Game/Prefabs/Gameplay/MentalPlatform.prefab";
+            const string path = "Assets/Game/Prefabs/Gameplay/World/MentalPlatform.prefab";
             GameObject instance = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(path));
             try
             {
