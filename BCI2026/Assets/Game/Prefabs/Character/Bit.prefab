@@ -136,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90aabbccddeeff011234567890123456, type: 3}
   m_Name:
   m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.BitMovementController
-  inputController: {fileID: 1000000000000000004}
   physicsBody: {fileID: 1000000000000010013}
   bodyCollider: {fileID: 1000000000000010014}
   movementSpeed: 2

@@ -58,6 +58,8 @@ namespace Bit.Gameplay
         private float _relaxationCandidateTime;
         // Time the concentration candidate has remained stable.
         private float _concentrationCandidateTime;
+        // Prevents mental-state events from changing gameplay systems during respawn.
+        private bool _isMentalStateUpdatesEnabled = true;
 
         /// <summary>Triggered when the relaxation level changes.</summary>
         public event Action<MentalStateLevel> OnRelaxationChanged;
@@ -130,6 +132,7 @@ namespace Bit.Gameplay
         /// <summary>Updates changes to tracked relaxation and concentration levels.</summary>
         private void UpdateMentalStateChanges()
         {
+            if (!_isMentalStateUpdatesEnabled) { return; }
             if (isRelaxationStateTracked)
             {
                 NotifyRelaxationChanged(UpdateStableLevel(_mentalInput == null ? float.NaN : _mentalInput.Relaxation,
@@ -183,6 +186,13 @@ namespace Bit.Gameplay
             _concentrationCandidate = MentalStateLevel.None;
             _relaxationCandidateTime = 0f;
             _concentrationCandidateTime = 0f;
+        }
+
+        /// <summary>Enables or pauses published mental-state changes without resetting their current values.</summary>
+        /// <param name="isEnabled">Whether relaxation and concentration events should be published.</param>
+        public void SetMentalStateUpdatesEnabled(bool isEnabled)
+        {
+            _isMentalStateUpdatesEnabled = isEnabled;
         }
 
         /// <summary>Updates a low/high state after the candidate has remained stable.</summary>

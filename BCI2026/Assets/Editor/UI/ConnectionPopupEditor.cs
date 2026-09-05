@@ -5,9 +5,7 @@
  */
 
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Bit.UI;
 
 namespace Bit.Editor
@@ -16,10 +14,6 @@ namespace Bit.Editor
     [CustomEditor(typeof(ConnectionPopup))]
     public sealed class ConnectionPopupEditor : UnityEditor.Editor
     {
-        private const string SandboxPath = "Assets/Game/Scenes/Test/BitSandbox.unity";
-        private const string PopupPath = "Assets/Game/Prefabs/UI/ConnectionPopup.prefab";
-        private const string SandboxObjectName = "ConnectionPopupSandbox";
-
         /// <summary>Draws the popup Inspector and state preview controls.</summary>
         public override void OnInspectorGUI()
         {
@@ -51,30 +45,6 @@ namespace Bit.Editor
             {
                 controller.SimulateConnectionFlowForEditor();
             }
-        }
-
-        /// <summary>Adds the reusable popup to the sandbox and disables hardware-driven state changes.</summary>
-        [MenuItem("BIT/Sandbox/Add Connection Popup")]
-        public static void AddConnectionPopupToSandbox()
-        {
-            Scene scene = EditorSceneManager.OpenScene(SandboxPath, OpenSceneMode.Single);
-            GameObject popup = GameObject.Find(SandboxObjectName);
-            if (popup == null)
-            {
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PopupPath);
-                popup = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
-                popup.name = SandboxObjectName;
-            }
-
-            ConnectionPopupController controller = popup.GetComponent<ConnectionPopupController>();
-            if (controller != null)
-            {
-                controller.enabled = false;
-            }
-
-            Selection.activeGameObject = popup;
-            EditorSceneManager.MarkSceneDirty(scene);
-            EditorSceneManager.SaveScene(scene);
         }
 
         private static void DrawStateButton(ConnectionPopup popup, string label, UnityEngine.Events.UnityAction action)

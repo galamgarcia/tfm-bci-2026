@@ -46,10 +46,13 @@ namespace Bit.Gameplay
         private float _horizontalVelocity;
         // Current vertical smoothing velocity.
         private float _verticalVelocity;
+        // Prevents rope tracking while Bit is falling.
+        private bool _isPaused;
 
         private void FixedUpdate()
         {
             if (target == null || cameraSource == null || !cameraSource.orthographic) { return; }
+            if (_isPaused) { return; }
 
             float deltaTime = Mathf.Max(Time.fixedDeltaTime, 0.0001f);
             Vector3 targetPosition = target.position;
@@ -67,6 +70,43 @@ namespace Bit.Gameplay
             float nextX = Mathf.SmoothDamp(current.x, desired.x, ref _horizontalVelocity, horizontalSmoothing, Mathf.Infinity, deltaTime);
             float nextY = Mathf.SmoothDamp(current.y, desired.y, ref _verticalVelocity, verticalSmoothing, Mathf.Infinity, deltaTime);
             transform.position = new Vector3(nextX, nextY, transform.position.z);
+        }
+
+        /// <summary>Pauses or resumes rope tracking and clears smoothing velocity.</summary>
+        /// <param name="pause">Indicates whether tracking should be paused.</param>
+        public void PauseTracking(bool pause)
+        {
+            _isPaused = pause;
+            _horizontalVelocity = 0f;
+            _verticalVelocity = 0f;
+        }
+
+        /// <summary>Snaps the camera so Bit is positioned at the rope center.</summary>
+        public void SnapToTarget()
+        {
+            if (target == null || cameraSource == null || !cameraSource.orthographic) { return; }
+
+            Vector2 visibleSize = GetVisibleSize();
+            Vector2 ropeCenter = new Vector2((leftBoundary + rightBoundary) * 0.5f, (bottomBoundary + topBoundary) * 0.5f);
+            Vector2 desired = new Vector2(target.position.x, target.position.y)
+                - new Vector2((ropeCenter.x - 0.5f) * visibleSize.x, (ropeCenter.y - 0.5f) * visibleSize.y);
+            if (hasCameraBounds) { desired = Utils.ClampCameraCenter(desired, cameraBounds, visibleSize); }
+
+            _horizontalVelocity = 0f;
+            _verticalVelocity = 0f;
+            transform.position = new Vector3(desired.x, desired.y, transform.position.z);
+        }
+
+        /// <summary>Returns the camera used by the gameplay rope.</summary>
+        /// <returns>The configured camera.</returns>
+        public Camera GetCamera()
+        {
+            return cameraSource;
+        }
+
+        private Vector2 GetVisibleSize()
+        {
+            return new Vector2(cameraSource.orthographicSize * 2f * cameraSource.aspect, cameraSource.orthographicSize * 2f);
         }
 
         private void OnValidate()
