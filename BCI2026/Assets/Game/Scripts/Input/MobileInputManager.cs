@@ -26,7 +26,7 @@ namespace Bit.Input
             Debug.Log($"MobileInputManager: configuring {inputControllers.Length} input controller(s); head tracker assigned: {headPoseTracker != null}; blink source available: {blinkSource != null}.");
             foreach (InputController inputController in inputControllers)
             {
-                inputController?.ConfigureSources(headPoseTracker, null, blinkSource);
+            inputController?.ConfigureSources(headPoseTracker, FilteredMentalInputSource.Instance, blinkSource);
             }
         }
     }

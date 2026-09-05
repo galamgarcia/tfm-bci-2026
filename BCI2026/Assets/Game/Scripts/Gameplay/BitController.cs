@@ -4,17 +4,17 @@
  * © 2026 Gala M. García
  */
 
+using System;
 using UnityEngine;
 using Bit.Input;
 
 namespace Bit.Gameplay
 {
     /// <summary>Coordinates Bit's movement intent, gaze direction, and idle visual states.</summary>
+    [RequireComponent(typeof(InputController))]
     public sealed class BitController : MonoBehaviour
     {
         [Header("References")]
-        [Tooltip("Input component that publishes Bit's player intent.")]
-        [SerializeField] private InputController inputController;
         [Tooltip("Eye controller used to display the last movement direction.")]
         [SerializeField] private BitEyeController eyeController;
         [Tooltip("Body controller used to play body idle animations.")]
@@ -28,29 +28,30 @@ namespace Bit.Gameplay
         [Tooltip("Seconds without movement input before Bit's idle animations start.")]
         [SerializeField, Min(0f)] private float idleDelay = 0.75f;
 
-        // Last non-zero horizontal input direction.
-        private float _lastHorizontalInput;
         // Time elapsed since the player stopped sending horizontal input.
         private float _lastInputWas;
         // Whether the coordinated idle animations are active.
         private bool _isIdleActive;
+        // Position used when Bit respawns.
+        private Vector3 _respawnPosition;
 
-        /// <summary>Connects a device-independent head input source to Bit's input controller.</summary>
-        /// <param name="input">Source that provides normalized horizontal head input.</param>
-        public void ConfigureHeadInput(IHeadInputSource input)
+        private InputController _inputController;
+
+        /// <summary>Triggered when Bit receives a confirmed concentration state.</summary>
+        public event Action<MentalStateLevel> OnConcentrationChanged;
+
+        private void Awake()
         {
-            if (inputController != null)
-            {
-                inputController.ConfigureSources(input, null);
-            }
+            _inputController = GetComponent<InputController>();
+            _respawnPosition = GetPosition();
         }
 
         private void OnEnable()
         {
-            if (inputController == null) { return; }
-            inputController.OnHorizontalInputReceived += OnHorizontalInputReceived;
-            inputController.OnRelaxationChanged += OnRelaxationChanged;
-            inputController.OnConcentrationChanged += OnConcentrationChanged;
+            _inputController.OnHorizontalInputReceived += OnHorizontalInputReceived;
+            _inputController.OnBlinkDetected += OnBlinkDetected;
+            _inputController.OnRelaxationChanged += OnRelaxationChanged;
+            _inputController.OnConcentrationChanged += HandleConcentrationChanged;
             if (movementController != null)
             {
                 movementController.JumpStarted += OnJumpStarted;
@@ -60,10 +61,10 @@ namespace Bit.Gameplay
 
         private void OnDisable()
         {
-            if (inputController == null) { return; }
-            inputController.OnHorizontalInputReceived -= OnHorizontalInputReceived;
-            inputController.OnRelaxationChanged -= OnRelaxationChanged;
-            inputController.OnConcentrationChanged -= OnConcentrationChanged;
+            _inputController.OnHorizontalInputReceived -= OnHorizontalInputReceived;
+            _inputController.OnBlinkDetected -= OnBlinkDetected;
+            _inputController.OnRelaxationChanged -= OnRelaxationChanged;
+            _inputController.OnConcentrationChanged -= OnConcentrationChanged;
             if (movementController != null)
             {
                 movementController.JumpStarted -= OnJumpStarted;
@@ -82,16 +83,23 @@ namespace Bit.Gameplay
         /// <param name="input">Normalized horizontal input from minus one to one.</param>
         private void OnHorizontalInputReceived(float input)
         {
+            float direction = Mathf.Sign(input);
+            movementController?.SetHorizontalInput(input, direction);
             if (Mathf.Abs(input) > 0.001f)
             {
-                _lastHorizontalInput = Mathf.Sign(input);
                 _lastInputWas = 0f;
                 StopIdle();
-                eyeController?.SetLookDirection(_lastHorizontalInput < 0f ? BitLookDirection.Left : BitLookDirection.Right);
+                eyeController?.SetLookDirection(direction < 0f ? BitLookDirection.Left : BitLookDirection.Right);
                 return;
             }
 
             _lastInputWas += Time.deltaTime;
+        }
+
+        /// <summary>Forwards a validated blink command to the movement controller.</summary>
+        private void OnBlinkDetected()
+        {
+            movementController?.TryJump();
         }
 
         /// <summary>Starts the visual jump pose after the movement controller accepts a jump.</summary>
@@ -113,15 +121,24 @@ namespace Bit.Gameplay
         private void OnRelaxationChanged(MentalStateLevel level)
         {
             bool isRelaxed = level == MentalStateLevel.High;
+            movementController?.SetJumpVelocityMultiplier(isRelaxed ? 1.25f : 1f);
             eyeController?.SetRelaxation(isRelaxed ? 1f : 0f);
             vfxManager?.SetRelaxationIntensity(isRelaxed ? 1f : 0f);
         }
 
-        /// <summary>Updates BIT's body feedback from the confirmed concentration state.</summary>
+        /// <summary>Updates the concentration state.</summary>
         /// <param name="level">Confirmed concentration level.</param>
-        private void OnConcentrationChanged(MentalStateLevel level)
+        private void HandleConcentrationChanged(MentalStateLevel level)
         {
             bodyController?.SetConcentrationHigh(level == MentalStateLevel.High);
+            OnConcentrationChanged?.Invoke(level);
+        }
+
+        /// <summary>Returns latests concentration state.</summary>
+        /// <returns>The current concentration level.</returns>
+        public MentalStateLevel GetConcentrationLevel()
+        {
+            return _inputController.GetCurrentConcentrationLevel();;
         }
 
         /// <summary>Starts the coordinated body and eye idle animations.</summary>
@@ -129,7 +146,7 @@ namespace Bit.Gameplay
         {
             _isIdleActive = true;
             bodyController?.StartIdle();
-            eyeController?.StartEyesIdle();
+            //eyeController?.StartEyesIdle();
         }
 
         /// <summary>Stops the coordinated body and eye idle animations.</summary>
@@ -138,11 +155,53 @@ namespace Bit.Gameplay
             if (!_isIdleActive) { return; }
             _isIdleActive = false;
             bodyController?.StopBodyIdle();
-            eyeController?.StopEyesIdle();
-            if (Mathf.Abs(_lastHorizontalInput) > 0.001f)
-            {
-                eyeController?.SetLookDirection(_lastHorizontalInput < 0f ? BitLookDirection.Left : BitLookDirection.Right);
-            }
+            //eyeController?.StopEyesIdle();
+        }
+
+        /// <summary>Enables or disables gameplay input and mental-state updates.</summary>
+        /// <param name="enable">Indicates if Bit may receive gameplay input.</param>
+        public void SetGameplayEnabled(bool enable)
+        {
+            movementController.SetGameplayInputEnabled(enable);
+            _inputController.SetMentalStateUpdatesEnabled(enable);
+        }
+
+        /// <summary>Stores the world position used by the next respawn.</summary>
+        /// <param name="position">World respawn position.</param>
+        public void SetRespawnPosition(Vector3 position)
+        {
+            _respawnPosition = position;
+        }
+
+        /// <summary>Returns the currently stored respawn position.</summary>
+        /// <returns>The world respawn position.</returns>
+        public Vector3 GetRespawnPosition()
+        {
+            return _respawnPosition;
+        }
+
+        /// <summary>Restores and coordinated visual state after a respawn.</summary>
+        public void ResetForRespawn()
+        {
+            movementController.ResetForRespawn(_respawnPosition);
+            StopIdle();
+            bodyController?.ResetBodyState();
+            eyeController?.ResetRelaxation();
+            vfxManager?.StopRelaxationVfx();
+        }
+
+        /// <summary>Returns current world position.</summary>
+        /// <returns>Current world position.</returns>
+        public Vector3 GetPosition()
+        {
+            return movementController.GetPosition();
+        }
+
+        /// <summary>Returns current physical bounds.</summary>
+        /// <returns>Current world-space physical bounds.</returns>
+        public Bounds GetBodyBounds()
+        {
+            return movementController.GetBodyBounds();
         }
     }
 }

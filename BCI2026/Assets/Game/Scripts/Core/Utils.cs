@@ -60,5 +60,31 @@ namespace Bit.Core
             if (minY > maxY) { minY = maxY = bounds.center.y; }
             return new Vector2(Mathf.Clamp(desired.x, minX, maxX), Mathf.Clamp(desired.y, minY, maxY));
         }
+
+        /// <summary>Checks if every corner of a bound is below the camera viewport.</summary>
+        /// <param name="camera">Camera projecting the gameplay viewport.</param>
+        /// <param name="bounds">World-space bounds.</param>
+        /// <returns>True when the complete bound is below the viewport.</returns>
+        public static bool IsBelowViewport(Camera camera, Bounds bounds)
+        {
+            if (camera == null) { return false; }
+
+            for (int x = 0; x <= 1; x++)
+            {
+                for (int y = 0; y <= 1; y++)
+                {
+                    for (int z = 0; z <= 1; z++)
+                    {
+                        Vector3 point = new Vector3(
+                            x == 0 ? bounds.min.x : bounds.max.x,
+                            y == 0 ? bounds.min.y : bounds.max.y,
+                            z == 0 ? bounds.min.z : bounds.max.z);
+                        if (camera.WorldToViewportPoint(point).y >= 0f) { return false; }
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 }

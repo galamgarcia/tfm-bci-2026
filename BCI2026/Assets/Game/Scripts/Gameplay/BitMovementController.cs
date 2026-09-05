@@ -13,8 +13,6 @@ namespace Bit.Gameplay
     public sealed class BitMovementController : MonoBehaviour
     {
         [Header("References")]
-        [Tooltip("Input component that publishes Bit's horizontal intent and jump actions.")]
-        [SerializeField] private InputController inputController;
         [Tooltip("Rigidbody attached to Bit's physics root.")]
         [SerializeField] private Rigidbody physicsBody;
         [Tooltip("Bit's collider used to calculate the ground-check distance.")]
@@ -42,6 +40,8 @@ namespace Bit.Gameplay
         private float _jumpVelocityMultiplier = 1f;
         // Whether external movement input is temporarily blocked.
         private bool _isMovementLocked;
+        // Whether player input is blocked while physics remains active.
+        private bool _isGameplayInputLocked;
         // Gravity state preserved while movement is locked.
         private bool _wasGravityEnabled;
 
@@ -50,28 +50,20 @@ namespace Bit.Gameplay
         /// <summary>Triggered when a jump returns to a ground layer.</summary>
         public event Action Landed;
 
-        private void OnEnable()
-        {
-            if (inputController == null) { return; }
-            inputController.OnHorizontalInputReceived += OnHorizontalInputReceived;
-            inputController.OnBlinkDetected += OnBlinkDetected;
-            inputController.OnRelaxationChanged += OnRelaxationChanged;
-        }
-
-        private void OnDisable()
-        {
-            if (inputController == null) { return; }
-            inputController.OnHorizontalInputReceived -= OnHorizontalInputReceived;
-            inputController.OnBlinkDetected -= OnBlinkDetected;
-            inputController.OnRelaxationChanged -= OnRelaxationChanged;
-        }
-
         private void FixedUpdate()
         {
             if (physicsBody == null) { return; }
             if (_isMovementLocked)
             {
                 physicsBody.linearVelocity = Vector3.zero;
+                return;
+            }
+
+            if (_isGameplayInputLocked)
+            {
+                _horizontalInput = 0f;
+                _jumpHorizontalInput = 0f;
+                _isJumping = false;
                 return;
             }
 
@@ -87,21 +79,23 @@ namespace Bit.Gameplay
             physicsBody.MovePosition(position);
         }
 
-        /// <summary>Stores the latest normalized horizontal player intent.</summary>
+        /// <summary>Receives the latest normalized horizontal player intent.</summary>
         /// <param name="input">Horizontal input from minus one to one.</param>
-        private void OnHorizontalInputReceived(float input)
+        public void SetHorizontalInput(float input, float direction)
         {
+            if (_isGameplayInputLocked) { return; }
             _horizontalInput = Mathf.Clamp(input, -1f, 1f);
-            if (Mathf.Abs(_horizontalInput) > 0.001f)
+            if (Mathf.Abs(input) > 0.001f)
             {
-                _lastHorizontalDirection = Mathf.Sign(_horizontalInput);
+                _lastHorizontalDirection = direction;
             }
         }
 
-        /// <summary>Starts a physical jump when a validated blink is received.</summary>
-        private void OnBlinkDetected()
+        /// <summary>Attempts to start a physical jump.</summary>
+        /// <returns>True when the jump was accepted.</returns>
+        public bool TryJump()
         {
-            if (physicsBody == null || !IsGrounded()) { return; }
+            if (physicsBody == null ||_isGameplayInputLocked || !IsGrounded()) { return false; }
             Vector3 velocity = physicsBody.linearVelocity;
             velocity.y = jumpVelocity * _jumpVelocityMultiplier;
             _jumpHorizontalInput = _lastHorizontalDirection;
@@ -109,13 +103,14 @@ namespace Bit.Gameplay
             physicsBody.linearVelocity = velocity;
             _isJumping = true;
             JumpStarted?.Invoke();
+            return true;
         }
 
-        /// <summary>Updates jump height from the confirmed relaxation state.</summary>
-        /// <param name="level">Confirmed relaxation level.</param>
-        private void OnRelaxationChanged(MentalStateLevel level)
+        /// <summary>Sets the jump height multiplier supplied by the gameplay controller.</summary>
+        /// <param name="multiplier">Multiplier applied to the configured jump velocity.</param>
+        public void SetJumpVelocityMultiplier(float multiplier)
         {
-            _jumpVelocityMultiplier = level == MentalStateLevel.High ? 1.25f : 1f;
+            _jumpVelocityMultiplier = Mathf.Max(0f, multiplier);
         }
 
         /// <summary>Enables or disables player-controlled movement.</summary>
@@ -125,7 +120,10 @@ namespace Bit.Gameplay
             _isMovementLocked = isLocked;
             if (!isLocked)
             {
-                if (physicsBody != null) { physicsBody.useGravity = _wasGravityEnabled; }
+                if (physicsBody != null)
+                {
+                    physicsBody.useGravity = _wasGravityEnabled;
+                }
                 return;
             }
 
@@ -140,6 +138,18 @@ namespace Bit.Gameplay
             }
         }
 
+        /// <summary>Enables or disables gameplay input without changing ongoing physics.</summary>
+        /// <param name="isEnabled">Whether horizontal input and jumping should be accepted.</param>
+        public void SetGameplayInputEnabled(bool isEnabled)
+        {
+            _isGameplayInputLocked = !isEnabled;
+            if (isEnabled) { return; }
+
+            _horizontalInput = 0f;
+            _jumpHorizontalInput = 0f;
+            _isJumping = false;
+        }
+
         /// <summary>Moves the locked physics body to a world position and clears its velocity.</summary>
         /// <param name="position">World position to assign to Bit.</param>
         public void MoveTo(Vector3 position)
@@ -150,11 +160,34 @@ namespace Bit.Gameplay
             physicsBody.linearVelocity = Vector3.zero;
         }
 
+        /// <summary>Repositions Bit and restores a clean physical state for respawn.</summary>
+        /// <param name="position">World position to assign to Bit.</param>
+        public void ResetForRespawn(Vector3 position)
+        {
+            if (physicsBody == null) { return; }
+            position.z = physicsBody.position.z;
+            physicsBody.position = position;
+            physicsBody.linearVelocity = Vector3.zero;
+            physicsBody.angularVelocity = Vector3.zero;
+            physicsBody.useGravity = true;
+            _horizontalInput = 0f;
+            _jumpHorizontalInput = 0f;
+            _isJumping = false;
+            _isMovementLocked = false;
+        }
+
         /// <summary>Gets the current world position of Bit's physics body.</summary>
         /// <returns>The physics body's current world position.</returns>
         public Vector3 GetPosition()
         {
             return physicsBody == null ? transform.position : physicsBody.position;
+        }
+
+        /// <summary>Gets the bounds used by Bit's physical body.</summary>
+        /// <returns>The configured body bounds.</returns>
+        public Bounds GetBodyBounds()
+        {
+            return bodyCollider.bounds;
         }
 
         /// <summary>Checks whether the configured collider is touching a ground layer.</summary>
