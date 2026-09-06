@@ -152,11 +152,11 @@ namespace Bit.Gameplay
         }
 
         /// <summary>Enables or disables player-controlled movement.</summary>
-        /// <param name="isLocked">Whether horizontal movement and jumping should be blocked.</param>
-        public void SetMovementLocked(bool isLocked)
+        /// <param name="enabled">If horizontal movement and jumping should be blocked.</param>
+        public void SetMovementEnabled(bool enabled)
         {
-            _isMovementLocked = isLocked;
-            if (!isLocked)
+            _isMovementLocked = !enabled;
+            if (enabled)
             {
                 if (physicsBody != null)
                 {

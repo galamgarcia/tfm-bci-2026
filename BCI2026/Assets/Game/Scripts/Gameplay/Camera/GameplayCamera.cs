@@ -49,6 +49,11 @@ namespace Bit.Gameplay
         // Prevents rope tracking while Bit is falling.
         private bool _isPaused;
 
+        private void Awake()
+        {
+            _isPaused = TryGetComponent<GameplayCameraIntro>(out _);
+        }
+
         private void FixedUpdate()
         {
             if (target == null || cameraSource == null || !cameraSource.orthographic) { return; }
@@ -86,15 +91,24 @@ namespace Bit.Gameplay
         {
             if (target == null || cameraSource == null || !cameraSource.orthographic) { return; }
 
-            Vector2 visibleSize = GetVisibleSize();
-            Vector2 ropeCenter = new Vector2((leftBoundary + rightBoundary) * 0.5f, (bottomBoundary + topBoundary) * 0.5f);
-            Vector2 desired = new Vector2(target.position.x, target.position.y)
-                - new Vector2((ropeCenter.x - 0.5f) * visibleSize.x, (ropeCenter.y - 0.5f) * visibleSize.y);
-            if (hasCameraBounds) { desired = Utils.ClampCameraCenter(desired, cameraBounds, visibleSize); }
+            Vector3 desired = GetTargetCameraPosition();
 
             _horizontalVelocity = 0f;
             _verticalVelocity = 0f;
-            transform.position = new Vector3(desired.x, desired.y, transform.position.z);
+            transform.position = desired;
+        }
+
+        /// <summary>Calculates the camera position that places the target at the rope center.</summary>
+        /// <returns>The target-follow camera position.</returns>
+        public Vector3 GetTargetCameraPosition()
+        {
+            if (target == null || cameraSource == null || !cameraSource.orthographic) { return transform.position; }
+
+            Vector2 visibleSize = GetVisibleSize();
+            Vector2 ropeCenter = new Vector2((leftBoundary + rightBoundary) * 0.5f, (bottomBoundary + topBoundary) * 0.5f);
+            Vector2 desired = new Vector2(target.position.x, target.position.y) - new Vector2((ropeCenter.x - 0.5f) * visibleSize.x, (ropeCenter.y - 0.5f) * visibleSize.y);
+            if (hasCameraBounds) { desired = Utils.ClampCameraCenter(desired, cameraBounds, visibleSize); }
+            return new Vector3(desired.x, desired.y, transform.position.z);
         }
 
         /// <summary>Returns the camera used by the gameplay rope.</summary>
