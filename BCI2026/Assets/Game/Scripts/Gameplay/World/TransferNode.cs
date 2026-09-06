@@ -75,7 +75,7 @@ namespace Bit.Gameplay
                 return;
             }
 
-            _player.SetMovementEnabled(true);
+            _player.SetMovementEnabled(false);
             _state = NodeState.Complete;
             StartCoroutine(BeginTransfer());
         }

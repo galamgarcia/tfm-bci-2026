@@ -41,7 +41,7 @@ namespace Bit.Gameplay
             }
 
             bitController.SetGameplayEnabled(false);
-            bitController.SetMovementEnabled(true);
+            bitController.SetMovementEnabled(false);
             _cameraController.PauseTracking(true);
             transform.position = new Vector3(introStart.position.x, introStart.position.y, transform.position.z);
             StartCoroutine(PlayIntro());
@@ -63,7 +63,7 @@ namespace Bit.Gameplay
             yield return MoveTo(_cameraController.GetTargetCameraPosition());
             _cameraController.SnapToTarget();
             _cameraController.PauseTracking(false);
-            bitController.SetMovementEnabled(false);
+            bitController.SetMovementEnabled(true);
             bitController.SetGameplayEnabled(true);
         }
 
