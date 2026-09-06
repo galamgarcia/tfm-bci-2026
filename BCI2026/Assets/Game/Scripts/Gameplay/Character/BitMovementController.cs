@@ -38,7 +38,7 @@ namespace Bit.Gameplay
         private float _horizontalInput;
         // Last non-zero horizontal direction used for directional jumps.
         private float _lastHorizontalDirection = 1f;
-        // Whether the current jump has not landed yet.
+        // Indicates if the jump has not landed yet.
         private bool _isJumping;
         // Horizontal direction retained by the current jump.
         private float _jumpHorizontalInput;
@@ -58,6 +58,8 @@ namespace Bit.Gameplay
         private float _jumpTime;
         // Expected time from jump start to the apex.
         private float _timeToApex;
+        // Indicates if Bit was on the ground.
+        private bool _isGrounded = true;
 
         /// <summary>Triggered when a grounded jump is accepted.</summary>
         public event Action JumpStarted;
@@ -81,6 +83,7 @@ namespace Bit.Gameplay
                 return;
             }
 
+            bool isGrounded = IsGrounded();
             if (_isJumping)
             {
                 if (_isVerticalJump)
@@ -91,24 +94,28 @@ namespace Bit.Gameplay
                         ApplyApexImpulse();
                     }
 
-                    if (physicsBody.linearVelocity.y <= 0f && IsGrounded())
+                    if (physicsBody.linearVelocity.y <= 0f && isGrounded)
                     {
                         CompleteLanding();
                     }
-
                     return;
                 }
 
-                if (physicsBody.linearVelocity.y <= 0f && IsGrounded())
+                if (physicsBody.linearVelocity.y <= 0f && isGrounded)
                 {
                     CompleteLanding();
                 }
+            }
+            else if (!_isGrounded && isGrounded)
+            {
+                Landed?.Invoke();
             }
 
             Vector3 position = physicsBody.position;
             float horizontalInput = _isJumping ? _jumpHorizontalInput : _horizontalInput;
             position.x += horizontalInput * movementSpeed * Time.fixedDeltaTime;
             physicsBody.MovePosition(position);
+            _isGrounded = isGrounded;
         }
 
         /// <summary>Receives the latest normalized horizontal player intent.</summary>
