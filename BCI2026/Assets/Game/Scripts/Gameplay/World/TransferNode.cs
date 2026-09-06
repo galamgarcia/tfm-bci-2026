@@ -75,7 +75,7 @@ namespace Bit.Gameplay
                 return;
             }
 
-            _player.GetComponent<BitMovementController>()?.SetMovementLocked(true);
+            _player.SetMovementEnabled(true);
             _state = NodeState.Complete;
             StartCoroutine(BeginTransfer());
         }

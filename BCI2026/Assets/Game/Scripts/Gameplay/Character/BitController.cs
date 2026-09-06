@@ -166,6 +166,13 @@ namespace Bit.Gameplay
             _inputController.SetMentalStateUpdatesEnabled(enable);
         }
 
+        /// <summary>Enables or disables physical movement.</summary>
+        /// <param name="enabled">If physical movement should be enabled.</param>
+        public void SetMovementEnabled(bool enabled)
+        {
+            movementController.SetMovementEnabled(enabled);
+        }
+
         /// <summary>Stores the world position used by the next respawn.</summary>
         /// <param name="position">World respawn position.</param>
         public void SetRespawnPosition(Vector3 position)
