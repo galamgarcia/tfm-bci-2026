@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44abbe589e1f437dbebdd4330749ce35, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.BitBodyController
   visualRoot: {fileID: 1000000000000000021}
   bodyVisual: {fileID: 1000000000000010011}
@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91aabbccddeeff011234567890123456, type: 3}
   m_Name:
   m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.BitController
-  inputController: {fileID: 1000000000000000004}
   eyeController: {fileID: 1000000000000000002}
   bodyController: {fileID: 1000000000000000003}
   movementController: {fileID: 1000000000000000006}
@@ -144,6 +143,8 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  jumpDetectionDistance: 0.4
+  verticalJumpHorizontalImpulse: 0.7
 --- !u!114 &8605151608584953806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +155,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7a8ffb2ff9534d409d7e07854121433, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.BitTransferEffect
   visualRoot: {fileID: 1000000000000000021}
   renderers:
@@ -780,7 +781,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d20f6f4ed4f4cb9a935d1e2cda68a90, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Bit.Runtime::Bit.Gameplay.BitVfxManager
   relaxationBubbleMaterial: {fileID: 2100000, guid: 8455f7d4467849edb2b90509f84c8f61, type: 2}
   maximumRelaxationEmission: 4
