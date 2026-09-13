@@ -174,6 +174,7 @@ namespace Bit.UI
         /// <summary>Simulates the connection flow without requiring a BrainLink device.</summary>
         public void SimulateConnectionFlowForEditor()
         {
+            _popup ??= GetComponent<ConnectionPopup>();
             StopAllCoroutines();
             StartCoroutine(SimulateConnectionFlow());
         }

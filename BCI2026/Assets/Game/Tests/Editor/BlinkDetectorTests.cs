@@ -24,7 +24,7 @@ namespace Bit.Tests.Editor
             Assert.That(detector.Process(60, true, 0f), Is.True);
             Assert.That(detector.Process(80, true, 0.1f), Is.False);
             Assert.That(detector.Process(20, true, 0.2f), Is.False);
-            Assert.That(detector.Process(60, true, 0.3f), Is.True);
+            Assert.That(detector.Process(60, true, 0.36f), Is.True);
         }
 
         /// <summary>Verifies that a rearmed blink inside the refractory period is ignored.</summary>

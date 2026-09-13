@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Bit.Core;
+using Bit.Services;
 
 namespace Bit.UI
 {
@@ -24,11 +26,8 @@ namespace Bit.UI
 
         private void Awake()
         {
-            if (continueButton != null)
-            {
-                continueButton.interactable = false; // TODO(GG): Implements save game system
-                continueButton.GetComponent<MenuButton>()?.RefreshVisualState();
-            }
+            GameStateController.Instance?.SetState(GameState.MainMenu);
+            RefreshContinueButton();
         }
 
         private void Start()
@@ -48,7 +47,29 @@ namespace Bit.UI
         /// <summary>Starts the first playable level from the new-game button.</summary>
         public void StartNewGame()
         {
-            SceneManager.LoadScene("Level01");
+            SaveSystem.Instance?.StartNewGame();
+            GameStateController.Instance?.SetState(GameState.Game);
+            SceneManager.LoadScene(BitSettings.Instance.GetFirstLevelSceneName());
+        }
+
+        /// <summary>Continues from the last saved level.</summary>
+        public void Continue()
+        {
+            if (SaveSystem.Instance == null || !SaveSystem.Instance.HasSavedGame())
+            {
+                return;
+            }
+
+            GameStateController.Instance?.SetState(GameState.Game);
+            SceneManager.LoadScene(SaveSystem.Instance.GetContinueSceneName());
+        }
+
+        /// <summary>Updates the continue button from the local save state.</summary>
+        private void RefreshContinueButton()
+        {
+            if (continueButton == null) { return; }
+            continueButton.interactable = SaveSystem.Instance != null && SaveSystem.Instance.HasSavedGame();
+            continueButton.GetComponent<MenuButton>()?.RefreshVisualState();
         }
     }
 }

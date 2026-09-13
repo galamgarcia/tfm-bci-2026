@@ -14,7 +14,7 @@ namespace Bit.Input
         private readonly int _minIntensity;
         private readonly float _cooldown;
         // Requires a low sample before another high sample can trigger a blink.
-        private bool _isReady = true;
+        private bool _isReady;
         // Time at which the previous blink was accepted.
         private float _lastBlinkAt = float.NegativeInfinity;
 
@@ -56,7 +56,7 @@ namespace Bit.Input
         /// <summary>Resets detection state after the signal becomes invalid.</summary>
         public void Reset()
         {
-            _isReady = true;
+            _isReady = false;
             _lastBlinkAt = float.NegativeInfinity;
         }
     }

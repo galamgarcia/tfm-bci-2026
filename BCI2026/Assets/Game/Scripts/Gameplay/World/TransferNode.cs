@@ -7,6 +7,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Bit.Services;
 
 namespace Bit.Gameplay
 {
@@ -27,10 +28,6 @@ namespace Bit.Gameplay
 
         [Tooltip("Time used to move Bit from its locked position to the center of the node.")]
         [SerializeField, Min(0.05f)] private float centeringDuration = 0.8f;
-
-        [Header("Destination")]
-        [Tooltip("Scene loaded after Bit has been visually transferred.")]
-        [SerializeField] private string nextSceneName;
 
         [Tooltip("Delay in seconds that allows the transfer effect to finish before loading.")]
         [SerializeField, Min(0f)] private float transferDelay = 0.4f;
@@ -137,10 +134,17 @@ namespace Bit.Gameplay
             visual?.SetComplete();
             _state = NodeState.Transferring;
             _player?.GetComponent<BitTransferEffect>()?.PlayTransferOut();
-            if (!string.IsNullOrWhiteSpace(nextSceneName) && !_isLoading)
+            if (!_isLoading)
             {
                 _isLoading = true;
                 yield return new WaitForSecondsRealtime(transferDelay);
+                string nextSceneName = SaveSystem.Instance?.CompleteCurrentLevel();
+                if (string.IsNullOrWhiteSpace(nextSceneName))
+                {
+                    _isLoading = false;
+                    yield break;
+                }
+
                 AsyncOperation operation = SceneManager.LoadSceneAsync(nextSceneName);
                 if (operation == null) { _isLoading = false; }
             }
