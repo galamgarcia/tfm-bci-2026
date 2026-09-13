@@ -5,6 +5,7 @@
  */
 
 using System;
+using Bit.Core;
 using UnityEngine;
 
 namespace Bit.Gameplay
@@ -60,6 +61,12 @@ namespace Bit.Gameplay
         private float _timeToApex;
         // Indicates if Bit was on the ground.
         private bool _isGrounded = true;
+        // Whether physics was paused directly by a non-game state.
+        private bool _isStatePhysicsPaused;
+        // Gravity state before a non-game state paused physics.
+        private bool _stateGravityWasEnabled;
+        // Kinematic state before a non-game state paused physics.
+        private bool _stateWasKinematic;
 
         /// <summary>Triggered when a grounded jump is accepted.</summary>
         public event Action JumpStarted;
@@ -69,6 +76,33 @@ namespace Bit.Gameplay
         private void FixedUpdate()
         {
             if (physicsBody == null) { return; }
+            bool isGame = GameStateController.Instance == null || GameStateController.Instance.GetState() == GameState.Game;
+            if (!isGame && !_isMovementLocked)
+            {
+                if (!_isStatePhysicsPaused)
+                {
+                    _stateGravityWasEnabled = physicsBody.useGravity;
+                    _stateWasKinematic = physicsBody.isKinematic;
+                    _isStatePhysicsPaused = true;
+                    ClearJumpState();
+                }
+
+                physicsBody.isKinematic = true;
+                physicsBody.useGravity = false;
+                physicsBody.linearVelocity = Vector3.zero;
+                physicsBody.angularVelocity = Vector3.zero;
+                return;
+            }
+
+            if (isGame && _isStatePhysicsPaused)
+            {
+                physicsBody.isKinematic = _stateWasKinematic;
+                physicsBody.useGravity = _stateGravityWasEnabled;
+                physicsBody.linearVelocity = Vector3.zero;
+                physicsBody.angularVelocity = Vector3.zero;
+                _isStatePhysicsPaused = false;
+            }
+
             if (_isMovementLocked)
             {
                 physicsBody.linearVelocity = Vector3.zero;

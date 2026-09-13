@@ -76,8 +76,8 @@ namespace Bit.UI
         public void OpenPause()
         {
             if (pauseMenu == null || _stateController == null || _stateController.GetState() != GameState.Game) { return; }
-            _gameplayLock.Lock();
             _stateController.SetState(GameState.Pause);
+            _gameplayLock.Lock();
             pauseMenu.Show();
             _ignoreNodUntil = Time.unscaledTime + 0.25f;
         }
@@ -87,8 +87,8 @@ namespace Bit.UI
         {
             if (pauseMenu == null || !pauseMenu.IsVisible()) { return; }
             pauseMenu.Hide();
-            _gameplayLock.Unlock();
             _stateController?.SetState(GameState.Game);
+            _gameplayLock.Unlock();
             _ignoreNodUntil = Time.unscaledTime + 0.25f;
         }
 
@@ -97,8 +97,8 @@ namespace Bit.UI
         {
             if (pauseMenu == null || !pauseMenu.IsVisible()) { return; }
             pauseMenu.Hide();
-            _gameplayLock.Unlock();
             _stateController?.SetState(GameState.MainMenu);
+            _gameplayLock.Unlock();
             SceneManager.LoadScene(BitSettings.Instance.GetMainMenuSceneName());
         }
 
