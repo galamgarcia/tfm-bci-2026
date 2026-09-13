@@ -13,7 +13,7 @@ namespace Bit.Gameplay
 {
     /// <summary>Detects Bit inside a system destination and publishes one transfer request.</summary>
     [RequireComponent(typeof(BoxCollider))]
-    public sealed class TransferNode : MonoBehaviour
+    public class TransferNode : MonoBehaviour
     {
         [Header("References")]
         [Tooltip("Visual controller for the segmented system silhouette.")]
@@ -33,17 +33,17 @@ namespace Bit.Gameplay
         [SerializeField, Min(0f)] private float transferDelay = 0.4f;
 
         // Explicit node state prevents repeated trigger events from restarting transfer.
-        private NodeState _state;
+        protected NodeState _state;
         // Current player detected by the 3D trigger.
-        private BitController _player;
+        protected BitController _player;
         // Whether the current player remains inside the trigger.
         private bool _isInside;
         // Time accumulated while Bit remains inside before movement is locked.
         private float _syncElapsed;
         // Prevents duplicate scene loads after the transfer request.
-        private bool _isLoading;
+        protected bool _isLoading;
 
-        private enum NodeState
+        protected enum NodeState
         {
             Idle,
             Synchronizing,
@@ -51,13 +51,13 @@ namespace Bit.Gameplay
             Transferring
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             GetComponent<BoxCollider>().isTrigger = true;
             visual?.SetIdle();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (_state != NodeState.Synchronizing) { return; }
             if (!_isInside || _player == null)
@@ -77,7 +77,7 @@ namespace Bit.Gameplay
             StartCoroutine(BeginTransfer());
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
             BitController player = other.GetComponentInParent<BitController>();
             if (player == null || _state != NodeState.Idle) { return; }
@@ -89,7 +89,7 @@ namespace Bit.Gameplay
             visual?.BeginSynchronizing();
         }
 
-        private void OnTriggerExit(Collider other)
+        protected virtual void OnTriggerExit(Collider other)
         {
             BitController player = other.GetComponentInParent<BitController>();
             if (player == null || player != _player) { return; }
@@ -132,8 +132,14 @@ namespace Bit.Gameplay
             }
 
             visual?.SetComplete();
-            _state = NodeState.Transferring;
-            _player?.GetComponent<BitTransferEffect>()?.PlayTransferOut();
+            yield return FinishTransfer();
+        }
+
+        /// <summary>Finishes the node's transfer action.</summary>
+        /// <returns>Coroutine that completes the transfer destination.</returns>
+        protected virtual IEnumerator FinishTransfer()
+        {
+            SetTransferring();
             if (!_isLoading)
             {
                 _isLoading = true;
@@ -148,6 +154,27 @@ namespace Bit.Gameplay
                 AsyncOperation operation = SceneManager.LoadSceneAsync(nextSceneName);
                 if (operation == null) { _isLoading = false; }
             }
+        }
+
+        /// <summary>Marks the node as transferring and starts the player effect.</summary>
+        protected void SetTransferring()
+        {
+            _state = NodeState.Transferring;
+            _player?.GetComponent<BitTransferEffect>()?.PlayTransferOut();
+        }
+
+        /// <summary>Gets the player currently completing the node.</summary>
+        /// <returns>The current player, if one is assigned.</returns>
+        protected BitController GetPlayer()
+        {
+            return _player;
+        }
+
+        /// <summary>Gets the configured transfer delay.</summary>
+        /// <returns>Delay before the transfer action.</returns>
+        protected float GetTransferDelay()
+        {
+            return transferDelay;
         }
 
         private void CancelSynchronization()
