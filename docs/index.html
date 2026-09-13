@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#073653" />
+  <meta name="description" content="BIT — a minimalist BCI platformer where your mind changes the world." />
+  <title>BIT — BCI Platformer</title>
+
+  <!-- TODO(GG): Replace with the final canonical favicon/app icon if desired. -->
+  <link rel="icon" href="assets/bit-mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="BIT home">
+      <span class="brand-glyph">:BIT</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#game">Game</a>
+      <a href="#interaction">Interaction</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#thesis">Thesis</a>
+    </nav>
+
+    <a class="button button--small button--ghost" href="https://github.com/galamgarcia/tfm-bci-2026" target="_blank" rel="noreferrer">GitHub</a>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">BCI PLATFORMER / BUILD 0.2</p>
+        <h1>Your mind<br />changes the world</h1>
+        <p class="hero-lead">
+          BIT is a minimalist 2D platformer that turns head movement, blinks and cognitive state into gameplay.
+          The world does not only react to what you press — it reacts to you.
+        </p>
+
+        <div class="hero-actions">
+          <!-- TODO(GG): Replace # with the latest GitHub Release or itch.io download URL. -->
+          <a class="button button--primary" href="#" target="_blank" rel="noreferrer">Download BIT</a>
+          <a class="button button--secondary" href="#game">Discover the system</a>
+        </div>
+
+        <div class="system-line" aria-label="System status">
+          <span>HEAD</span><b>OK</b>
+          <span>BLINK</span><b>OK</b>
+          <span>RELAX</span><b>OK</b>
+          <span>FOCUS</span><b>OK</b>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="Stylized representation of BIT">
+        <div class="hero-frame">
+          <div class="scanline"></div>
+          <div class="bit-world">
+            <div class="platform platform--left"></div>
+            <div class="mental mental--focus"><span></span></div>
+            <div class="mental mental--unfocus"><span></span></div>
+            <div class="bit-character" aria-hidden="true">
+              <div class="eye eye--left"><i></i></div>
+              <div class="eye eye--right"><i></i></div>
+            </div>
+            <div class="transfer-node" aria-hidden="true"></div>
+          </div>
+          <p class="hero-caption">BLACK IS REAL · CYAN IS SYSTEM · VIOLET AND YELLOW ARE MIND</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="game" class="section section-shell">
+      <div class="section-heading reveal">
+        <p class="eyebrow">01 / THE GAME</p>
+        <h2>Escape the system</h2>
+        <p>
+          Bit is a tiny digital entity moving through a world of stable geometry and mental possibilities.
+          Each level introduces another way for the player to affect the simulation until every mechanic has to work together.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <span class="feature-index">01</span>
+          <h3>Physical world</h3>
+          <p>Black geometry is stable, predictable and real. It gives the player safe places to observe, prepare and act.</p>
+        </article>
+        <article class="feature-card feature-card--focus reveal">
+          <span class="feature-index">02</span>
+          <h3>Focus</h3>
+          <p>Violet structures become physical when concentration is active, opening routes that otherwise do not exist.</p>
+        </article>
+        <article class="feature-card feature-card--unfocus reveal">
+          <span class="feature-index">03</span>
+          <h3>Unfocus</h3>
+          <p>Yellow structures belong to the opposite mental state: possibility, imagination and another version of the path.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="interaction" class="section section-shell interaction-section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">02 / INTERACTION</p>
+        <h2>Four ways to play</h2>
+        <p>
+          BIT combines conventional platforming with embodied and cognitive input. Each mechanic has a clear role and is introduced before being combined in the final levels.
+        </p>
+      </div>
+
+      <div class="interaction-grid">
+        <article class="interaction-card reveal">
+          <div class="interaction-icon">↔</div>
+          <p class="interaction-label">HEAD TRACKING</p>
+          <h3>Move</h3>
+          <p>Move your head laterally to guide Bit through the level.</p>
+        </article>
+
+        <article class="interaction-card reveal">
+          <div class="interaction-icon">◉</div>
+          <p class="interaction-label">BLINK</p>
+          <h3>Jump</h3>
+          <p>Blink to jump. Bit mirrors the action, turning an involuntary-looking gesture into a readable game input.</p>
+        </article>
+
+        <article class="interaction-card reveal">
+          <div class="interaction-icon">≈</div>
+          <p class="interaction-label">RELAXATION</p>
+          <h3>Reach higher</h3>
+          <p>A relaxed state changes Bit's movement possibilities and enables higher traversal.</p>
+        </article>
+
+        <article class="interaction-card reveal">
+          <div class="interaction-icon">✦</div>
+          <p class="interaction-label">FOCUS / UNFOCUS</p>
+          <h3>Change reality</h3>
+          <p>Your cognitive state determines which mental platforms become physically usable.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="statement">
+      <div class="statement-inner section-shell reveal">
+        <span>PREPARE</span>
+        <span class="statement-arrow">→</span>
+        <span>EXECUTE</span>
+        <span class="statement-arrow">→</span>
+        <span>REST</span>
+        <span class="statement-arrow">→</span>
+        <span>ADAPT</span>
+      </div>
+    </section>
+
+    <section id="screenshots" class="section section-shell">
+      <div class="section-heading reveal">
+        <p class="eyebrow">03 / SCREENSHOTS</p>
+        <h2>Inside BIT</h2>
+        <p>Replace these placeholders with final gameplay captures when the vertical slice is ready.</p>
+      </div>
+
+      <div class="shot-grid">
+        <!-- TODO(GG): Replace each placeholder with a real screenshot from BIT. -->
+        <figure class="shot shot--large reveal">
+          <div class="shot-placeholder"><span>GAMEPLAY_01</span></div>
+          <figcaption>Physical geometry + mental platforming</figcaption>
+        </figure>
+        <figure class="shot reveal">
+          <div class="shot-placeholder shot-placeholder--focus"><span>GAMEPLAY_02</span></div>
+          <figcaption>Focus route</figcaption>
+        </figure>
+        <figure class="shot reveal">
+          <div class="shot-placeholder shot-placeholder--unfocus"><span>GAMEPLAY_03</span></div>
+          <figcaption>Unfocus route</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="thesis" class="section section-shell thesis-section">
+      <div class="thesis-card reveal">
+        <div>
+          <p class="eyebrow">04 / MASTER'S THESIS</p>
+          <h2>BCI interaction applied to videogames</h2>
+          <p>
+            BIT was developed as the playable prototype of a Master's Thesis in Multimedia Engineering at the University of Alicante. The project explores how consumer EEG signals and head-based interaction can be transformed into understandable videogame mechanics.
+          </p>
+          <p class="muted">
+            The prototype uses BrainLink Pro for EEG-derived cognitive metrics and a mobile device for head tracking.
+          </p>
+        </div>
+
+        <div class="thesis-actions">
+          <!-- TODO(GG): Replace # with the public thesis PDF or institutional repository URL. -->
+          <a class="button button--secondary" href="#" target="_blank" rel="noreferrer">Read the thesis</a>
+          <a class="text-link" href="https://github.com/galamgarcia/tfm-bci-2026" target="_blank" rel="noreferrer">Source code <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="download section-shell reveal">
+      <div>
+        <p class="eyebrow">READY TO TRANSFER?</p>
+        <h2>Enter the system</h2>
+      </div>
+      <div class="download-actions">
+        <!-- TODO(GG): Replace # with the primary download URL. -->
+        <a class="button button--primary" href="#" target="_blank" rel="noreferrer">Download</a>
+        <!-- TODO(GG): Replace # with the video youtube URL. -->
+        <a class="button button--ghost" href="#" target="_blank" rel="noreferrer">Video</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer section-shell">
+    <div>
+      <span class="brand-glyph">:BIT</span>
+      <p>BLACK IS REAL. EVERYTHING ELSE IS A POSSIBILITY.</p>
+    </div>
+    <div class="footer-meta">
+      <span><a class="text-link" href="https://www.linkedin.com/in/galamgarcia/" target="_blank" rel="noreferrer">Gala M. García</a> · 2026</span>
+      <span><a class="text-link" href="https://web.ua.es/en/masteres/desarrollo-de-software-para-dispositivos-moviles/university-master-s-degree-in-development-of-software-for-mobile-devices.html" target="_blank" rel="noreferrer">Master's Degree in Development of Software for Mobile Devices</a> · University of Alicante</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
