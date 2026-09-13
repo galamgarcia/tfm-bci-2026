@@ -13,6 +13,8 @@ namespace Bit.UI
     /// <summary>Displays a reusable blocking connection popup configured as a Unity prefab.</summary>
     public sealed class ConnectionPopup : MonoBehaviour
     {
+        public static ConnectionPopup Instance { get; private set; }
+
         [Header("References")]
         [Tooltip("Canvas group used to show, hide and block the popup.")]
         [SerializeField] private CanvasGroup canvasGroup;
@@ -77,6 +79,15 @@ namespace Bit.UI
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
             if (blockingOverlay != null)
             {
                 _overlayColor = blockingOverlay.color;
@@ -84,6 +95,14 @@ namespace Bit.UI
                 blockingOverlay.color = _overlayColor;
             }
             Hide();
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
         }
 
         /// <summary>Shows the searching state and blocks all underlying interaction.</summary>
