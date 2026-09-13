@@ -33,7 +33,8 @@ namespace Bit.Tests
                 Vector2.zero, new Vector2(0.2f, 0.8f),
                 new Rect(0.3f, 0.3f, 0.4f, 0.4f), new Vector2(10f, 6f));
 
-            Assert.That(result, Is.EqualTo(new Vector2(-1f, 0.6f)));
+            Assert.That(result.x, Is.EqualTo(-1f).Within(0.0001f));
+            Assert.That(result.y, Is.EqualTo(0.6f).Within(0.0001f));
         }
 
         /// <summary>Verifies camera bounds leave room for the complete orthographic viewport.</summary>

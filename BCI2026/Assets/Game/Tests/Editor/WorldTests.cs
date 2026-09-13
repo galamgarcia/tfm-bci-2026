@@ -6,6 +6,7 @@
 
 using Bit.Gameplay;
 using NUnit.Framework;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -61,10 +62,11 @@ namespace Bit.Gameplay
             try
             {
                 SetSurfaceAutomaticEdges(instance, false);
+                SetSurfaceExposedEdges(instance, WorldSurfaceEdges.Top);
                 SerializedObject serialized = new SerializedObject(instance.GetComponent<WorldSurface>());
                 serialized.FindProperty("size").vector2Value = new Vector2(4f, 2f);
                 serialized.ApplyModifiedPropertiesWithoutUndo();
-                instance.GetComponent<WorldSurface>().SendMessage("OnValidate");
+                InvokePrivate(instance.GetComponent<WorldSurface>(), "OnValidate");
 
                 Assert.That(instance.GetComponent<BoxCollider>().size, Is.EqualTo(new Vector3(4f, 2f, 0.2f)));
                 Assert.That(instance.transform.Find("Body").localScale, Is.EqualTo(new Vector3(4f, 2f, 0.2f)));
@@ -88,7 +90,7 @@ namespace Bit.Gameplay
             {
                 first.transform.position = Vector3.zero;
                 second.transform.position = new Vector3(2f, 0f, 0f);
-                first.GetComponent<WorldSurface>().SendMessage("OnValidate");
+                InvokePrivate(first.GetComponent<WorldSurface>(), "OnValidate");
 
                 Assert.That(first.transform.Find("RightEdge").gameObject.activeSelf, Is.False);
                 Assert.That(second.transform.Find("LeftEdge").gameObject.activeSelf, Is.False);
@@ -114,7 +116,7 @@ namespace Bit.Gameplay
                 SetSurfaceSize(second, new Vector2(2f, 0.2f));
                 first.transform.position = Vector3.zero;
                 second.transform.position = new Vector3(2f, 0.2f, 0f);
-                first.GetComponent<WorldSurface>().SendMessage("OnValidate");
+                InvokePrivate(first.GetComponent<WorldSurface>(), "OnValidate");
 
                 Mesh mesh = first.transform.Find("TopEdge").GetComponent<MeshFilter>().sharedMesh;
                 Assert.That(mesh.bounds.size.x, Is.EqualTo(2f));
@@ -137,7 +139,7 @@ namespace Bit.Gameplay
             {
                 surface.transform.position = Vector3.zero;
                 distant.transform.position = new Vector3(0f, 2f, 0f);
-                surface.GetComponent<WorldSurface>().SendMessage("OnValidate");
+                InvokePrivate(surface.GetComponent<WorldSurface>(), "OnValidate");
 
                 Assert.That(surface.transform.Find("TopEdge").gameObject.activeSelf, Is.True);
                 Assert.That(surface.transform.Find("TopEdge").GetComponent<MeshFilter>().sharedMesh.bounds.size.x, Is.EqualTo(2f));
@@ -165,7 +167,7 @@ namespace Bit.Gameplay
                 bottom.transform.position = new Vector3(0f, -0.2f, 0f);
                 left.transform.position = new Vector3(-2f, 0f, 0f);
                 right.transform.position = new Vector3(2f, 0f, 0f);
-                center.GetComponent<WorldSurface>().SendMessage("OnValidate");
+                InvokePrivate(center.GetComponent<WorldSurface>(), "OnValidate");
 
                 Assert.That(center.transform.Find("TopEdge").gameObject.activeSelf, Is.False);
                 Assert.That(center.transform.Find("BottomEdge").gameObject.activeSelf, Is.False);
@@ -193,7 +195,7 @@ namespace Bit.Gameplay
                 SerializedObject serialized = new SerializedObject(instance.GetComponent<WorldSurface>());
                 serialized.FindProperty("size").vector2Value = new Vector2(4f, 2f);
                 serialized.ApplyModifiedPropertiesWithoutUndo();
-                instance.GetComponent<WorldSurface>().SendMessage("OnValidate");
+                InvokePrivate(instance.GetComponent<WorldSurface>(), "OnValidate");
 
                 Assert.That(instance.transform.Find("Body").localPosition, Is.EqualTo(new Vector3(2f, -1f, 0f)));
                 Assert.That(instance.GetComponent<BoxCollider>().center, Is.EqualTo(new Vector3(2f, -1f, 0f)));
@@ -252,7 +254,7 @@ namespace Bit.Gameplay
                 SerializedObject serialized = new SerializedObject(instance.GetComponent<MentalPlatform>());
                 serialized.FindProperty("size").vector2Value = new Vector2(4f, 2f);
                 serialized.ApplyModifiedPropertiesWithoutUndo();
-                instance.GetComponent<MentalPlatform>().SendMessage("OnValidate");
+                InvokePrivate(instance.GetComponent<MentalPlatform>(), "OnValidate");
 
                 Assert.That(instance.GetComponent<BoxCollider>().size, Is.EqualTo(new Vector3(4f, 2f, 0.2f)));
                 Assert.That(instance.GetComponent<BoxCollider>().center, Is.EqualTo(new Vector3(2f, -1f, 0f)));
@@ -278,7 +280,7 @@ namespace Bit.Gameplay
                 SerializedObject serialized = new SerializedObject(instance.GetComponent<MentalPlatform>());
                 serialized.FindProperty("requiresFocus").boolValue = requiresFocus;
                 serialized.ApplyModifiedPropertiesWithoutUndo();
-                instance.SendMessage("OnConcentrationChanged", level);
+                InvokePrivate(instance.GetComponent<MentalPlatform>(), "OnConcentrationChanged", level);
                 return !instance.GetComponent<BoxCollider>().isTrigger;
             }
             finally
@@ -295,7 +297,7 @@ namespace Bit.Gameplay
             SerializedObject serialized = new SerializedObject(instance.GetComponent<WorldSurface>());
             serialized.FindProperty("exposedEdges").intValue = (int)edges;
             serialized.ApplyModifiedPropertiesWithoutUndo();
-            instance.GetComponent<WorldSurface>().SendMessage("OnValidate");
+            InvokePrivate(instance.GetComponent<WorldSurface>(), "OnValidate");
         }
 
         /// <summary>Sets whether a temporary surface calculates exposed edges automatically.</summary>
@@ -306,7 +308,18 @@ namespace Bit.Gameplay
             SerializedObject serialized = new SerializedObject(instance.GetComponent<WorldSurface>());
             serialized.FindProperty("autoDetectExposedEdges").boolValue = isAutomatic;
             serialized.ApplyModifiedPropertiesWithoutUndo();
-            instance.GetComponent<WorldSurface>().SendMessage("OnValidate");
+            InvokePrivate(instance.GetComponent<WorldSurface>(), "OnValidate");
+        }
+
+        /// <summary>Invokes a private validation callback without SendMessage edit-mode restrictions.</summary>
+        /// <param name="component">Component containing the private method.</param>
+        /// <param name="methodName">Private method name.</param>
+        /// <param name="arguments">Arguments passed to the method.</param>
+        private static void InvokePrivate(Component component, string methodName, params object[] arguments)
+        {
+            MethodInfo method = component.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.That(method, Is.Not.Null, $"Missing private method {methodName} on {component.GetType().Name}.");
+            method.Invoke(component, arguments);
         }
 
         /// <summary>Sets the size of a temporary surface and applies its geometry.</summary>
@@ -317,7 +330,7 @@ namespace Bit.Gameplay
             SerializedObject serialized = new SerializedObject(instance.GetComponent<WorldSurface>());
             serialized.FindProperty("size").vector2Value = size;
             serialized.ApplyModifiedPropertiesWithoutUndo();
-            instance.GetComponent<WorldSurface>().SendMessage("OnValidate");
+            InvokePrivate(instance.GetComponent<WorldSurface>(), "OnValidate");
         }
     }
 }
