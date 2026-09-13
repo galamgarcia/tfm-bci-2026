@@ -48,6 +48,8 @@ namespace Bit.Gameplay
 
         private void OnEnable()
         {
+            _inputController ??= GetComponent<InputController>();
+            if (_inputController == null) { return; }
             _inputController.OnHorizontalInputReceived += OnHorizontalInputReceived;
             _inputController.OnBlinkDetected += OnBlinkDetected;
             _inputController.OnRelaxationChanged += OnRelaxationChanged;
@@ -61,6 +63,7 @@ namespace Bit.Gameplay
 
         private void OnDisable()
         {
+            if (_inputController == null) { return; }
             _inputController.OnHorizontalInputReceived -= OnHorizontalInputReceived;
             _inputController.OnBlinkDetected -= OnBlinkDetected;
             _inputController.OnRelaxationChanged -= OnRelaxationChanged;
@@ -138,7 +141,9 @@ namespace Bit.Gameplay
         /// <returns>The current concentration level.</returns>
         public MentalStateLevel GetConcentrationLevel()
         {
-            return _inputController.GetCurrentConcentrationLevel();;
+            return _inputController != null
+                ? _inputController.GetCurrentConcentrationLevel()
+                : MentalStateLevel.None;
         }
 
         /// <summary>Starts the coordinated body and eye idle animations.</summary>

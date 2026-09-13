@@ -62,6 +62,7 @@ namespace Bit.Gameplay
 
         private void OnEnable()
         {
+            ApplyColor();
             if (bitSource != null)
             {
                 bitSource.OnConcentrationChanged += OnConcentrationChanged;
@@ -71,7 +72,6 @@ namespace Bit.Gameplay
             {
                 ApplyState(MentalStateLevel.None, true);
             }
-            ApplyColor();
         }
 
         private void OnDisable()
