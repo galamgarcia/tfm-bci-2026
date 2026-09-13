@@ -58,6 +58,7 @@ namespace Bit.Gameplay
         {
             if (target == null || cameraSource == null || !cameraSource.orthographic) { return; }
             if (_isPaused) { return; }
+            if (GameStateController.Instance != null && GameStateController.Instance.GetState() != GameState.Game) { return; }
 
             float deltaTime = Mathf.Max(Time.fixedDeltaTime, 0.0001f);
             Vector3 targetPosition = target.position;

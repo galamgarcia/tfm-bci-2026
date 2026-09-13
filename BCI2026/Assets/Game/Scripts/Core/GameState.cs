@@ -11,6 +11,7 @@ namespace Bit.Core
     {
         MainMenu,
         Game,
+        Tutorial,
         Pause,
         End
     }

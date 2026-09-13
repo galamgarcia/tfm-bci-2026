@@ -5,6 +5,7 @@
  */
 
 using System.Collections;
+using Bit.Core;
 using UnityEngine;
 
 namespace Bit.Gameplay
@@ -75,8 +76,14 @@ namespace Bit.Gameplay
             Vector3 target = new Vector3(destination.x, destination.y, transform.position.z);
             while ((transform.position - target).sqrMagnitude > 0.0001f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, introSpeed * Time.fixedDeltaTime);
-                yield return new WaitForFixedUpdate();
+                if (GameStateController.Instance != null && GameStateController.Instance.GetState() != GameState.Game)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                transform.position = Vector3.MoveTowards(transform.position, target, introSpeed * Time.deltaTime);
+                yield return null;
             }
         }
 
