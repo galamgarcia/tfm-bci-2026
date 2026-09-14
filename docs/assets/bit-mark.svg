@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="BIT mark">
-  <rect width="128" height="128" fill="#041d2d"/>
-  <rect x="28" y="28" width="72" height="72" rx="10" fill="#0b6f91" stroke="#19cfff" stroke-width="4"/>
-  <rect x="46" y="46" width="10" height="30" fill="#eefaff"/>
-  <rect x="72" y="46" width="10" height="30" fill="#eefaff"/>
-  <rect x="49" y="53" width="4" height="17" fill="#03131b"/>
-  <rect x="75" y="53" width="4" height="17" fill="#03131b"/>
-  <path d="M14 42c8-14 14-14 22 0s14 14 22 0 14-14 22 0 14 14 22 0 14-14 22 0" fill="none" stroke="#19cfff" stroke-width="3" opacity=".72"/>
-</svg>
