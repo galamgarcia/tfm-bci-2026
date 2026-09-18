@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9e1a4468-3ec1-45c1-9731-d7d940082c0a" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="web/develop" />
+                    <option name="lastUsedInstant" value="1789337910" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1789337909" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/Audio/AdaptiveMusicController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/Core/BitSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/Core/GameState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/Core/GameStateController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/EditorInput/KeyboardInputManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/Gameplay/World/TransferNode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/Input/Signals/BlinkDetector.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/Services/SaveSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Common/CalibrationButton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Common/PersistentUIController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Common/VolumeButton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Connection/ConnectionPopup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Connection/ConnectionPopupController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Menu/MainMenuController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Pause/PauseButton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Pause/PauseMenu.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Scripts/UI/Pause/PauseMenuController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Tests/Editor/BlinkDetectorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Tests/Editor/CameraTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Tests/Editor/ConnectionPopupEditorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Tests/Editor/SaveSystemTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BCI2026/Assets/Game/Tests/Editor/WorldTests.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="3JGT5ija32uIxwUnU1zQGa2CXHy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "web/develop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e1a4468-3ec1-45c1-9731-d7d940082c0a" name="Changes" comment="" />
+      <created>1789286223228</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1789286223228</updated>
+      <workItem from="1789286224372" duration="1063000" />
+      <workItem from="1789337652930" duration="230000" />
+      <workItem from="1789337899260" duration="3040000" />
+      <workItem from="1789669316877" duration="853000" />
+      <workItem from="1789712017211" duration="63000" />
+    </task>
+    <task id="LOCAL-00001" summary="Update build settings">
+      <option name="closed" value="true" />
+      <created>1789286314316</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286314316</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Remove connection popup play mode">
+      <option name="closed" value="true" />
+      <created>1789286335149</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286335149</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Improve blink detector">
+      <option name="closed" value="true" />
+      <created>1789286368742</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286368742</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update connection popup">
+      <option name="closed" value="true" />
+      <created>1789286410770</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286410770</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add save system">
+      <option name="closed" value="true" />
+      <created>1789286497317</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286497317</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add bit settings">
+      <option name="closed" value="true" />
+      <created>1789286518158</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286518159</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add calibration button">
+      <option name="closed" value="true" />
+      <created>1789286554246</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286554246</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add music controller">
+      <option name="closed" value="true" />
+      <created>1789286577723</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286577723</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add pause button">
+      <option name="closed" value="true" />
+      <created>1789286605097</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286605097</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add persistent hud">
+      <option name="closed" value="true" />
+      <created>1789286616970</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286616970</updated>
+    </task>
+    <task id="LOCAL-00011" summary="improve tests">
+      <option name="closed" value="true" />
+      <created>1789286627576</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286627576</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update game scenes">
+      <option name="closed" value="true" />
+      <created>1789286667962</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1789286667962</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add landing page">
+      <option name="closed" value="true" />
+      <created>1789337984693</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1789337984693</updated>
+    </task>
+    <task id="LOCAL-00014" summary="update icon">
+      <option name="closed" value="true" />
+      <created>1789364977494</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1789364977494</updated>
+    </task>
+    <task id="LOCAL-00015" summary="update icon">
+      <option name="closed" value="true" />
+      <created>1789364987692</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1789364987692</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix index">
+      <option name="closed" value="true" />
+      <created>1789669464759</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1789669464759</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Add youtube URL">
+      <option name="closed" value="true" />
+      <created>1789669558505</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1789669558505</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Update build settings" />
+    <MESSAGE value="Remove connection popup play mode" />
+    <MESSAGE value="Improve blink detector" />
+    <MESSAGE value="Update connection popup" />
+    <MESSAGE value="add save system" />
+    <MESSAGE value="add bit settings" />
+    <MESSAGE value="add calibration button" />
+    <MESSAGE value="add music controller" />
+    <MESSAGE value="add pause button" />
+    <MESSAGE value="add persistent hud" />
+    <MESSAGE value="improve tests" />
+    <MESSAGE value="Update game scenes" />
+    <MESSAGE value="Add landing page" />
+    <MESSAGE value="update icon" />
+    <MESSAGE value="fix index" />
+    <MESSAGE value="Add youtube URL" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add youtube URL" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#073653" />
+  <meta name="description" content="BIT — un juego de plataformas BCI minimalista donde tu mente cambia el mundo." />
+  <title>BIT — Plataformas BCI</title>
+
+  <link rel="icon" href="assets/icon.png" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="BIT home">
+      <span class="brand-glyph">:BIT</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#game">Juego</a>
+      <a href="#interaction">Interacción</a>
+      <a href="#screenshots">Imágenes</a>
+      <a href="#thesis">Tesis</a>
+    </nav>
+
+    <a class="button button--small button--ghost" href="https://github.com/galamgarcia/tfm-bci-2026" target="_blank" rel="noreferrer">GitHub</a>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">PLATAFORMAS BCI / BUILD 0.2</p>
+        <h1>Tu mente<br />cambia el mundo</h1>
+        <p class="hero-lead">
+          BIT es un juego de plataformas 2D que utiliza el movimiento de la cabeza, el parpadeo, y los estados mentales en el juego.
+          El mundo no solo reacciona a lo que haces, reacciona a ti.
+        </p>
+
+        <div class="hero-actions">
+          <!-- TODO(GG): Replace # with the latest GitHub Release or itch.io download URL. -->
+          <a class="button button--primary" href="#" target="_blank" rel="noreferrer">Descarga BIT</a>
+          <a class="button button--secondary" href="#game">Descubre el sistema</a>
+        </div>
+
+        <div class="system-line" aria-label="System status">
+          <span>CABEZA</span><b>OK</b>
+          <span>PARPADEO</span><b>OK</b>
+          <span>RELAX</span><b>OK</b>
+          <span>CONCENTRACIÓN</span><b>OK</b>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="Stylized representation of BIT">
+        <div class="hero-frame">
+          <div class="scanline"></div>
+          <div class="bit-world">
+            <div class="platform platform--left"></div>
+            <div class="mental mental--focus"><span></span></div>
+            <div class="mental mental--unfocus"><span></span></div>
+            <div class="bit-character" aria-hidden="true">
+              <div class="eye eye--left"><i></i></div>
+              <div class="eye eye--right"><i></i></div>
+            </div>
+            <div class="transfer-node" aria-hidden="true"></div>
+          </div>
+          <p class="hero-caption">BLACK IS REAL · CYAN IS SYSTEM · OTHER ARE MIND</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="game" class="section section-shell">
+      <div class="section-heading reveal">
+        <p class="eyebrow">01 / EL JUEGO</p>
+        <h2>Escapa del sistema</h2>
+        <p>
+          Bit es una tímida entidad digital que existe en un mundo que mezcla un mundo físico estable con un mundo de posibilidades.
+          Cada nivel introduce una forma diferente de que el jugador modifique las mecánicas.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <span class="feature-index">01</span>
+          <h3>Mundo físico</h3>
+          <p>Las geometrías negras son estables, predecibles y reales. Ofrecen al jugador un lugar seguro desde el que observar, prepararse y actuar.</p>
+        </article>
+        <article class="feature-card feature-card--focus reveal">
+          <span class="feature-index">02</span>
+          <h3>Concentración</h3>
+          <p>Las geometrías violetas se convierten en parte del escenario cuando el jugador está concentrado, abriendo nuevos caminos que antes no existían.</p>
+        </article>
+        <article class="feature-card feature-card--unfocus reveal">
+          <span class="feature-index">03</span>
+          <h3>Distracción</h3>
+          <p>Las geometrías amarillas son lo contrario: se convierten en parte del mundo cuando el jugador se distrae.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="interaction" class="section section-shell interaction-section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">02 / INTERACCIÓN</p>
+        <h2>Cuatro formas de jugar</h2>
+        <p>
+          BIT combina los juegos de plataformas tradicionales con input de movimiento o cognitivo. Cada mecánica tiene un papel y se presenta antes de combinarlas todas en el desafío final.
+        </p>
+      </div>
+
+      <div class="interaction-grid">
+        <article class="interaction-card reveal">
+          <div class="interaction-icon interaction-icon--move"><img src="assets/input-head-tracking.png" alt="Head tracking" /></div>
+          <p class="interaction-label">HEAD TRACKING</p>
+          <h3>Movimiento</h3>
+          <p>Mueve tu cabeza de lado a lado para guiar a Bit por el nivel.</p>
+        </article>
+
+        <article class="interaction-card reveal">
+          <div class="interaction-icon interaction-icon--jump"><img src="assets/input-jump.png" alt="Blink input" /></div>
+          <p class="interaction-label">PARPADEO</p>
+          <h3>Salta</h3>
+          <p>Parpadea para saltar. Bit copia la acción, convirtiendo los gestos del jugador en una nueva forma de jugar.</p>
+        </article>
+
+        <article class="interaction-card reveal">
+          <div class="interaction-icon"><img src="assets/input-relax.png" alt="Relaxation input" /></div>
+          <p class="interaction-label">RELÁJATE</p>
+          <h3>Llega más alto</h3>
+          <p>Cuando el jugador se encuentra relajado, Bit se siente más ligero y es capaz de alcanzar plataformas lejanas.</p>
+        </article>
+
+        <article class="interaction-card reveal">
+          <div class="interaction-icon"><img src="assets/input-focus.png" alt="Focus input" /></div>
+          <p class="interaction-label">CONCÉNTRATE (O NO)</p>
+          <h3>Cambia la realidad</h3>
+          <p>Tu nivel de concentración determina que plataformas mentales podrá usar Bit para continuar su camino.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="statement">
+      <div class="statement-inner section-shell reveal">
+        <span>PREPARARSE</span>
+        <span class="statement-arrow">→</span>
+        <span>EJECUTAR</span>
+        <span class="statement-arrow">→</span>
+        <span>DECANSAR</span>
+        <span class="statement-arrow">→</span>
+        <span>ADAPTARSE</span>
+      </div>
+    </section>
+
+    <section id="screenshots" class="section section-shell">
+      <div class="section-heading reveal">
+        <p class="eyebrow">03 / Imágenes</p>
+        <h2>Dentro de BIT</h2>
+      </div>
+
+      <div class="shot-grid">
+        <figure class="shot shot--large reveal">
+          <div class="shot-placeholder"><img src="assets/gameplay-1.png" alt="BIT gameplay" /></div>
+        </figure>
+        <figure class="shot reveal">
+          <div class="shot-placeholder shot-placeholder--focus"><img src="assets/gameplay-2.png" alt="BIT focus gameplay" /></div>
+        </figure>
+        <figure class="shot reveal">
+          <div class="shot-placeholder shot-placeholder--unfocus"><img src="assets/gameplay-3.png" alt="BIT unfocus gameplay" /></div>
+        </figure>
+      </div>
+    </section>
+
+    <section id="thesis" class="section section-shell thesis-section">
+      <div class="thesis-card reveal">
+        <div>
+          <p class="eyebrow">04 / TRABAJO FINAL DE MÁSTER</p>
+          <h2>Interacción BCI aplicada a videojuegos</h2>
+          <p>
+            BIT se ha desarrollado como una demostración tecnológica para el Trabajo Final de Máster en Desarrollo de software para aplicaciones móviles en la Universidad de Alicante. El proyecto explora cómo se pueden usar las señales EEG como interacción y cómo pueden adaptarse al gameplay de un videojuego.
+          </p>
+          <p class="muted">
+            El prototipo usa BrainLink Pro para obtener las señales EEG y los sensores del móvil para el seguimiento de la cabeza.
+          </p>
+        </div>
+
+        <div class="thesis-actions">
+          <!-- TODO(GG): Replace # with the public thesis PDF or institutional repository URL. -->
+          <a class="button button--secondary" href="#" target="_blank" rel="noreferrer">Lee la tesis</a>
+          <a class="text-link" href="https://github.com/galamgarcia/tfm-bci-2026" target="_blank" rel="noreferrer">Código <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="download section-shell reveal">
+      <div>
+        <p class="eyebrow">¿LISTO PARA SER TRANSFERIDO?</p>
+        <h2>Entra en el sistema</h2>
+      </div>
+      <div class="download-actions">
+        <!-- TODO(GG): Replace # with the primary download URL. -->
+        <a class="button button--primary" href="#" target="_blank" rel="noreferrer">Descarga</a>
+        <a class="button button--ghost" href="https://www.youtube.com/watch?si=C5ga_911t3kzncBy&v=FQF2DZgQfro&feature=youtu.be" target="_blank" rel="noreferrer">Video</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer section-shell">
+    <div>
+      <span class="brand-glyph">:BIT</span>
+      <p>BLACK IS REAL. EVERYTHING ELSE IS A POSSIBILITY.</p>
+    </div>
+    <div class="footer-meta">
+      <span><a class="text-link" href="https://www.linkedin.com/in/galamgarcia/" target="_blank" rel="noreferrer">Gala M. García</a> · 2026</span>
+      <span><a class="text-link" href="https://web.ua.es/en/masteres/desarrollo-de-software-para-dispositivos-moviles/university-master-s-degree-in-development-of-software-for-mobile-devices.html" target="_blank" rel="noreferrer">Máster en Desarrollo de software para aplicaciones móviles</a> · University of Alicante</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
